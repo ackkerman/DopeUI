@@ -126,13 +126,7 @@ export function createRegistryItems() {
       type: "registry:file",
       target: "components/dope-ui/LICENSE.txt",
       content: read("LICENSE"),
-    },
-    {
-      path: "THIRD_PARTY_NOTICES.txt",
-      type: "registry:file",
-      target: "components/dope-ui/THIRD_PARTY_NOTICES.txt",
-      content: read("THIRD_PARTY_NOTICES.txt"),
-    },
+    }
   ];
   return readRegistryEntries().map((entry) => {
     verifyImports(entry);
@@ -165,7 +159,7 @@ export function createRegistryItems() {
         },
         ...sharedFiles,
       ],
-      docs: "Requires React 19 and Tailwind CSS v4. Import components/dope-ui/foundation.css once from your global CSS (adjust the relative path). The component is installed under your components alias. Keep LICENSE.txt and THIRD_PARTY_NOTICES.txt when redistributing; demo media retains its separate terms.",
+      docs: "Requires React 19 and Tailwind CSS v4. Import components/dope-ui/foundation.css once from your global CSS (adjust the relative path). The component is installed under your components alias.",
       meta: { license: "MIT", source: entry.sourcePath },
     };
   });
@@ -179,11 +173,6 @@ export function buildRegistry() {
   const items = createRegistryItems();
   const output = path.join(root, "public/r");
   fs.mkdirSync(output, { recursive: true });
-  // A clean Git checkout must publish the same tracked notices as every registry item.
-  writeIfChanged(
-    path.join(root, "public/THIRD_PARTY_NOTICES.txt"),
-    read("THIRD_PARTY_NOTICES.txt"),
-  );
   for (const item of items)
     writeIfChanged(
       path.join(output, `${item.name}.json`),
