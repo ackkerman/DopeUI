@@ -10,6 +10,10 @@ import {
 
 test("all registry sources, dependencies and license files survive generation and production build", () => {
   const entries = readRegistryEntries();
+  assert.equal(
+    fs.readFileSync("public/THIRD_PARTY_NOTICES.txt", "utf8"),
+    fs.readFileSync("THIRD_PARTY_NOTICES.txt", "utf8"),
+  );
   const index = JSON.parse(fs.readFileSync("public/r/registry.json", "utf8"));
   assert.equal(index.items.length, entries.length);
   assert.equal(index.homepage, "https://ui.0xdope.com");

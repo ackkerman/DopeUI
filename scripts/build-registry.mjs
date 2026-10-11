@@ -179,6 +179,11 @@ export function buildRegistry() {
   const items = createRegistryItems();
   const output = path.join(root, "public/r");
   fs.mkdirSync(output, { recursive: true });
+  // A clean Git checkout must publish the same tracked notices as every registry item.
+  writeIfChanged(
+    path.join(root, "public/THIRD_PARTY_NOTICES.txt"),
+    read("THIRD_PARTY_NOTICES.txt"),
+  );
   for (const item of items)
     writeIfChanged(
       path.join(output, `${item.name}.json`),
