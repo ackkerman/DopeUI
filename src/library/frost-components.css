@@ -1,0 +1,167 @@
+@layer components {
+  /* FROST semantic bridge for canonical library UI. Apply data-frost and data-frost-components. */
+  [data-frost-components],
+  [data-frost-components] .preview,
+  [data-frost-components] [data-component-layout],
+  [data-frost-components] .dark {
+    --page: var(--frost-background);
+    --canvas: var(--frost-background);
+    --surface: var(--frost-surface);
+    --inset: var(--frost-surface-raised);
+    --hover: var(--frost-surface-raised);
+    --hover-2: var(--frost-border);
+    --ink: var(--frost-foreground);
+    --ink-2: var(--frost-foreground-muted);
+    --ink-3: var(--frost-foreground-muted);
+    --line: var(--frost-border);
+    --line-strong: var(--frost-control-border);
+    --line-soft: var(--frost-border);
+    --field: var(--frost-surface-raised);
+    --accent: var(--frost-primary);
+    --accent-ink: var(--frost-primary);
+    --accent-tint: color-mix(
+      in srgb,
+      var(--frost-accent) 24%,
+      var(--frost-surface)
+    );
+    --green: var(--frost-success-text);
+    --green-tint: color-mix(
+      in srgb,
+      var(--frost-success) 24%,
+      var(--frost-surface)
+    );
+    --orange: var(--frost-warning-text);
+    --orange-tint: color-mix(
+      in srgb,
+      var(--frost-warning) 28%,
+      var(--frost-surface)
+    );
+    --red: var(--frost-danger-text);
+    --red-tint: color-mix(
+      in srgb,
+      var(--frost-danger) 24%,
+      var(--frost-surface)
+    );
+    --background: var(--frost-background);
+    --foreground: var(--frost-foreground);
+    --muted: var(--frost-surface-raised);
+    --muted-foreground: var(--frost-foreground-muted);
+    --border: var(--frost-border);
+    --input: var(--frost-control-border);
+    --ring: var(--frost-focus-ring);
+    --primary: var(--frost-primary);
+    --primary-foreground: var(--frost-primary-foreground);
+    --secondary: var(--frost-secondary);
+    --secondary-foreground: var(--frost-secondary-foreground);
+    --accent-foreground: var(--frost-accent-foreground);
+    --dui-preview: var(--frost-background);
+    --preview: var(--frost-background);
+  }
+  [data-frost-components] .dark:not([data-frost]) {
+    --frost-background: var(--nord-0);
+    --frost-surface: var(--nord-1);
+    --frost-surface-raised: var(--nord-2);
+    --frost-border: var(--nord-3);
+    --frost-foreground: var(--nord-6);
+    --frost-foreground-muted: var(--nord-4);
+    --frost-primary: var(--nord-8);
+    --frost-primary-foreground: var(--nord-0);
+    --frost-control-border: var(--nord-9);
+    --frost-focus-ring: var(--nord-8);
+  }
+  [data-frost-components] .preview,
+  [data-frost-components] [data-component-layout] {
+    background: var(--frost-background);
+    color: var(--frost-foreground);
+    border-color: var(--frost-border);
+  }
+  [data-frost-components]
+    .preview
+    :is(
+      .mini-card,
+      .mini-modal,
+      .mini-panel,
+      .demo-menu,
+      .accordion-row,
+      .clear-field,
+      .notification
+    ) {
+    background: var(--frost-surface);
+    color: var(--frost-foreground);
+    border-color: var(--frost-border);
+  }
+  [data-frost-components]
+    .preview
+    :is(
+      .play-button,
+      .dui-demo-controls button,
+      .dui-numeric-controls button,
+      .blur-controls button
+    ) {
+    background: transparent;
+    color: var(--frost-foreground-muted);
+    border-color: transparent;
+  }
+  [data-frost-components] .preview button:focus-visible {
+    outline-color: var(--frost-focus-ring);
+  }
+  [data-frost-components] .dui-notification-badge {
+    background: var(--frost-primary);
+    color: var(--frost-primary-foreground);
+  }
+  [data-frost-components] .spring-switch.on {
+    background: var(--frost-primary);
+  }
+  [data-frost-components] .preview .dui-numeric-value {
+    color: var(--frost-foreground);
+  }
+  /* Catalogue captions use --muted as text; component primitives use it as a surface. */
+  [data-frost-components] {
+    --muted: var(--frost-foreground-muted);
+  }
+  [data-frost-components] .preview,
+  [data-frost-components] [data-component-layout],
+  [data-frost-components] .dark {
+    --muted: var(--frost-surface-raised);
+  }
+}
+
+/* Shared syntax colors also draw from the same Frost extensions. */
+.code-dialog pre,
+.detail-code pre {
+  background: var(--nord-0);
+  color: var(--nord-6);
+}
+.syntax-code .token.keyword {
+  color: var(--frost-lavender);
+}
+.syntax-code .token.string,
+.syntax-code .token.attr-value {
+  color: var(--frost-mint);
+}
+.syntax-code .token.tag {
+  color: var(--frost-rose);
+}
+.syntax-code .token.attr-name,
+.syntax-code .token.property {
+  color: var(--frost-lemon);
+}
+.syntax-code .token.function {
+  color: var(--nord-8);
+}
+@layer components {
+  [data-frost-components] [data-slot="task-list"] {
+    --background: var(--frost-surface);
+  }
+  [data-frost-components] [data-slot="task-item"] {
+    color: var(--frost-foreground);
+    background: var(--frost-surface);
+  }
+}
+
+@layer components {
+  [data-frost-components] .preview .round-button {
+    background: var(--frost-surface-raised);
+    color: var(--frost-foreground);
+  }
+}

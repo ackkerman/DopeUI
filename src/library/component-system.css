@@ -1,0 +1,347 @@
+/* This file guarantees canonical demos and distributed CSS share the same visual roles.
+ * Keep rules in components so caller utilities can override a specific component. */
+@layer components {
+  :root {
+    --dui-control-height: 36px;
+    --dui-control-height-dense: 32px;
+    --dui-icon-size: 18px;
+    --dui-icon-stroke: 1.75;
+    --dui-shadow-ink: #2e3440;
+    --dui-shadow-surface:
+      0 1px 2px color-mix(in srgb, var(--dui-shadow-ink) 5%, transparent),
+      0 8px 24px color-mix(in srgb, var(--dui-shadow-ink) 5%, transparent);
+  }
+  :where([class*="dui-"]) {
+    --primary-foreground: var(--frost-primary-foreground, #fff);
+    --dui-control-hover: var(--frost-border, #d8dee9);
+    --dui-control-disabled-bg: var(--frost-disabled-background, #e5e9f0);
+    --dui-control-disabled-fg: var(--frost-disabled-foreground, #59687d);
+  }
+  :where(.dark, [data-theme="dark"]) {
+    --dui-shadow-ink: #000;
+    --frost-primary-foreground: #2e3440;
+    --dui-control-disabled-bg: var(--frost-disabled-background, #434c5e);
+    --dui-control-disabled-fg: var(--frost-disabled-foreground, #d8dee9);
+  }
+  :is([class*="dui-"])
+    :is(
+      .dui-demo-controls,
+      .dui-numeric-controls,
+      .dui-notification-controls,
+      .blur-controls
+    ) {
+    gap: var(--dui-space-2);
+    flex-wrap: wrap;
+  }
+  :is([class*="dui-"])
+    :is(
+      .dui-demo-controls,
+      .dui-numeric-controls,
+      .dui-notification-controls,
+      .blur-controls
+    )
+    > button,
+  :is([class*="dui-"]) :is(.play-button, .dui-notification-action) {
+    min-height: var(--dui-control-height);
+    padding: var(--dui-control-padding);
+    border: 0;
+    border-radius: var(--dui-radius-control);
+    background: transparent;
+    color: var(--frost-foreground-muted, #59687d);
+    font-family: inherit;
+    font-size: var(--dui-control-font-size);
+    font-weight: 400;
+    line-height: 1.25;
+    transition:
+      background-color var(--dui-duration-fast) var(--dui-ease-out),
+      color var(--dui-duration-fast) var(--dui-ease-out),
+      box-shadow var(--dui-duration-fast) var(--dui-ease-out),
+      scale var(--dui-duration-fast) var(--dui-ease-out);
+    box-shadow: none;
+  }
+  :is([class*="dui-"])
+    :is(
+      .dui-demo-controls,
+      .dui-numeric-controls,
+      .dui-notification-controls,
+      .blur-controls
+    )
+    > button[aria-pressed="true"] {
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+  }
+  :is([class*="dui-"])
+    :is(
+      .dui-demo-controls,
+      .dui-numeric-controls,
+      .dui-notification-controls,
+      .blur-controls
+    )
+    > button:hover:not(:disabled),
+  :is([class*="dui-"])
+    :is(.play-button, .dui-notification-action):hover:not(:disabled) {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+  :is([class*="dui-"])
+    :is(
+      .dui-demo-controls,
+      .dui-numeric-controls,
+      .dui-notification-controls,
+      .blur-controls
+    )
+    > button:active:not(:disabled) {
+    scale: 0.97;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+  :is([class*="dui-"])
+    :is(
+      .dui-demo-controls,
+      .dui-numeric-controls,
+      .dui-notification-controls,
+      .blur-controls
+    )
+    > button:disabled,
+  :is([class*="dui-"]) :is(.play-button, .dui-notification-action):disabled {
+    opacity: 1;
+    background: transparent;
+    color: var(--dui-control-disabled-fg);
+    cursor: default;
+    border: 0;
+    box-shadow: none;
+  }
+  :is([class*="dui-"])
+    :is(
+      .mini-card,
+      .mini-modal,
+      .mini-panel,
+      .demo-menu,
+      .demo-accordion,
+      .mini-toast,
+      .panel-base,
+      .sliding-panel,
+      .profile-card
+    ) {
+    border-radius: var(--dui-radius-surface);
+    border-color: var(--frost-border, #d8dee9);
+    background: var(--frost-surface, #fff);
+    color: var(--frost-foreground, #2e3440);
+    box-shadow: var(--dui-shadow-surface);
+  }
+  :is([class*="dui-"]) :is(.clear-field, .shake-field input) {
+    border-radius: var(--dui-radius-input);
+    border-color: var(--frost-control-border, #4c566a);
+    color: var(--frost-foreground, #2e3440);
+    background: var(--frost-surface, #fff);
+  }
+  :is([class*="dui-"])
+    :is(svg[data-dui-icon], svg.lucide, svg[stroke][viewBox="0 0 24 24"]) {
+    stroke-width: var(--dui-icon-stroke);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+  }
+  :is([class*="dui-"])
+    :is(svg[data-dui-icon], svg.lucide)
+    :is(path, line, polyline, circle, rect) {
+    stroke-width: inherit;
+    stroke-linecap: inherit;
+    stroke-linejoin: inherit;
+  }
+  :is([class*="dui-"]) button :is(svg[data-dui-icon], svg.lucide) {
+    width: var(--dui-icon-size);
+    height: var(--dui-icon-size);
+  }
+  :is([class*="dui-"])
+    :is(button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--frost-focus-ring, #5e81ac);
+    outline-offset: 3px;
+  }
+  [data-dui-action]:disabled {
+    opacity: 1;
+    color: var(--dui-control-disabled-fg);
+    background: var(--dui-control-disabled-bg);
+    box-shadow: none;
+  }
+  :is([class*="dui-"])
+    :is(.resize-card, .profile-card, .panel-base, .sliding-panel) {
+    padding: var(--dui-space-4);
+  }
+  :is([class*="dui-"]) .demo-menu {
+    padding: var(--dui-space-2);
+  }
+  :is([class*="dui-"]) .demo-menu button {
+    gap: var(--dui-space-2);
+    padding: var(--dui-space-2) var(--dui-space-3);
+    border-radius: var(--dui-radius-input);
+    color: var(--frost-foreground, #2e3440);
+  }
+  :is([class*="dui-"])
+    :is(
+      .mini-heading,
+      .profile-text strong,
+      .revealed-text strong,
+      .demo-checkbox,
+      .sliding-panel span,
+      .accordion-content p,
+      .clear-field input,
+      .demo-tabs button,
+      .demo-accordion > button
+    ) {
+    color: var(--frost-foreground, #2e3440);
+  }
+  :is([class*="dui-"])
+    :is(
+      .profile-text span,
+      .mini-modal p,
+      .sliding-panel p,
+      .revealed-text span,
+      .menu-feedback,
+      .quick-feedback
+    ) {
+    color: var(--frost-foreground-muted, #59687d);
+  }
+  :is([class*="dui-"]) .demo-tabs {
+    background: var(--frost-surface-raised, #e5e9f0);
+    border-radius: var(--dui-radius-input);
+  }
+  :is([class*="dui-"]) .tab-indicator {
+    background: var(--frost-surface, #fff);
+    border-radius: var(--dui-radius-input);
+  }
+  :is([class*="dui-"])
+    :is(
+      .round-button,
+      .modal-close,
+      .clear-field > button,
+      .tooltip-target,
+      .dui-toast-dismiss
+    ) {
+    display: grid;
+    place-items: center;
+    padding: 0;
+  }
+  :is([class*="dui-"])
+    :is(.modal-close, .clear-field > button, .dui-toast-dismiss) {
+    min-width: var(--dui-control-height-dense);
+    min-height: var(--dui-control-height-dense);
+    border-radius: var(--dui-radius-control);
+  }
+  :is([class*="dui-"])
+    :is(.modal-close, .clear-field > button, .dui-toast-dismiss)
+    :is(svg[data-dui-icon], svg.lucide) {
+    width: 16px;
+    height: 16px;
+  }
+  :is([class*="dui-"])
+    :is(
+      .demo-menu button,
+      .demo-tabs button,
+      .demo-accordion > button,
+      .round-button,
+      .tooltip-target,
+      .clear-field > button,
+      .modal-close
+    ):hover:not(:disabled) {
+    background: var(--frost-surface-raised, #e5e9f0);
+  }
+  /* Variant choice is a compact segmented control, not a row of demo actions. */
+  :is([class*="dui-"]) .dui-ai-variants {
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    padding: 4px;
+    gap: 2px;
+    flex-wrap: nowrap;
+    border-radius: var(--dui-radius-control, 999px);
+    background: transparent;
+  }
+  :is([class*="dui-"]) .dui-ai-variants > button {
+    min-width: 0;
+    min-height: 28px;
+    padding: 6px;
+    border: 0;
+    border-radius: var(--dui-radius-control, 999px);
+    background: transparent;
+    color: var(--frost-foreground-muted, #59687d);
+    font-size: 11px;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.25;
+    white-space: nowrap;
+    transition:
+      background-color 150ms var(--dui-ease-out),
+      color 150ms var(--dui-ease-out);
+  }
+  :is([class*="dui-"]) .dui-ai-variants > button:hover:not(:disabled) {
+    background: transparent;
+    color: var(--frost-foreground, #2e3440);
+  }
+  :is([class*="dui-"]) .dui-ai-variants > button[aria-pressed="true"] {
+    background: transparent;
+    color: var(--frost-foreground, #2e3440);
+    box-shadow: none;
+    font-weight: 600;
+  }
+  /* Disabled opacity cannot reveal collapsed floating actions. */
+  .dui-quick-actions .quick-actions:not(.opened) .quick-action {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform 350ms var(--dui-ease-spring),
+      opacity 300ms var(--dui-ease-out),
+      visibility 0s 300ms;
+  }
+  .dui-quick-actions .quick-actions.opened .quick-action {
+    visibility: visible;
+    transition:
+      transform 350ms var(--dui-ease-spring),
+      opacity 300ms var(--dui-ease-out),
+      visibility 0s;
+  }
+  .dui-quick-actions .plus-main {
+    width: 48px;
+    height: 48px;
+    left: 66px;
+  }
+  .dui-quick-actions .plus-main svg[data-dui-icon] {
+    width: 22px;
+    height: 22px;
+  }
+  .dui-tooltip .tooltip-group {
+    gap: 12px;
+  }
+  .dui-tooltip .tooltip-target {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    border-radius: var(--dui-radius-control, 999px);
+    border: 1px solid var(--frost-border, #d8dee9);
+    background: var(--frost-surface, #fff);
+    color: var(--frost-foreground, #2e3440);
+  }
+  .dui-tooltip .tooltip-target svg[data-dui-icon] {
+    width: 20px;
+    height: 20px;
+  }
+  @media (pointer: coarse) {
+    :is([class*="dui-"]) :is(.dui-demo-controls, .blur-controls) > button {
+      min-height: 44px;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :is([class*="dui-"]) :is(button, input, textarea, select) {
+      transition-duration: 0s;
+    }
+  }
+}
