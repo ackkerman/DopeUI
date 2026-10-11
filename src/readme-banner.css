@@ -1,0 +1,122 @@
+/* Layout only: component appearance comes from the library's own styles. */
+.readme-banner {
+  width: 1600px;
+  height: 840px;
+  position: relative;
+  overflow: clip;
+  background: var(--page);
+  color: var(--ink);
+  font-family: Inter, sans-serif;
+}
+.readme-banner .readme-outline {
+  position: absolute;
+  width: 240px;
+  height: 510px;
+  left: 160px;
+  top: -85px;
+  border: 3px dashed var(--line);
+  border-radius: 28px;
+  transform: skewY(-30deg);
+  opacity: 0.65;
+}
+.readme-banner .readme-brand {
+  position: absolute;
+  left: 100px;
+  bottom: 65px;
+}
+.readme-banner .readme-brand h1 {
+  margin: 0 0 24px;
+  font-size: 92px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -6px;
+}
+.readme-banner .readme-brand p {
+  margin: 0;
+  font-size: 38px;
+  letter-spacing: -1.5px;
+}
+.readme-banner .readme-components {
+  position: absolute;
+  right: 70px;
+  top: 135px;
+  width: 460px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: flex-end;
+}
+.readme-banner .readme-orbs {
+  display: flex;
+  padding-right: 12px;
+}
+.readme-banner .readme-orbs > div + div {
+  margin-left: -14px;
+}
+.readme-banner .readme-like {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.readme-banner .readme-prompt {
+  width: 100%;
+}
+.readme-banner .dui-ai-variants {
+  display: none;
+}
+.readme-banner .readme-cards {
+  width: 540px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.readme-banner .readme-cards article {
+  background: var(--surface);
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow:
+    0 2px 3px #2e344012,
+    0 8px 24px #2e344006;
+}
+.readme-banner .readme-card-demo {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.readme-banner .readme-cards h2 {
+  margin: 12px 0 6px;
+  font-size: 21px;
+  font-weight: 600;
+}
+.readme-banner .readme-cards p {
+  margin: 0;
+  font-size: 15px;
+  color: var(--ink-2);
+}
+
+/* Demo stages are removed from the composition; the controls keep their own paint. */
+.readme-banner .readme-like > div {
+  min-height: 0;
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  width: auto;
+}
+.readme-banner .readme-like button {
+  transform: scale(1.5);
+  transform-origin: right center;
+}
+.readme-banner .readme-prompt .dui-ai-prompt-bar,
+.readme-banner .readme-prompt .dui-ai-content {
+  min-height: 0;
+  height: auto;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.readme-banner .readme-like > div {
+  overflow: visible;
+}
