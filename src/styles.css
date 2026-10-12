@@ -2629,3 +2629,8 @@ footer p {
     gap: 12px;
   }
 }
+
+/* Gallery thumbnails prioritize the theme toggle; shape settings remain in details. */
+.motion-card .dui-animated-theme-toggler [aria-label="Transition shape"] {
+  display: none;
+}
