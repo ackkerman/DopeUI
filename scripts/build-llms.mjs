@@ -40,6 +40,8 @@ Built for React 19 and Tailwind CSS v4. Add components with the shadcn CLI or co
 
 - [Introduction](${base}/introduction): Overview, editable code, composition, styles and motion.
 - [Installation](${base}/installation): Project setup, shadcn CLI, shared styles and manual installation.
+- [Skills](${base}/skills): Install the dope-ui AI Agent Skill.
+- [Skill definition](${base}/skills/dope-ui/SKILL.md): Agent instructions for discovery, installation and composition.
 - [Colors](${base}/colors.html): FROST palette, semantic tokens and theme examples.
 - [Library](${base}/library): Interactive component previews.
 - [Registry](${base}/r/registry.json): Machine-readable component sources and dependencies.
@@ -73,7 +75,25 @@ export function buildLlms() {
     for (const entry of entries.filter((entry) => entry.category === category))
       index += `- [${entry.title}](${base}/detail.html?t=${entry.id}): ${entry.description ?? "Editable React component."}\n`;
   }
+  const skill = fs.readFileSync(
+    path.join(root, "skills/dope-ui/SKILL.md"),
+    "utf8",
+  );
+  const publishedSkill = path.join(root, "public/skills/dope-ui/SKILL.md");
+  fs.mkdirSync(path.dirname(publishedSkill), { recursive: true });
+  if (
+    !fs.existsSync(publishedSkill) ||
+    fs.readFileSync(publishedSkill, "utf8") !== skill
+  )
+    fs.writeFileSync(publishedSkill, skill);
   let full = `${overview}\n${installation}\n## Components\n`;
+  full += `
+## Agent Skill
+
+Install: \`npx skills add ackkerman/DopeUI --skill dope-ui\`
+
+${skill}
+`;
   for (const entry of entries) {
     const item = JSON.parse(
       fs.readFileSync(path.join(root, `public/r/${entry.id}.json`), "utf8"),

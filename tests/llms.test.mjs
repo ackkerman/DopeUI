@@ -39,3 +39,22 @@ test("unchanged AI docs are not rewritten", () => {
   buildLlms();
   assert.equal(fs.statSync("public/llms-full.txt").mtimeMs, before);
 });
+
+test("the published Agent Skill and AI references match the installable source", () => {
+  buildLlms();
+  const source = fs.readFileSync("skills/dope-ui/SKILL.md", "utf8");
+  assert.equal(
+    fs.readFileSync("public/skills/dope-ui/SKILL.md", "utf8"),
+    source,
+  );
+  assert.equal(
+    fs.readFileSync("dist/client/skills/dope-ui/SKILL.md", "utf8"),
+    source,
+  );
+  assert.ok(
+    fs
+      .readFileSync("public/llms.txt", "utf8")
+      .includes("https://ui.0xdope.com/skills"),
+  );
+  assert.ok(fs.readFileSync("public/llms-full.txt", "utf8").includes(source));
+});

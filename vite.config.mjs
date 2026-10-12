@@ -12,6 +12,7 @@ export default defineConfig({
         colors: "colors.html",
         installation: "installation.html",
         introduction: "introduction.html",
+        skills: "skills.html",
       },
       output: {
         manualChunks(id) {

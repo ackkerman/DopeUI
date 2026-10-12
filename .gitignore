@@ -26,3 +26,5 @@ AGENTS.md
 # Generated from canonical catalogue and Registry during build.
 /public/llms.txt
 /public/llms-full.txt
+
+/public/skills/

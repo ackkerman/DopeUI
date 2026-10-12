@@ -17,12 +17,14 @@ it("keeps the same links and exactly one active page across all docs", () => {
     "/introduction.html",
     "/installation.html",
     "/colors.html",
+    "/skills.html",
     "/library",
   ];
   for (const current of [
     "introduction",
     "installation",
     "colors",
+    "skills",
   ] as DocsPage[]) {
     view.rerender(<DocsSidebar current={current} />);
     const nav = screen.getByRole("navigation", { name: "Getting started" });

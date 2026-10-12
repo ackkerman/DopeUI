@@ -1,3 +1,4 @@
+import { SkillsPage } from "./SkillsPage";
 import { SiteHeader } from "./SiteHeader";
 import { GlideMenu } from "./library/primitives/glide-menu";
 import { SiteSearch } from "./SiteSearch";
@@ -340,6 +341,10 @@ function LibraryPage() {
 }
 
 export function App() {
+  if (
+    ["/skills", "/skills/", "/skills.html"].includes(window.location.pathname)
+  )
+    return <SkillsPage />;
   if (
     ["/introduction", "/introduction/", "/introduction.html"].includes(
       window.location.pathname,

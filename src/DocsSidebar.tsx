@@ -39,9 +39,20 @@ const pages = [
       { label: "Use in React", href: "/colors.html#usage" },
     ],
   },
+  {
+    id: "skills",
+    label: "Skills",
+    href: "/skills.html",
+    children: [
+      { label: "Install", href: "/skills.html#install" },
+      { label: "What’s included", href: "/skills.html#included" },
+      { label: "Usage", href: "/skills.html#usage" },
+      { label: "How it works", href: "/skills.html#how-it-works" },
+    ],
+  },
 ];
 /** Identifies the current document while keeping the full navigation shared. */
-export type DocsPage = "introduction" | "installation" | "colors";
+export type DocsPage = "introduction" | "installation" | "colors" | "skills";
 export function DocsSidebar({ current }: { current: DocsPage }) {
   const active = pages.findIndex((page) => page.id === current);
   return (
