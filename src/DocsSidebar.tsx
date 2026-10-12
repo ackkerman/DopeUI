@@ -1,4 +1,5 @@
 // This file guarantees every documentation page shares expandable section navigation.
+import { useDocumentAnchor } from "./use-document-anchor";
 import { HookSidebar } from "./library/components/hook-sidebar";
 import "./DocsSidebar.css";
 
@@ -54,12 +55,23 @@ const pages = [
 /** Identifies the current document while keeping the full navigation shared. */
 export type DocsPage = "introduction" | "installation" | "colors" | "skills";
 export function DocsSidebar({ current }: { current: DocsPage }) {
+  useDocumentAnchor();
+  const items = pages.map((page) => ({
+    ...page,
+    children: page.children.map((section) => ({
+      ...section,
+      href:
+        page.id === current
+          ? section.href.slice(section.href.indexOf("#"))
+          : section.href,
+    })),
+  }));
   const active = pages.findIndex((page) => page.id === current);
   return (
     <aside className="detail-sidebar docs-sidebar">
       <HookSidebar
         key={current}
-        items={[...pages, { label: "Components", href: "/library" }]}
+        items={[...items, { label: "Components", href: "/library" }]}
         label="Getting started"
         value={active}
         defaultExpanded={[active]}

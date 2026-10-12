@@ -97,3 +97,16 @@ it("links to both AI-readable documents from the shared UI", () => {
   expect(resources.querySelector('a[href="/llms.txt"]')).toBeTruthy();
   expect(resources.querySelector('a[href="/llms-full.txt"]')).toBeTruthy();
 });
+
+it("uses fragment-only links for the current document and full URLs for other documents", () => {
+  render(<DocsSidebar current="installation" />);
+  expect(
+    screen.getByRole("link", { name: "Requirements" }).getAttribute("href"),
+  ).toBe("#requirements");
+  fireEvent.click(
+    screen.getByRole("button", { name: "Toggle Colors sections" }),
+  );
+  expect(
+    screen.getByRole("link", { name: "Color palette" }).getAttribute("href"),
+  ).toBe("/colors.html#palette");
+});

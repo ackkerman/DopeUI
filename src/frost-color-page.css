@@ -518,30 +518,6 @@
   font-size: 11px;
   background: #f8f8f8;
 }
-.frost-doc-section pre {
-  background: #202024;
-  color: #d2d3d9;
-  border-radius: 14px;
-  padding: 24px;
-  font-size: 11px;
-  line-height: 1.8;
-  overflow: auto;
-  margin: 0 0 14px;
-}
-.frost-doc-section pre .token.keyword {
-  color: #c6a0f6;
-}
-.frost-doc-section pre .token.string,
-.frost-doc-section pre .token.attr-value {
-  color: #a6da95;
-}
-.frost-doc-section pre .token.tag {
-  color: #ed8796;
-}
-.frost-doc-section pre .token.attr-name,
-.frost-doc-section pre .token.property {
-  color: #eed49f;
-}
 .frost-doc-source {
   display: flex;
   flex-wrap: wrap;
@@ -643,10 +619,6 @@
   }
   .frost-example .frost-example-number {
     font-size: 22px;
-  }
-  .frost-doc-section pre {
-    font-size: 10px;
-    padding: 20px;
   }
   .frost-example-project-heading {
     flex-wrap: wrap;

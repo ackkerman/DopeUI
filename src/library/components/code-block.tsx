@@ -39,15 +39,15 @@ export interface CodeSnippetProps {
 }
 
 const CODE_PAINT: Record<string, string> = {
-  comment: "text-[#7c818b]",
-  keyword: "text-[#c24c61]",
-  string: "text-[#27765a]",
-  function: "text-[#7450a3]",
-  number: "text-[#a55b20]",
-  boolean: "text-[#c24c61]",
-  property: "text-[#285e9a]",
-  tag: "text-[#285e9a]",
-  operator: "text-[#c24c61]",
+  comment: "text-[#7c818b]!",
+  keyword: "text-[#c24c61]!",
+  string: "text-[#27765a]!",
+  function: "text-[#7450a3]!",
+  number: "text-[#a55b20]!",
+  boolean: "text-[#c24c61]!",
+  property: "text-[#285e9a]!",
+  tag: "text-[#285e9a]!",
+  operator: "text-[#c24c61]!",
 };
 const EXTRA_GRAMMARS: Record<string, Prism.Grammar> = {
   json: {
@@ -239,7 +239,7 @@ export function CodeSnippet({
           }}
         >
           <code
-            className={`grid min-w-max py-4 language-${active.language ?? language}`}
+            className={`grid! min-w-max py-4! language-${active.language ?? language}`}
           >
             {lines.map((text, index) => (
               <span
@@ -247,7 +247,7 @@ export function CodeSnippet({
                 data-code-line={index + 1}
                 data-highlighted={emphasized.includes(index + 1) || undefined}
                 className={cn(
-                  "block min-h-6 whitespace-pre px-4",
+                  "block! min-h-6 whitespace-pre! px-4!",
                   emphasized.includes(index + 1) && "bg-[#eef2ff]",
                 )}
               >
