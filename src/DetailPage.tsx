@@ -89,7 +89,7 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
     setNavOpen(false);
   };
   async function copyLoadingUsage(variant: LoadingVariant) {
-    const snippet = `import { LoadingIndicator } from './DotLoader';\n\nexport default function App() {\n  return <LoadingIndicator variant="${variant}" size={32} />;\n}\n`;
+    const snippet = `import { LoadingIndicator } from './${reactComponentName("dot-loader")}';\n\nexport default function App() {\n  return <LoadingIndicator variant="${variant}" size={32} />;\n}\n`;
     try {
       await navigator.clipboard.writeText(snippet);
       setCopiedLoading(variant);

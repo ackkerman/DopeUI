@@ -105,20 +105,22 @@ export function CodeDialog({
               <span>Follow Use in React to install and customize it.</span>
             </li>
           </ol>
-          <a
-            className={cn("introduction-action")}
-            href="/detail.html?t=card-resize#usage"
-            onClick={closeDialog}
-          >
-            Use in React <ArrowRight size={16} aria-hidden />
-          </a>
-          <a
-            className={cn("introduction-action")}
-            href="/installation.html"
-            onClick={closeDialog}
-          >
-            Installation <ArrowRight size={16} aria-hidden />
-          </a>
+          <div className={cn("introduction-actions")}>
+            <a
+              className={cn("introduction-action")}
+              href="/detail.html?t=card-resize#usage"
+              onClick={closeDialog}
+            >
+              Use in React <ArrowRight size={16} aria-hidden />
+            </a>
+            <a
+              className={cn("introduction-action")}
+              href="/installation.html"
+              onClick={closeDialog}
+            >
+              Installation <ArrowRight size={16} aria-hidden />
+            </a>
+          </div>
           <div className={cn("introduction-license")}>
             <p>
               Original dope/ui code is MIT licensed. Include LICENSE and

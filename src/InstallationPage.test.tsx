@@ -2,6 +2,7 @@
 // This file guarantees installation provides the current public commands and navigation.
 import { afterEach, expect, it } from "vitest";
 import { cleanup, render, screen } from "@testing-library/react";
+import { App } from "./App";
 import { InstallationPage } from "./InstallationPage";
 
 afterEach(cleanup);
@@ -31,4 +32,18 @@ it("shows requirements, copyable install commands and an active Getting started 
   expect(view.container.textContent).toContain("React 19 and Tailwind CSS v4");
   expect(view.container.textContent).not.toContain("THIRD_PARTY_NOTICES");
   expect(screen.getAllByRole("button", { name: "Copy code" }).length).toBe(9);
+});
+
+it("renders installation at the extensionless URL used by Cloudflare Pages", () => {
+  // Given Pages redirects the HTML entry, when App loads, then the guide remains visible.
+  const previous = window.location.href;
+  try {
+    window.history.replaceState(null, "", "/installation");
+    render(<App />);
+    expect(
+      screen.getByRole("heading", { name: "Installation", level: 1 }),
+    ).toBeTruthy();
+  } finally {
+    window.history.replaceState(null, "", previous);
+  }
 });

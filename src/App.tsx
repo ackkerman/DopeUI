@@ -335,7 +335,12 @@ function LibraryPage() {
 }
 
 export function App() {
-  if (window.location.pathname === "/installation.html")
+  // Pages canonicalizes static HTML URLs to extensionless paths.
+  if (
+    ["/installation", "/installation/", "/installation.html"].includes(
+      window.location.pathname,
+    )
+  )
     return <InstallationPage />;
   if (["/", "/index.html"].includes(window.location.pathname))
     return <HomePage />;

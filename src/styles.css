@@ -2451,6 +2451,12 @@ footer p {
   color: #626268;
   font-size: 11px;
 }
+.introduction-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
 .introduction-action {
   display: inline-flex;
   align-items: center;
