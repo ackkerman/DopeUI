@@ -272,3 +272,17 @@
 :root .motion-card .dui-organic-shimmer [aria-label="Shimmer direction"] {
   display: none;
 }
+
+/* Navigation rows keep the same alignment even when rendered by the shared Button. */
+:root .mobile-nav > :is(a, button) {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: auto;
+  min-height: 44px;
+  margin: 0;
+  padding: 12px;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: left;
+}
