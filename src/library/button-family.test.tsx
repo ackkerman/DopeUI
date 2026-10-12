@@ -34,3 +34,33 @@ it("uses the requested pulse color as the resting button fill", () => {
     screen.getByRole("button", { name: "Pulse" }).style.backgroundColor,
   ).toBe("rgb(65, 108, 145)");
 });
+
+it.each(["pulse", "ripple"] as const)(
+  "stops %s decoration and interaction while disabled, then restores them",
+  (variant) => {
+    const onClick = vi.fn();
+    const view = render(
+      <PulsatingButton variant={variant} onClick={onClick}>
+        Pulse
+      </PulsatingButton>,
+    );
+    const action = screen.getByRole("button", { name: "Pulse" });
+    expect(action.querySelector('[aria-hidden="true"]')).toBeTruthy();
+    view.rerender(
+      <PulsatingButton variant={variant} disabled onClick={onClick}>
+        Pulse
+      </PulsatingButton>,
+    );
+    fireEvent.click(action);
+    expect(onClick).not.toHaveBeenCalled();
+    expect(action.querySelector('[aria-hidden="true"]')).toBeNull();
+    view.rerender(
+      <PulsatingButton variant={variant} onClick={onClick}>
+        Pulse
+      </PulsatingButton>,
+    );
+    expect(action.querySelector('[aria-hidden="true"]')).toBeTruthy();
+    fireEvent.click(action);
+    expect(onClick).toHaveBeenCalledOnce();
+  },
+);

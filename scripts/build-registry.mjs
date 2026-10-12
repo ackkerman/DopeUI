@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
+import { buildLlms } from "./build-llms.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
@@ -223,6 +224,7 @@ export function buildRegistry() {
     if (file.endsWith(".json") && !current.has(file))
       fs.unlinkSync(path.join(output, file));
   console.log(`Built ${items.length} shadcn registry items in public/r.`);
+  buildLlms();
   return items;
 }
 if (

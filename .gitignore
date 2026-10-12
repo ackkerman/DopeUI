@@ -22,3 +22,7 @@ SPEC.md
 DESIGN.md
 AGENTS.md
 /public/THIRD_PARTY_NOTICES.txt
+
+# Generated from canonical catalogue and Registry during build.
+/public/llms.txt
+/public/llms-full.txt

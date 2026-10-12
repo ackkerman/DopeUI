@@ -17,7 +17,7 @@
     "pretest": "node scripts/build-copyable-sources.mjs && npx tsx scripts/prepare-frost-colors.ts && node scripts/build-registry.mjs",
     "predev": "node scripts/build-copyable-sources.mjs && npx tsx scripts/prepare-frost-colors.ts && node scripts/build-registry.mjs",
     "registry:build": "node scripts/build-copyable-sources.mjs && npx tsx scripts/prepare-frost-colors.ts && node scripts/build-registry.mjs",
-    "test:registry": "node --test tests/registry.test.mjs tests/copyable-sources.test.mjs",
+    "test:registry": "node --test tests/registry.test.mjs tests/copyable-sources.test.mjs tests/llms.test.mjs",
     "sources:build": "node scripts/build-copyable-sources.mjs",
     "build:pages": "npm run registry:build && vite build"
   },

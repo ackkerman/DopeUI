@@ -58,3 +58,38 @@
 :root .docs-shell a[data-dui-action].bg-primary {
   color: var(--primary-foreground, #fff);
 }
+:root .docs-sidebar [data-slot="hook-sidebar-label"] {
+  font-size: 10px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--muted);
+  padding: 8px 12px 10px;
+}
+:root .docs-sidebar [data-slot="hook-sidebar-item"] {
+  font-size: 12px;
+  line-height: 1.5;
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+:root .docs-sidebar [data-slot="hook-sidebar-children"] {
+  padding-left: 12px;
+}
+:root
+  .docs-sidebar
+  [data-slot="hook-sidebar-children"]
+  [data-slot="hook-sidebar-item"] {
+  color: var(--muted);
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.docs-resources {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+  gap: 4px;
+}
+.docs-resources a {
+  font-size: 12px;
+  padding: 7px 20px;
+}

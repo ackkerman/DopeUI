@@ -17,13 +17,15 @@ function usePathname() {
 }
 
 import { useEffect, useRef, useState, type ComponentProps } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 const CORNER = 6;
 const DASH =
   "repeating-linear-gradient(to top, transparent 0 2px, currentColor 2px 4px)";
 
-export type HookSidebarItem = string | { label: string; href?: string };
+/** A navigation row may own nested sections with independent expansion. */
+export type HookSidebarItem =
+  string | { label: string; href?: string; children?: HookSidebarItem[] };
 
 export type HookSidebarProps = Omit<ComponentProps<"nav">, "onChange"> & {
   items: HookSidebarItem[];
@@ -33,6 +35,9 @@ export type HookSidebarProps = Omit<ComponentProps<"nav">, "onChange"> & {
   onChange?: (index: number) => void;
   color?: string;
   dashed?: boolean;
+  expanded?: number[];
+  defaultExpanded?: number[];
+  onExpandedChange?: (indices: number[]) => void;
 };
 
 const hrefOf = (item: HookSidebarItem) =>
@@ -108,9 +113,23 @@ export function HookSidebar({
   color = "var(--frost-primary, #416C91)",
   dashed = true,
   className,
+  expanded,
+  defaultExpanded = [],
+  onExpandedChange,
   ...props
 }: HookSidebarProps) {
+  const reduced = useReducedMotion();
   const pathname = usePathname();
+  const groupId = React.useId();
+  const [internalExpanded, setInternalExpanded] = useState(defaultExpanded);
+  const openGroups = expanded ?? internalExpanded;
+  const toggleGroup = (index: number) => {
+    const next = openGroups.includes(index)
+      ? openGroups.filter((item) => item !== index)
+      : [...openGroups, index];
+    if (expanded === undefined) setInternalExpanded(next);
+    onExpandedChange?.(next);
+  };
   const listRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLElement | null)[]>([]);
   const [centers, setCenters] = useState<number[]>([]);
@@ -130,14 +149,24 @@ export function HookSidebar({
     const measure = () =>
       setCenters(
         itemRefs.current.map((el) =>
-          el ? el.offsetTop + el.offsetHeight / 2 : 0,
+          el
+            ? el.getBoundingClientRect().top -
+              list.getBoundingClientRect().top +
+              el.offsetHeight / 2
+            : 0,
         ),
       );
 
+    measure();
+    // Retain working navigation when resize observation is unavailable.
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", measure);
+      return () => window.removeEventListener("resize", measure);
+    }
     const observer = new ResizeObserver(measure);
     observer.observe(list);
     return () => observer.disconnect();
-  }, [items.length]);
+  }, [items.length, openGroups]);
 
   const activeY = activeIndex < 0 ? null : (centers[activeIndex] ?? null);
   const hoverY = hoverIndex === null ? null : (centers[hoverIndex] ?? null);
@@ -218,7 +247,7 @@ export function HookSidebar({
             ),
           };
 
-          return href ? (
+          const row = href ? (
             <Link
               key={`${index}-${text}`}
               {...rowProps}
@@ -238,6 +267,64 @@ export function HookSidebar({
             >
               {text}
             </button>
+          );
+          const children = typeof item === "string" ? undefined : item.children;
+          if (!children?.length) return row;
+          const open = openGroups.includes(index);
+          const panelId = `${groupId}-section-${index}`;
+          return (
+            <div key={`${index}-${text}`} data-slot="hook-sidebar-group">
+              <div
+                className="flex items-center"
+                data-slot="hook-sidebar-parent"
+              >
+                <div className="min-w-0 flex-1 [&>a]:block [&>button]:w-full">
+                  {row}
+                </div>
+                <button
+                  type="button"
+                  aria-label={`Toggle ${text} sections`}
+                  aria-expanded={open}
+                  aria-controls={panelId}
+                  onClick={() => toggleGroup(index)}
+                  className="grid size-8 shrink-0 place-items-center rounded-lg! border-0! bg-transparent! shadow-none! text-muted-foreground hover:text-foreground"
+                >
+                  <svg
+                    aria-hidden="true"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.75"
+                    style={{ transform: open ? "rotate(180deg)" : undefined }}
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+              </div>
+              <AnimatePresence initial={false}>
+                {open && (
+                  <motion.div
+                    id={panelId}
+                    data-slot="hook-sidebar-children"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={reduced ? { duration: 0 } : { duration: 0.2 }}
+                    className="overflow-hidden pl-3"
+                  >
+                    <HookSidebar
+                      items={children}
+                      value={-1}
+                      aria-label={`${text} sections`}
+                      color={color}
+                      dashed={dashed}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           );
         })}
       </div>

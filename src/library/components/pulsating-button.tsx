@@ -23,6 +23,7 @@ export const PulsatingButton = React.forwardRef<
       duration = "1.5s",
       distance = "8px",
       variant = "pulse",
+      disabled = false,
       style,
       ...props
     },
@@ -101,6 +102,7 @@ export const PulsatingButton = React.forwardRef<
         ref={innerRef}
         data-dui-button="action"
         type="button"
+        disabled={disabled}
         className={cn(
           "bg-primary text-primary-foreground relative flex cursor-pointer items-center justify-center rounded-lg px-4 py-2 text-center",
           className,
@@ -119,15 +121,17 @@ export const PulsatingButton = React.forwardRef<
         {...props}
       >
         <span className={cn("relative z-10")}>{children}</span>
-        <span
-          aria-hidden="true"
-          className={cn(
-            "pointer-events-none absolute inset-0 rounded-[inherit] bg-inherit",
-            variant === "pulse"
-              ? "animate-dui-pulse"
-              : "animate-dui-pulse-ripple",
-          )}
-        />
+        {!disabled && (
+          <span
+            aria-hidden="true"
+            className={cn(
+              "pointer-events-none absolute inset-0 rounded-[inherit] bg-inherit",
+              variant === "pulse"
+                ? "animate-dui-pulse"
+                : "animate-dui-pulse-ripple",
+            )}
+          />
+        )}
       </button>
     );
   },
