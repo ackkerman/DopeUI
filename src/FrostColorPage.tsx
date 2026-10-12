@@ -1,10 +1,13 @@
-import { RepositoryLink } from "./RepositoryLink";
-import { CodeBlock } from "./library/primitives/code-block";
+import { SiteHeader } from "./SiteHeader";
+import { SiteTabs } from "./SiteTabs";
+import { SiteSearch } from "./SiteSearch";
+import { Button } from "./library/primitives/button";
+import { SiteCode } from "./SiteCode";
 // This file guarantees searchable FROST color documentation with scoped, live component examples.
 import { lazy, Suspense, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { cn } from "./class-names";
-import { SyntaxCode } from "./SyntaxCode";
+
 const CodeDialog = lazy(() =>
   import("./CodeDialog").then((module) => ({ default: module.CodeDialog })),
 );
@@ -63,56 +66,68 @@ export function FrostColorPage() {
       <a className={cn("skip-link")} href="#palette">
         Skip to colors
       </a>
-      <header className={cn("site-header")}>
-        <a className={cn("wordmark")} href="/" aria-label="dope/ui home">
-          dope<span>/</span>ui<span className={cn("brand-dot")}>.</span>
-        </a>
-        <nav className={cn("desktop-nav")} aria-label="Main navigation">
-          <a href="/library">Library</a>
-          <button onClick={() => setDocs(true)}>Docs</button>
-          <a href="/#about">
-            About <span className={cn("new-badge")}>New</span>
-          </a>
-          <a
-            href="/colors.html"
-            className={cn("nav-active")}
-            aria-current="page"
-          >
-            Colors
-          </a>
-        </nav>
-        <div className={cn("header-actions")}>
-          <RepositoryLink />
-          <a className={cn("get-started")} href="#usage">
-            Get started <ArrowUpRight size={14} />
-          </a>
-          <button
-            className={cn("icon-button mobile-menu-button")}
-            aria-label="Toggle navigation"
-            aria-expanded={mobile}
-            onClick={() => setMobile((v) => !v)}
-          >
-            {mobile ? <X size={18} /> : <Menu size={18} />}
-          </button>
-        </div>
-        {mobile && (
-          <nav className={cn("mobile-nav")} aria-label="Mobile navigation">
+      <SiteHeader
+        navigation={
+          <>
             <a href="/library">Library</a>
-            <button
-              onClick={() => {
-                setMobile(false);
-                setDocs(true);
-              }}
-            >
+            <Button variant="quiet" size="sm" onClick={() => setDocs(true)}>
               Docs
-            </button>
-            <a href="/colors.html">Colors</a>
-            <a href="#usage" onClick={() => setMobile(false)}>
-              Use in React
+            </Button>
+            <a href="/#about">
+              About <span className={cn("new-badge")}>New</span>
             </a>
-          </nav>
-        )}
-      </header>
+            <a
+              href="/colors.html"
+              className={cn("nav-active")}
+              aria-current="page"
+            >
+              Colors
+            </a>
+          </>
+        }
+        actions={
+          <>
+            <Button
+              variant="primary"
+              className={cn("get-started")}
+              href="#usage"
+            >
+              Get started <ArrowUpRight size={14} />
+            </Button>
+            <Button
+              variant="quiet"
+              size="sm"
+              className={cn("icon-button mobile-menu-button")}
+              aria-label="Toggle navigation"
+              aria-expanded={mobile}
+              onClick={() => setMobile((v) => !v)}
+            >
+              {mobile ? <X size={18} /> : <Menu size={18} />}
+            </Button>
+          </>
+        }
+        mobileNav={
+          mobile && (
+            <nav className={cn("mobile-nav")} aria-label="Mobile navigation">
+              <a href="/library">Library</a>
+              <Button
+                variant="quiet"
+                size="sm"
+                onClick={() => {
+                  setMobile(false);
+                  setDocs(true);
+                }}
+              >
+                Docs
+              </Button>
+              <a href="/colors.html">Colors</a>
+              <a href="#usage" onClick={() => setMobile(false)}>
+                Use in React
+              </a>
+            </nav>
+          )
+        }
+      />
       <div className={cn("frost-doc-layout")}>
         <aside className={cn("frost-doc-sidebar")}>
           <p>Foundations</p>
@@ -144,12 +159,11 @@ export function FrostColorPage() {
           <section id="palette" className={cn("frost-doc-section")}>
             <div className={cn("frost-doc-section-head")}>
               <h2>Color palette</h2>
-              <input
-                type="search"
-                aria-label="Search colors"
-                placeholder="Search colors…"
+              <SiteSearch
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onValueChange={setQuery}
+                label="Search colors"
+                placeholder="Search colors…"
               />
             </div>
             <p>
@@ -171,7 +185,9 @@ export function FrostColorPage() {
                       <code>{name}</code>
                     </div>
                     {frostShades.map((shade) => (
-                      <button
+                      <Button
+                        variant="unstyled"
+                        size="sm"
                         type="button"
                         key={shade}
                         aria-label={`${family.label} ${shade} ${ramp[shade]} をコピー`}
@@ -181,7 +197,7 @@ export function FrostColorPage() {
                         <i style={{ background: ramp[shade] }} />
                         <code>{ramp[shade]}</code>
                         <span>{shade}</span>
-                      </button>
+                      </Button>
                     ))}
                   </div>
                 );
@@ -189,9 +205,14 @@ export function FrostColorPage() {
               {!families.length && (
                 <div className={cn("frost-empty")}>
                   <p>一致するカラーはありません。</p>
-                  <button type="button" onClick={() => setQuery("")}>
+                  <Button
+                    variant="quiet"
+                    size="sm"
+                    type="button"
+                    onClick={() => setQuery("")}
+                  >
                     Clear search
-                  </button>
+                  </Button>
                 </div>
               )}
             </div>
@@ -213,7 +234,9 @@ export function FrostColorPage() {
             </p>
             <div className={cn("frost-nord-grid")}>
               {nordColors.map((hex, i) => (
-                <button
+                <Button
+                  variant="unstyled"
+                  size="sm"
                   key={hex}
                   type="button"
                   aria-label={`Nord ${i} ${hex} をコピー`}
@@ -222,29 +245,21 @@ export function FrostColorPage() {
                   <i style={{ background: hex }} />
                   <span>nord-{i}</span>
                   <code>{hex}</code>
-                </button>
+                </Button>
               ))}
             </div>
           </section>
           <section id="example" className={cn("frost-doc-section")}>
             <div className={cn("frost-doc-section-head")}>
               <h2>Example</h2>
-              <div
-                className={cn("frost-doc-toggle")}
-                role="group"
-                aria-label="カラーテーマ"
-              >
-                {(["light", "dark"] as const).map((mode) => (
-                  <button
-                    key={mode}
-                    type="button"
-                    aria-pressed={theme === mode}
-                    onClick={() => setTheme(mode)}
-                  >
-                    {mode === "light" ? "Light" : "Dark"}
-                  </button>
-                ))}
-              </div>
+              <SiteTabs
+                items={["light", "dark"] as const}
+                labels={["Light", "Dark"]}
+                value={theme}
+                onValueChange={setTheme}
+                label="カラーテーマ"
+                className="frost-doc-toggle"
+              />
             </div>
             <p>
               ライブラリの実コンポーネントを合成したWorkspace。配色を変えて、ナビ・タスク・通知も試せます。
@@ -255,7 +270,9 @@ export function FrostColorPage() {
               aria-label="ブランドカラー"
             >
               {brandNames.map((value) => (
-                <button
+                <Button
+                  variant="quiet"
+                  size="sm"
                   key={value}
                   type="button"
                   aria-pressed={brand === value}
@@ -263,7 +280,7 @@ export function FrostColorPage() {
                 >
                   <i style={{ background: frostBrands[value].fill }} />
                   {frostBrands[value].label}
-                </button>
+                </Button>
               ))}
             </div>
             <FrostExample theme={theme} brand={brand} />
@@ -285,12 +302,14 @@ export function FrostColorPage() {
                   :1
                 </strong>
               </span>
-              <button
+              <Button
+                variant="quiet"
+                size="sm"
                 type="button"
                 onClick={() => copyHex(frostBrands[brand].fill)}
               >
                 Copy HEX
-              </button>
+              </Button>
             </div>
           </section>
           <section id="roles" className={cn("frost-doc-section")}>
@@ -346,26 +365,16 @@ export function FrostColorPage() {
                 Tailwind mapping ↓
               </a>
             </div>
-            <CodeBlock
+            <SiteCode
               code={
                 '/* app.css */\n@import "tailwindcss";\n@import "./frost-tailwind.css";'
               }
-            >
-              <SyntaxCode
-                language="CSS"
-                code={
-                  '/* app.css */\n@import "tailwindcss";\n@import "./frost-tailwind.css";'
-                }
-              />
-            </CodeBlock>
-            <CodeBlock
+              language={"CSS"}
+            />
+            <SiteCode
               code={`<section data-frost data-theme="${theme}" data-brand="${brand}">\n  <button className="bg-frost-primary hover:bg-frost-primary-hover\n    text-frost-primary-foreground">\n    Primary action\n  </button>\n</section>`}
-            >
-              <SyntaxCode
-                language="React"
-                code={`<section data-frost data-theme="${theme}" data-brand="${brand}">\n  <button className="bg-frost-primary hover:bg-frost-primary-hover\n    text-frost-primary-foreground">\n    Primary action\n  </button>\n</section>`}
-              />
-            </CodeBlock>
+              language={"React"}
+            />
             <p>
               階調は <code>bg-frost-lavender-100</code>・
               <code>text-frost-blue-900</code>{" "}
@@ -395,7 +404,9 @@ export function FrostColorPage() {
         </div>
         <div className={cn("footer-links")}>
           <a href="/library">Library</a>
-          <button onClick={() => setDocs(true)}>Documentation</button>
+          <Button variant="quiet" size="sm" onClick={() => setDocs(true)}>
+            Documentation
+          </Button>
           <a href="/colors.html">Colors</a>
           <a href="/#about">About</a>
         </div>

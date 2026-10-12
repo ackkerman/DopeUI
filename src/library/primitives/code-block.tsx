@@ -18,6 +18,7 @@ export interface CodeBlockProps extends ComponentProps<"div"> {
   copyDisabled?: boolean;
   copyLabel?: string;
   tone?: "code" | "surface";
+  header?: ReactNode;
 }
 function readableOutput(node: HTMLPreElement | null) {
   if (!node) return "";
@@ -40,6 +41,7 @@ export function CodeBlock({
   copyDisabled = false,
   copyLabel = "Copy code",
   tone = "code",
+  header,
   className,
   ...props
 }: CodeBlockProps) {
@@ -78,26 +80,39 @@ export function CodeBlock({
         setFeedback({ source: code, state: "error", full });
     }
   };
+  const copyControl = (
+    <button
+      type="button"
+      className={cn(
+        "dui-code-copy",
+        header && "static! shrink-0 text-inherit!",
+      )}
+      aria-label={state === "copied" ? "Copied" : copyLabel}
+      title={state === "copied" ? "Copied" : copyLabel}
+      disabled={copyDisabled || state === "copying"}
+      onClick={copy}
+    >
+      {state === "copied" ? (
+        <Check size={16} aria-hidden="true" />
+      ) : (
+        <Copy size={16} aria-hidden="true" />
+      )}
+    </button>
+  );
   return (
     <div
       {...props}
       className={cn("dui-code-block", className)}
       data-code-tone={tone}
     >
-      <button
-        type="button"
-        className="dui-code-copy"
-        aria-label={state === "copied" ? "Copied" : copyLabel}
-        title={state === "copied" ? "Copied" : copyLabel}
-        disabled={copyDisabled || state === "copying"}
-        onClick={copy}
-      >
-        {state === "copied" ? (
-          <Check size={16} aria-hidden="true" />
-        ) : (
-          <Copy size={16} aria-hidden="true" />
-        )}
-      </button>
+      {header ? (
+        <div className="dui-code-header flex min-h-10 items-center justify-between gap-3 border-b border-[#e5e7eb] bg-[#f8f9fa] py-1 pl-4 pr-2 font-mono text-xs text-[#535861]">
+          {header}
+          {copyControl}
+        </div>
+      ) : (
+        copyControl
+      )}
       <pre
         {...preProps}
         ref={pre}

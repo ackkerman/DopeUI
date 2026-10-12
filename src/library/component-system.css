@@ -247,7 +247,11 @@
       .clear-field > button,
       .modal-close
     ):hover:not(:disabled) {
-    background: var(--frost-surface-raised, #e5e9f0);
+    background: color-mix(
+      in srgb,
+      var(--frost-primary, #5e81ac) 4%,
+      var(--frost-surface, #fff)
+    );
   }
   /* Variant choice is a compact segmented control, not a row of demo actions. */
   :is([class*="dui-"]) .dui-ai-variants {
@@ -343,5 +347,72 @@
     :is([class*="dui-"]) :is(button, input, textarea, select) {
       transition-duration: 0s;
     }
+  }
+}
+
+/* Accordion hover keeps the resting surface; keyboard focus remains visible. */
+@layer components {
+  .dui-accordion .demo-accordion > button:hover {
+    background: transparent;
+  }
+}
+
+/* Button families share resting geometry and paint; their own motion remains intact. */
+@layer components {
+  [data-dui-button] {
+    border-radius: var(--dui-radius-control, 999px);
+    border-color: transparent;
+    background-color: var(--frost-surface, var(--surface, #fff));
+    color: var(--frost-foreground, var(--foreground, #2e3440));
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    box-shadow: 0 1px 2px rgb(46 52 64 / 5%);
+  }
+  [data-dui-button="action"] {
+    min-height: 48px;
+    padding: 12px 24px;
+  }
+  [data-dui-button="icon"]:not([data-dui-button-size]) {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    min-height: 48px;
+    padding: 0;
+    border: 0;
+  }
+  [data-dui-button="icon"]:not([data-slot]) svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.75;
+  }
+  [data-dui-button]:disabled {
+    background-color: var(--frost-disabled-background, #e5e9f0);
+    color: var(--frost-disabled-foreground, #59687d);
+  }
+}
+
+@layer components {
+  :is(.dui-icon-swap, .dui-quick-actions)
+    .round-button[data-dui-button="icon"] {
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: var(--dui-radius-control, 999px);
+    background: var(--frost-surface, var(--surface, #fff));
+    color: var(--frost-foreground, var(--foreground, #2e3440));
+    box-shadow: 0 1px 2px rgb(46 52 64 / 5%);
+  }
+}
+
+@layer components {
+  .dui-code-block[data-code-tone="surface"]
+    .dui-code-copy:hover:not(:disabled) {
+    background: color-mix(
+      in srgb,
+      var(--frost-primary, #5e81ac) 4%,
+      var(--frost-surface, #fff)
+    );
   }
 }

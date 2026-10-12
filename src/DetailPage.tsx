@@ -1,5 +1,9 @@
-import { RepositoryLink } from "./RepositoryLink";
-import { CodeBlock } from "./library/primitives/code-block";
+import { SiteHeader } from "./SiteHeader";
+import Accordion from "./library/components/accordion";
+import { SiteSearch } from "./SiteSearch";
+import { SiteTabs } from "./SiteTabs";
+import { Button } from "./library/primitives/button";
+import { SiteCode } from "./SiteCode";
 import DotLoader, {
   LoadingPatternGallery,
   LOADING_VARIANTS,
@@ -21,15 +25,13 @@ import {
   Code2,
   Link,
   Menu,
-  Search,
   X,
 } from "lucide-react";
 import { categories, demos, type MotionDemo } from "./catalog";
 import { adjacentDemos, detailHref } from "./detail-navigation";
 import { MotionPreview } from "./MotionPreview";
-import { SyntaxCode } from "./SyntaxCode";
+
 import { CodeDialog } from "./CodeDialog";
-import { navigateTabs } from "./tab-navigation";
 
 type DetailView = "Preview" | "CSS" | "React";
 export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
@@ -113,7 +115,9 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
     <>
       <div className={cn("sidebar-section")}>
         <span className={cn("sidebar-label")}>Getting started</span>
-        <button onClick={openDocs}>Introduction</button>
+        <Button variant="quiet" size="sm" onClick={openDocs}>
+          Introduction
+        </Button>
         <a href="/installation.html">Installation</a>
         <a href="#usage" onClick={() => setNavOpen(false)}>
           Use in React
@@ -132,41 +136,39 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
           if (entries.length === 0) return null;
           const expanded = groups.includes(category) || Boolean(query.trim());
           return (
-            <div className={cn("sidebar-group")} key={category}>
-              <button
-                className={cn("sidebar-group-title")}
-                aria-expanded={expanded}
-                onClick={() =>
-                  setGroups((g) =>
-                    g.includes(category)
-                      ? g.filter((c) => c !== category)
-                      : [...g, category],
-                  )
-                }
-              >
-                {category}
-                <ChevronDown size={14} />
-              </button>
-              {expanded && (
-                <div className={cn("sidebar-group-links")}>
-                  {entries.map((d) => (
-                    <a
-                      key={d.id}
-                      href={detailHref(d.id)}
-                      aria-current={d.id === demo?.id ? "page" : undefined}
-                    >
-                      {d.title}
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
+            <Accordion
+              key={category}
+              className="site-accordion sidebar-group"
+              title={category}
+              open={expanded}
+              onOpenChange={() =>
+                setGroups((current) =>
+                  current.includes(category)
+                    ? current.filter((c) => c !== category)
+                    : [...current, category],
+                )
+              }
+            >
+              <div className={cn("sidebar-group-links")}>
+                {entries.map((d) => (
+                  <a
+                    key={d.id}
+                    href={detailHref(d.id)}
+                    aria-current={d.id === demo?.id ? "page" : undefined}
+                  >
+                    {d.title}
+                  </a>
+                ))}
+              </div>
+            </Accordion>
           );
         })}
       {filtered.length === 0 && (
         <div className={cn("sidebar-empty")}>
           No interactions found.
-          <button onClick={() => setQuery("")}>Clear search</button>
+          <Button variant="quiet" size="sm" onClick={() => setQuery("")}>
+            Clear search
+          </Button>
         </div>
       )}
     </>
@@ -176,53 +178,53 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
       <a className={cn("skip-link")} href="#detail-main">
         Skip to demo
       </a>
-      <header className={cn("site-header")}>
-        <a className={cn("wordmark")} href="/" aria-label="dope/ui home">
-          dope<span>/</span>ui<span className={cn("brand-dot")}>.</span>
-        </a>
-        <nav className={cn("desktop-nav")} aria-label="Main navigation">
-          <a href="/library">Library</a>
-          <button onClick={openDocs}>Docs</button>
-          <a href="/#about">
-            About <span className={cn("new-badge")}>New</span>
-          </a>
-
-          <a href="/colors.html">Colors</a>
-        </nav>
-        <div className={cn("header-actions")}>
-          <RepositoryLink />
-          <div className={cn("search-box")}>
-            <Search size={16} />
-            <input
-              ref={search}
-              type="search"
-              aria-label="Search interactions"
-              placeholder="Search"
-              value={query}
-              onChange={(e) => {
-                setQuery(e.target.value);
-                setNavOpen(Boolean(e.target.value));
-              }}
-            />
-            <kbd>⌘ K</kbd>
-          </div>
-          <button
-            className={cn("get-started")}
-            ref={started}
-            onClick={openDocs}
-          >
-            Get started <ArrowUpRight size={14} />
-          </button>
-          <button
-            className={cn("icon-button mobile-menu-button")}
-            aria-label="Browse interactions"
-            aria-expanded={navOpen}
-            onClick={() => setNavOpen((n) => !n)}
-          >
-            {navOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
-        </div>
-      </header>
+      <SiteHeader
+        navigation={
+          <>
+            <a href="/library">Library</a>
+            <Button variant="quiet" size="sm" onClick={openDocs}>
+              Docs
+            </Button>
+            <a href="/#about">
+              About <span className={cn("new-badge")}>New</span>
+            </a>
+            <a href="/colors.html">Colors</a>
+          </>
+        }
+        actions={
+          <>
+            <div className={cn("search-box")}>
+              <SiteSearch
+                value={query}
+                onValueChange={setQuery}
+                label="Search interactions"
+                inputRef={search}
+                placeholder="Search"
+              />
+              <kbd>⌘ K</kbd>
+            </div>
+            <Button
+              variant="primary"
+              size="sm"
+              className={cn("get-started")}
+              ref={started}
+              onClick={openDocs}
+            >
+              Get started <ArrowUpRight size={14} />
+            </Button>
+            <Button
+              variant="quiet"
+              size="sm"
+              className={cn("icon-button mobile-menu-button")}
+              aria-label="Browse interactions"
+              aria-expanded={navOpen}
+              onClick={() => setNavOpen((n) => !n)}
+            >
+              {navOpen ? <X size={18} /> : <Menu size={18} />}
+            </Button>
+          </>
+        }
+      />
       <div className={cn("mobile-detail-links")}>
         <a href="/library">Library</a>
         <a href="#usage">Use in React</a>
@@ -258,13 +260,15 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
                       <ArrowLeft size={16} />
                     </a>
                   ) : (
-                    <button
+                    <Button
+                      variant="quiet"
+                      size="sm"
                       className={cn("icon-button")}
                       disabled
                       aria-label="Previous interaction"
                     >
                       <ArrowLeft size={16} />
-                    </button>
+                    </Button>
                   )}
                   {next ? (
                     <a
@@ -275,13 +279,15 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
                       <ArrowRight size={16} />
                     </a>
                   ) : (
-                    <button
+                    <Button
+                      variant="quiet"
+                      size="sm"
                       className={cn("icon-button")}
                       disabled
                       aria-label="Next interaction"
                     >
                       <ArrowRight size={16} />
-                    </button>
+                    </Button>
                   )}
                 </div>
               </div>
@@ -310,45 +316,42 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
                 <ChevronDown size={14} />
               </div>
               <div className={cn("detail-toolbar")}>
-                <div
-                  className={cn("detail-tabs")}
-                  role="tablist"
-                  aria-label="Demo view"
-                  onKeyDown={navigateTabs}
-                >
-                  {(["Preview", "CSS", "React"] as const).map((v) => (
-                    <button
-                      key={v}
-                      role="tab"
-                      id={`view-${v}`}
-                      aria-selected={view === v}
-                      aria-controls="detail-panel"
-                      onClick={() => {
-                        setView(v);
-                        setCopyStatus("");
-                      }}
-                    >
-                      {v}
-                    </button>
-                  ))}
-                </div>
+                <SiteTabs
+                  items={["Preview", "CSS", "React"] as const}
+                  value={view}
+                  onValueChange={(next) => {
+                    setView(next);
+                    setCopyStatus("");
+                  }}
+                  label="Demo view"
+                  panelId="detail-panel"
+                  tabIdPrefix="view"
+                  className="detail-tabs"
+                />
                 <div className={cn("detail-actions")}>
-                  <button className={cn("demo-button")} onClick={copyLink}>
+                  <Button
+                    variant="quiet"
+                    size="sm"
+                    className={cn("demo-button")}
+                    onClick={copyLink}
+                  >
                     {linkStatus === "Link copied" ? (
                       <Check size={14} />
                     ) : (
                       <Link size={14} />
                     )}{" "}
                     {linkStatus === "Link copied" ? "Link copied" : "Copy link"}
-                  </button>
+                  </Button>
                   {view === "Preview" ? (
-                    <button
+                    <Button
+                      variant="quiet"
+                      size="sm"
                       className={cn("demo-button")}
                       onClick={() => setView("React")}
                     >
                       <Code2 size={14} />
                       View code
-                    </button>
+                    </Button>
                   ) : null}
                 </div>
               </div>
@@ -375,7 +378,7 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
                     <MotionPreview key={demo.id} demo={demo} />
                   )
                 ) : (
-                  <CodeBlock
+                  <SiteCode
                     copyDisabled={!source || loading || Boolean(error)}
                     code={
                       view === "React" && loading
@@ -383,16 +386,13 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
                         : (source?.[view] ?? "")
                     }
                     preProps={{ tabIndex: 0 }}
-                  >
-                    <SyntaxCode
-                      code={
-                        view === "React" && loading
-                          ? "Loading component source…"
-                          : (source?.[view] ?? "")
-                      }
-                      language={view}
-                    />
-                  </CodeBlock>
+                    language={view}
+                    filename={
+                      view === "React"
+                        ? libraryEntries[demo.id].filename
+                        : "foundation.css"
+                    }
+                  />
                 )}
               </div>
               <div className={cn("detail-status")} role="status">
@@ -420,14 +420,16 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
                         {LOADING_VARIANTS.length} indicators, ready to compare.
                       </p>
                     </div>
-                    <button
+                    <Button
+                      variant="quiet"
+                      size="sm"
                       type="button"
                       className={cn("demo-button")}
                       aria-pressed={loadingPaused}
                       onClick={() => setLoadingPaused((v) => !v)}
                     >
                       {loadingPaused ? "Play all" : "Pause all"}
-                    </button>
+                    </Button>
                   </div>
                   <LoadingPatternGallery
                     playState={loadingPaused ? "paused" : "running"}
@@ -448,12 +450,10 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
                   Add the editable source with the shadcn CLI. Initialize shadcn
                   in your React 19 / Tailwind CSS v4 project first.
                 </p>
-                <CodeBlock
+                <SiteCode
                   code={`npx shadcn@latest add ${window.location.origin}/r/${demo.id}.json`}
                   preProps={{ className: cn("registry-command") }}
-                >
-                  <code>{`npx shadcn@latest add ${window.location.origin}/r/${demo.id}.json`}</code>
-                </CodeBlock>
+                />
                 <p>
                   Import <code>components/dope-ui/foundation.css</code> once
                   from your global CSS, adjusting the relative path. The CLI
@@ -474,14 +474,10 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
                   shared Tailwind foundation once. Local UI helpers and
                   interaction logic are included.
                 </p>
-                <CodeBlock
+                <SiteCode
                   code={`import ${reactComponentName(demo.id)} from './${reactComponentName(demo.id)}';\n\nexport default function App() {\n  return <${reactComponentName(demo.id)} />;\n}`}
-                >
-                  <SyntaxCode
-                    language="React"
-                    code={`import ${reactComponentName(demo.id)} from './${reactComponentName(demo.id)}';\n\nexport default function App() {\n  return <${reactComponentName(demo.id)} />;\n}`}
-                  />
-                </CodeBlock>
+                  language={"React"}
+                />
                 <p>
                   <a href="/library/foundation.css" download>
                     Download foundation.css
@@ -491,11 +487,9 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
                   <code>@tailwindcss/postcss</code> (Next.js), and install{" "}
                   <code>shadow-plugin</code>.
                 </p>
-                <CodeBlock
+                <SiteCode
                   code={`npm install ${libraryEntries[demo.id].dependencies.join(" ")}`}
-                >
-                  <code>{`npm install ${libraryEntries[demo.id].dependencies.join(" ")}`}</code>
-                </CodeBlock>
+                />
                 <p className={cn("usage-note")}>
                   Requires React 19 and Tailwind CSS v4. The{" "}
                   <code>'use client'</code> directive is included for Next.js.
@@ -577,7 +571,9 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
         </div>
         <div className={cn("footer-links")}>
           <a href="/library">Library</a>
-          <button onClick={openDocs}>Documentation</button>
+          <Button variant="quiet" size="sm" onClick={openDocs}>
+            Documentation
+          </Button>
           <a href="/colors.html">Colors</a>
           <a href="/#about">About</a>
         </div>

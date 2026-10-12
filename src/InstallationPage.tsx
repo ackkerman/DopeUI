@@ -1,8 +1,9 @@
+import { SiteHeader } from "./SiteHeader";
+import { Button } from "./library/primitives/button";
 // This file guarantees a directly addressable guide to the current component distribution.
-import { RepositoryLink } from "./RepositoryLink";
-import { SyntaxCode } from "./SyntaxCode";
+
 import type { CodeLanguage } from "./demo-source";
-import { CodeBlock } from "./library/primitives/code-block";
+import { SiteCode } from "./SiteCode";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import "./InstallationPage.css";
 
@@ -13,11 +14,7 @@ function Command({
   code: string;
   language?: CodeLanguage;
 }) {
-  return (
-    <CodeBlock code={code}>
-      <SyntaxCode code={code} language={language} />
-    </CodeBlock>
-  );
+  return <SiteCode code={code} language={language} />;
 }
 
 export function InstallationPage() {
@@ -26,24 +23,24 @@ export function InstallationPage() {
       <a className="skip-link" href="#installation">
         Skip to installation
       </a>
-      <header className="site-header">
-        <a className="wordmark" href="/" aria-label="dope/ui home">
-          dope<span>/</span>ui<span className="brand-dot">.</span>
-        </a>
-        <nav className="desktop-nav" aria-label="Main navigation">
-          <a href="/library">Library</a>
-          <a href="/installation.html" aria-current="page">
-            Docs
-          </a>
-          <a href="/colors.html">Colors</a>
-        </nav>
-        <div className="header-actions">
-          <RepositoryLink />
-          <a className="get-started" href="/library">
-            Explore library <ArrowRight size={14} />
-          </a>
-        </div>
-      </header>
+      <SiteHeader
+        navigation={
+          <>
+            <a href="/library">Library</a>
+            <a href="/installation.html" aria-current="page">
+              Docs
+            </a>
+            <a href="/colors.html">Colors</a>
+          </>
+        }
+        actions={
+          <>
+            <Button variant="primary" className="get-started" href="/library">
+              Explore library <ArrowRight size={14} />
+            </Button>
+          </>
+        }
+      />
       <div className="detail-shell installation-shell">
         <aside className="detail-sidebar">
           <nav className="sidebar-section" aria-label="Getting started">
@@ -195,9 +192,13 @@ export function InstallationPage() {
               in your own project.
             </p>
           </section>
-          <a className="introduction-action" href="/library">
+          <Button
+            variant="primary"
+            className="introduction-action"
+            href="/library"
+          >
             Browse components <ArrowRight size={16} />
-          </a>
+          </Button>
         </main>
       </div>
     </>

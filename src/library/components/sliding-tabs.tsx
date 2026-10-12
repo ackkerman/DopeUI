@@ -9,57 +9,79 @@ import {
 } from "react";
 
 /** Sliding tabs supports native root props and explicit interaction state. */
-export interface SlidingTabsProps extends Omit<
-  ComponentPropsWithRef<"div">,
-  "children" | "style"
-> {
-  value?: 0 | 1 | 2;
-  defaultValue?: 0 | 1 | 2;
-  onValueChange?: (value: 0 | 1 | 2) => void;
+export interface SlidingTabsProps<
+  Value extends number = 0 | 1 | 2,
+> extends Omit<ComponentPropsWithRef<"div">, "children" | "style"> {
+  value?: Value;
+  defaultValue?: Value;
+  onValueChange?: (value: Value) => void;
+  items?: readonly string[];
+  tablistLabel?: string;
+  panelId?: string;
+  tabIdPrefix?: string;
   style?: CSSProperties & { [key: `--dui-${string}`]: string | number };
   motion?: "system" | "off";
   disabled?: boolean;
 }
 
-export default function SlidingTabs({
+export default function SlidingTabs<Value extends number = 0 | 1 | 2>({
   className = "",
   style,
   motion = "system",
   disabled = false,
   value: controlledStep,
-  defaultValue = 0,
+  defaultValue = 0 as Value,
   onValueChange,
+  items = ["Design", "Build", "Ship"],
+  tablistLabel = "Preview mode",
+  panelId,
+  tabIdPrefix,
   ...rootProps
-}: SlidingTabsProps) {
+}: SlidingTabsProps<Value>) {
   const [internalStep, setInternalStep] = useState(defaultValue);
-  const step = controlledStep ?? internalStep;
+  const labels = items.length ? items : ["Design", "Build", "Ship"];
+  const step = Math.max(
+    0,
+    Math.min(labels.length - 1, controlledStep ?? internalStep),
+  );
   const setStep = (value: number) => {
-    const next = Math.max(0, Math.min(2, value)) as 0 | 1 | 2;
-    if (controlledStep === undefined) setInternalStep(next);
-    onValueChange?.(next);
+    const next = Math.max(0, Math.min(labels.length - 1, value));
+    if (controlledStep === undefined) setInternalStep(next as Value);
+    onValueChange?.(next as Value);
   };
   const contentId = useId();
+  const targetId = panelId ?? contentId;
+  const tabId = (index: number) =>
+    tabIdPrefix ? `${tabIdPrefix}-${labels[index]}` : `${contentId}-${index}`;
   const content = (
     <div
       className={cn("demo-tabs")}
       role="tablist"
-      aria-label="Preview mode"
+      aria-label={tablistLabel}
       onKeyDown={navigateTabs}
+      style={{
+        display: "grid",
+        gridTemplateColumns: `repeat(${labels.length}, minmax(0, 1fr))`,
+      }}
     >
       <div
         className={cn("tab-indicator")}
-        style={{ transform: `translateX(${step * 100}%)` }}
+        style={{
+          width: `calc((100% - 8px) / ${labels.length})`,
+          transform: `translateX(${step * 100}%)`,
+        }}
       />
-      {["Design", "Build", "Ship"].map((s, i) => (
+      {labels.map((s, i) => (
         <button
           type="button"
+          className="border-0! bg-transparent! shadow-none! hover:bg-transparent! hover:text-inherit!"
           disabled={disabled}
           key={s}
           role="tab"
           aria-selected={step === i}
           tabIndex={step === i ? 0 : -1}
-          id={`${contentId}-${i}`}
-          aria-controls={contentId}
+          id={tabId(i)}
+          aria-controls={targetId}
           onClick={() => setStep(i)}
         >
           {s}
@@ -76,20 +98,22 @@ export default function SlidingTabs({
         data-motion={motion}
       >
         {content}
-        <div
-          id={contentId}
-          role="tabpanel"
-          aria-labelledby={`${contentId}-${step}`}
-          style={{
-            position: "absolute",
-            width: 1,
-            height: 1,
-            overflow: "hidden",
-            clipPath: "inset(50%)",
-          }}
-        >
-          {["Design", "Build", "Ship"][step]} mode selected
-        </div>
+        {!panelId && (
+          <div
+            id={contentId}
+            role="tabpanel"
+            aria-labelledby={tabId(step)}
+            style={{
+              position: "absolute",
+              width: 1,
+              height: 1,
+              overflow: "hidden",
+              clipPath: "inset(50%)",
+            }}
+          >
+            {labels[step]} mode selected
+          </div>
+        )}
       </div>
     </>
   );

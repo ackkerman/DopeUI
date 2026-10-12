@@ -19,6 +19,12 @@ export interface ClearInputProps extends Omit<
   style?: CSSProperties & { [key: `--dui-${string}`]: string | number };
   motion?: "system" | "off";
   disabled?: boolean;
+  inputProps?: Omit<
+    ComponentPropsWithRef<"input">,
+    "value" | "defaultValue" | "onChange" | "disabled"
+  >;
+  showReset?: boolean;
+  clearLabel?: string;
 }
 
 export default function ClearInput({
@@ -29,6 +35,9 @@ export default function ClearInput({
   value: controlledValue,
   defaultValue = "Make something great",
   onValueChange,
+  inputProps,
+  showReset = true,
+  clearLabel = "Clear demo input",
   ...rootProps
 }: ClearInputProps) {
   const [internalValue, setInternalValue] = useState(defaultValue);
@@ -47,11 +56,17 @@ export default function ClearInput({
   );
   const content = (
     <>
-      <div className={cn(`clear-field ${running ? "clearing" : ""}`)}>
+      <div
+        className={cn(
+          `clear-field relative h-11! min-h-11! rounded-full! border-0! bg-[var(--frost-surface-raised,#e5e9f0)]! px-3! py-2! shadow-none! ${running ? "clearing" : ""}`,
+        )}
+      >
         <Search size={15} />
         <input
           disabled={disabled}
+          className="border-0! bg-transparent! pr-8! outline-none! [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:hidden"
           aria-label="Demo search"
+          {...inputProps}
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
@@ -59,7 +74,8 @@ export default function ClearInput({
           <button
             type="button"
             disabled={disabled}
-            aria-label="Clear demo input"
+            className="absolute! right-2 top-1/2 -translate-y-1/2"
+            aria-label={clearLabel}
             onClick={() => {
               setRunning(true);
               if (timer.current) clearTimeout(timer.current);
@@ -73,10 +89,12 @@ export default function ClearInput({
           </button>
         )}
       </div>
-      <PlayButton
-        label="Reset text"
-        action={() => setValue("Make something great")}
-      />
+      {showReset && (
+        <PlayButton
+          label="Reset text"
+          action={() => setValue("Make something great")}
+        />
+      )}
     </>
   );
   return (

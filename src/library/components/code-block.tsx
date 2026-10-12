@@ -33,6 +33,9 @@ export interface CodeSnippetProps {
   maxHeight?: CSSProperties["maxHeight"];
   className?: string;
   command?: boolean;
+  previewLimit?: number;
+  copyLabel?: string;
+  copyDisabled?: boolean;
 }
 
 const CODE_PAINT: Record<string, string> = {
@@ -79,7 +82,7 @@ function paintToken(token: string | Prism.Token, key: string): ReactNode {
           )
         : paintToken(token.content, `${key}-nested`);
   return (
-    <span key={key} className={CODE_PAINT[token.type]}>
+    <span key={key} className={cn("token", token.type, CODE_PAINT[token.type])}>
       {content}
     </span>
   );
@@ -120,6 +123,9 @@ export function CodeSnippet({
   maxHeight = 320,
   className,
   command = false,
+  previewLimit = 24000,
+  copyLabel,
+  copyDisabled = false,
 }: CodeSnippetProps) {
   const id = useId();
   const [selected, setSelected] = useState<string>();
@@ -130,7 +136,13 @@ export function CodeSnippet({
   const active =
     options.find((file) => file.filename === selected) ?? options[0];
   const activeIndex = options.indexOf(active);
-  const lines = active.code.split("\n");
+  // Preview size never changes the complete source passed to the copy primitive.
+  const displayed =
+    active.code.length > previewLimit
+      ? active.code.slice(0, previewLimit) +
+        "\n/* Preview shortened. Copy the complete source. */"
+      : active.code;
+  const lines = displayed.split("\n");
   const emphasized = active.highlightedLines ?? highlightedLines;
   return (
     <div
@@ -196,30 +208,39 @@ export function CodeSnippet({
           options.length > 1 ? `${id}-tab-${activeIndex}` : undefined
         }
       >
-        <div className="flex h-10 items-center gap-2 border-b border-[#e5e7eb] bg-[#f8f9fa] px-4 pr-12 font-mono text-xs text-[#535861]">
-          {command ? (
-            <Terminal size={14} aria-hidden />
-          ) : (
-            <FileCode2 size={14} aria-hidden />
-          )}
-          <span className="truncate">
-            {command ? "Terminal" : active.filename}
-          </span>
-        </div>
         <CodeBlock
+          header={
+            <span className="flex min-w-0 items-center gap-2">
+              {" "}
+              {command ? (
+                <Terminal size={14} aria-hidden />
+              ) : (
+                <FileCode2 size={14} aria-hidden />
+              )}
+              <span className="truncate">
+                {command ? "Terminal" : active.filename}
+              </span>
+            </span>
+          }
           code={active.code}
           tone="surface"
-          copyLabel={`Copy ${command ? (active.label ?? active.filename) : active.filename}`}
-          className="mb-0! [&>.dui-code-copy]:-top-9! [&>.dui-code-copy]:right-2! [&>.dui-code-copy]:text-[#535861]!"
+          copyLabel={
+            copyLabel ??
+            `Copy ${command ? (active.label ?? active.filename) : active.filename}`
+          }
+          copyDisabled={copyDisabled}
+          className="m-0!"
           preProps={{
             tabIndex: 0,
             "aria-label": `${active.filename} source`,
             style: { maxHeight },
             className:
-              "m-0! rounded-none! bg-transparent! p-0! font-mono text-xs! leading-6! text-inherit!",
+              "m-0! min-h-0! rounded-none! bg-transparent! p-0! font-mono text-xs! leading-6! text-inherit!",
           }}
         >
-          <code className="grid min-w-max py-4">
+          <code
+            className={`grid min-w-max py-4 language-${active.language ?? language}`}
+          >
             {lines.map((text, index) => (
               <span
                 key={index}

@@ -109,3 +109,33 @@ it("keeps public labels and download names consistent for every component", () =
     expect(reactComponentName(demo.id)).toBe(componentName);
   }
 });
+
+it("groups primary button interactions in Buttons without changing the curated order", () => {
+  expect(filterDemos("", "Buttons", "featured").map((demo) => demo.id)).toEqual(
+    [
+      "pulsating-button",
+      "interactive-hover-button",
+      "rainbow-button",
+      "delete-button",
+      "like",
+      "emoji-reaction",
+      "icon-swap",
+      "quick-actions",
+    ],
+  );
+  expect(
+    filterDemos("rainbow", "Buttons", "featured").map((demo) => demo.id),
+  ).toEqual(["rainbow-button"]);
+});
+
+it("groups the requested image interactions in Images and supports combined search", () => {
+  expect(filterDemos("", "Images", "featured").map((demo) => demo.id)).toEqual([
+    "image-open-tilt",
+    "organic-shimmer",
+    "grid-reveal",
+    "card-stack-hover",
+  ]);
+  expect(
+    filterDemos("zoom", "Images", "featured").map((demo) => demo.id),
+  ).toEqual(["image-open-tilt"]);
+});

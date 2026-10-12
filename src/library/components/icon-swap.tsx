@@ -41,7 +41,11 @@ export default function IconSwap({
   };
   const content = (
     <>
-      <div className={cn("round-button icon-display")} key={String(active)}>
+      <div
+        className={cn("round-button icon-display")}
+        data-dui-button="icon"
+        key={String(active)}
+      >
         {active ? <Moon size={22} /> : <Sun size={22} />}
       </div>
       <PlayButton disabled={disabled} action={toggle} />

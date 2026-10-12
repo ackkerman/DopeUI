@@ -24,7 +24,7 @@ afterEach(() => {
 });
 it("switches mode and brand without modifying the host document theme", () => {
   const view = render(<FrostColorPage />);
-  fireEvent.click(screen.getByRole("button", { name: "Dark" }));
+  fireEvent.click(screen.getByRole("tab", { name: "Dark" }));
   fireEvent.click(screen.getByRole("button", { name: "Mint" }));
   const scope = view.container.querySelector("[data-frost]");
   expect(scope?.getAttribute("data-theme")).toBe("dark");
@@ -71,7 +71,7 @@ it("uses canonical components whose state survives color changes", () => {
   fireEvent.click(
     screen.getByRole("checkbox", { name: "Explore the first direction" }),
   );
-  fireEvent.click(screen.getByRole("button", { name: "Dark" }));
+  fireEvent.click(screen.getByRole("tab", { name: "Dark" }));
   fireEvent.click(screen.getByRole("button", { name: "Lavender" }));
   expect(
     screen

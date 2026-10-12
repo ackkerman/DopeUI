@@ -8,9 +8,18 @@ if (!existsSync(path) || readFileSync(path, "utf8") !== content)
 console.log("FROST CSS synchronized.");
 
 mkdirSync("public/library", { recursive: true });
-for (const name of ["frost-colors.css", "frost-tailwind.css"]) {
+for (const name of [
+  "frost-colors.css",
+  "frost-tailwind.css",
+  "foundation.css",
+]) {
   const output = "public/library/" + name,
-    content = readFileSync("src/library/" + name, "utf8");
+    content = readFileSync(
+      name === "foundation.css"
+        ? "src/library/foundation.txt"
+        : "src/library/" + name,
+      "utf8",
+    );
   if (!existsSync(output) || readFileSync(output, "utf8") !== content)
     writeFileSync(output, content);
 }

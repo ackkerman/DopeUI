@@ -99,6 +99,7 @@ export const PulsatingButton = React.forwardRef<
     return (
       <button
         ref={innerRef}
+        data-dui-button="action"
         type="button"
         className={cn(
           "bg-primary text-primary-foreground relative flex cursor-pointer items-center justify-center rounded-lg px-4 py-2 text-center",
@@ -106,7 +107,10 @@ export const PulsatingButton = React.forwardRef<
         )}
         style={
           {
-            ...(pulseColor && { "--pulse-color": pulseColor }),
+            ...(pulseColor && {
+              "--pulse-color": pulseColor,
+              backgroundColor: pulseColor,
+            }),
             "--duration": duration,
             "--distance": distance,
             ...style,
@@ -151,7 +155,7 @@ export default function PulsatingButtonDemo({
         variant={props.variant ?? (alternate ? "ripple" : "pulse")}
         className={cn(
           "feature-button",
-          "rounded-full min-h-11 px-6 py-3 text-sm font-medium",
+          "rounded-full min-h-12 px-6 py-3 text-[13px] font-medium",
         )}
         disabled={props.disabled || disabled}
         onClick={(event) => {

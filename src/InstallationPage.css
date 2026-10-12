@@ -31,20 +31,7 @@
   display: inline;
   vertical-align: middle;
 }
-.installation-content pre {
-  overflow: auto;
-  max-width: 100%;
-  padding: 22px;
-  border-radius: 16px;
-  background: #1c1c1e;
-  color: #fff;
-  font-size: 12px;
-  line-height: 1.7;
-  margin: 20px 0;
-}
-.installation-content .code-block-copy {
-  color: #fff;
-}
+
 .installation-shell [aria-current="page"] {
   color: var(--accent);
   background: var(--preview);

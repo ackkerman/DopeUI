@@ -18,7 +18,7 @@ const rainbowButtonVariants = cva(
     variants: {
       variant: {
         default:
-          "border-0 bg-[linear-gradient(#2E3440,#2E3440),linear-gradient(#2E3440_50%,rgba(18,18,19,0.6)_80%,rgba(18,18,19,0)),linear-gradient(90deg,var(--dui-rainbow-color-1),var(--dui-rainbow-color-5),var(--dui-rainbow-color-3),var(--dui-rainbow-color-4),var(--dui-rainbow-color-2))] bg-[length:200%] text-primary-foreground [background-clip:padding-box,border-box,border-box] [background-origin:border-box] [border:calc(0.125rem)_solid_transparent] before:absolute before:bottom-[-20%] before:left-1/2 before:z-0 before:h-1/5 before:w-3/5 before:-translate-x-1/2 before:animate-dui-rainbow before:bg-[linear-gradient(90deg,var(--dui-rainbow-color-1),var(--dui-rainbow-color-5),var(--dui-rainbow-color-3),var(--dui-rainbow-color-4),var(--dui-rainbow-color-2))] before:bg-[length:200%] before:[filter:blur(0.75rem)] dark:bg-[linear-gradient(#fff,#fff),linear-gradient(#fff_50%,rgba(255,255,255,0.6)_80%,rgba(0,0,0,0)),linear-gradient(90deg,var(--dui-rainbow-color-1),var(--dui-rainbow-color-5),var(--dui-rainbow-color-3),var(--dui-rainbow-color-4),var(--dui-rainbow-color-2))]",
+          "border-0 bg-[linear-gradient(#ffffff,#ffffff),linear-gradient(#ffffff_50%,rgba(255,255,255,0.6)_80%,rgba(255,255,255,0)),linear-gradient(90deg,var(--dui-rainbow-color-1),var(--dui-rainbow-color-5),var(--dui-rainbow-color-3),var(--dui-rainbow-color-4),var(--dui-rainbow-color-2))] bg-[length:200%] text-foreground [background-clip:padding-box,border-box,border-box] [background-origin:border-box] [border:calc(0.125rem)_solid_transparent] before:absolute before:bottom-[-20%] before:left-1/2 before:z-0 before:h-1/5 before:w-3/5 before:-translate-x-1/2 before:animate-dui-rainbow before:bg-[linear-gradient(90deg,var(--dui-rainbow-color-1),var(--dui-rainbow-color-5),var(--dui-rainbow-color-3),var(--dui-rainbow-color-4),var(--dui-rainbow-color-2))] before:bg-[length:200%] before:[filter:blur(0.75rem)] dark:bg-[linear-gradient(#fff,#fff),linear-gradient(#fff_50%,rgba(255,255,255,0.6)_80%,rgba(0,0,0,0)),linear-gradient(90deg,var(--dui-rainbow-color-1),var(--dui-rainbow-color-5),var(--dui-rainbow-color-3),var(--dui-rainbow-color-4),var(--dui-rainbow-color-2))]",
         outline:
           "border border-input border-b-transparent bg-[linear-gradient(#ffffff,#ffffff),linear-gradient(#ffffff_50%,rgba(18,18,19,0.6)_80%,rgba(18,18,19,0)),linear-gradient(90deg,var(--dui-rainbow-color-1),var(--dui-rainbow-color-5),var(--dui-rainbow-color-3),var(--dui-rainbow-color-4),var(--dui-rainbow-color-2))] bg-[length:200%] text-accent-foreground [background-clip:padding-box,border-box,border-box] [background-origin:border-box] before:absolute before:bottom-[-20%] before:left-1/2 before:z-0 before:h-1/5 before:w-3/5 before:-translate-x-1/2 before:animate-dui-rainbow before:bg-[linear-gradient(90deg,var(--dui-rainbow-color-1),var(--dui-rainbow-color-5),var(--dui-rainbow-color-3),var(--dui-rainbow-color-4),var(--dui-rainbow-color-2))] before:bg-[length:200%] before:[filter:blur(0.75rem)] dark:bg-[linear-gradient(#2E3440,#2E3440),linear-gradient(#2E3440_50%,rgba(255,255,255,0.6)_80%,rgba(0,0,0,0)),linear-gradient(90deg,var(--dui-rainbow-color-1),var(--dui-rainbow-color-5),var(--dui-rainbow-color-3),var(--dui-rainbow-color-4),var(--dui-rainbow-color-2))]",
       },
@@ -49,6 +49,7 @@ const RainbowButton = React.forwardRef<HTMLButtonElement, RainbowButtonProps>(
     return (
       <Comp
         data-slot="rainbow-button"
+        data-dui-button="action"
         type={asChild ? undefined : "button"}
         className={cn(rainbowButtonVariants({ variant, size, className }))}
         ref={ref}
@@ -68,7 +69,6 @@ export default function RainbowButtonDemo({
   children = "Explore more",
   ...props
 }: RainbowButtonDemoProps) {
-  const [count, setCount] = React.useState(0);
   const [disabled, setDisabled] = React.useState(false);
   const [alternate, setAlternate] = React.useState(false);
   return (
@@ -81,21 +81,15 @@ export default function RainbowButtonDemo({
         variant={props.variant ?? (alternate ? "outline" : "default")}
         className={cn(
           "feature-button",
-          "rounded-full min-h-11 px-6 py-3 text-sm font-medium",
+          "rounded-full min-h-12 px-6 py-3 text-[13px] font-medium",
         )}
         disabled={props.disabled || disabled}
         onClick={(event) => {
-          setCount((n) => n + 1);
           props.onClick?.(event);
         }}
       >
         {children}
       </RainbowButton>
-      <p className={cn("text-xs text-[#59687D]")} role="status">
-        {count
-          ? `Pressed ${count} ${count === 1 ? "time" : "times"}`
-          : "Try the interaction."}
-      </p>
       <div className={cn("dui-demo-controls")}>
         <button type="button" onClick={() => setDisabled((v) => !v)}>
           {disabled ? "Enable" : "Disable"}

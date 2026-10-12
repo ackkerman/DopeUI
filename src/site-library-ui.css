@@ -1,0 +1,274 @@
+/* Site layouts consume library controls without their gallery-stage dimensions. */
+:root .site-tabs.dui-sliding-tabs {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  min-height: 0;
+  height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+:root .site-tabs .demo-tabs {
+  display: grid;
+  width: max-content;
+  max-width: none;
+  min-width: 210px;
+  padding: 4px;
+}
+:root .site-tabs .demo-tabs button {
+  width: 100%;
+  min-width: 0;
+  white-space: nowrap;
+  padding: 8px 14px;
+  background: transparent;
+  font-size: 12px;
+}
+:root .site-tabs .demo-tabs button[aria-selected="true"] {
+  background: transparent;
+}
+:root .site-search.dui-clear-input {
+  display: block;
+  min-height: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+:root .site-search .clear-field {
+  min-width: 0;
+  width: 100%;
+  max-width: none;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: var(--frost-surface-raised, #e5e9f0);
+  box-shadow: none;
+}
+:root .site-search .clear-field input {
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+}
+:root .search-box:has(.site-search),
+:root .home-example-search:has(.site-search) {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+:root .search-box .site-search {
+  width: 150px;
+}
+:root .search-box:has(.site-search) kbd {
+  display: none;
+}
+:root .site-accordion.dui-accordion {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+:root .site-accordion .demo-accordion {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+:root .site-accordion .demo-accordion > button {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px;
+  font-size: 12px;
+}
+:root .site-accordion .accordion-content > div {
+  min-height: 0;
+  overflow: hidden;
+}
+:root .site-modal-host.dui-modal {
+  display: contents;
+}
+:root .site-modal-host .mini-modal.code-dialog,
+:root .site-modal-host .mini-modal.home-example-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  opacity: 1;
+  transform: none;
+  display: block;
+}
+:root .site-modal-host .mini-modal.code-dialog {
+  width: 720px;
+}
+:root .site-modal-host .mini-modal.home-example-dialog {
+  display: flex;
+  flex-direction: column;
+  width: min(900px, calc(100vw - 40px));
+}
+:root .site-code {
+  margin: 20px 0;
+}
+@media (max-width: 699px) {
+  :root .search-box .site-search {
+    width: 106px;
+  }
+  :root .site-tabs .demo-tabs button {
+    padding: 8px 10px;
+  }
+}
+
+/* CodeSnippet owns its surface; former code panels must not add a dark frame. */
+:root .detail-code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+:root .detail-code .site-code {
+  margin: 0;
+}
+:root .home-example-filters.site-tabs {
+  overflow-x: auto;
+  max-width: 100%;
+}
+:root [data-dui-action].get-started {
+  background: var(--primary, #5e81ac);
+  color: var(--primary-foreground, #fff);
+  border-radius: var(--dui-radius-control, 999px);
+  box-shadow: none;
+}
+:root [data-dui-action].get-started:hover {
+  background: var(--primary, #5e81ac);
+  filter: none;
+}
+:root .site-search.dui-clear-input,
+:root .site-accordion.dui-accordion {
+  height: auto;
+}
+:root .site-tabs .demo-tabs button {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+:root .site-tabs .demo-tabs button[aria-selected="true"] {
+  border: 0;
+  box-shadow: none;
+}
+:root .home-dialog-body .home-source-code:has(.site-code),
+:root .home-dialog-body:has(> .site-code) {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  border: 0;
+}
+/* Keep the repository action in the same final slot across page layouts. */
+:root .header-actions .repository-link {
+  order: 10;
+}
+:root .header-actions .mobile-menu-button {
+  order: 11;
+}
+:root .site-search .clear-field {
+  height: 44px;
+  min-height: 44px;
+}
+:root .header-actions .repository-link {
+  order: 20;
+}
+:root .header-actions .mobile-menu-button {
+  order: 10;
+}
+@media (max-width: 699px) {
+  :root .site-header {
+    gap: 12px;
+  }
+  :root .header-actions {
+    gap: 8px;
+  }
+  :root .site-header:has(.search-box) {
+    height: 128px;
+    align-items: flex-start;
+    padding-top: 16px;
+  }
+  :root .site-header:has(.search-box) > .wordmark {
+    margin-top: 7px;
+  }
+  :root .site-header .search-box {
+    position: absolute;
+    top: 76px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+    max-width: none;
+  }
+  :root .site-header .search-box .site-search {
+    width: 100%;
+  }
+}
+:root .sidebar-section > [data-dui-action] {
+  justify-content: flex-start;
+  width: 100%;
+}
+:root .site-accordion.dui-accordion {
+  height: max-content;
+}
+:root .frost-doc-section-head .site-search {
+  width: 220px;
+  max-width: 50%;
+  flex-shrink: 0;
+}
+:root .frost-doc-section-head h2 {
+  flex-shrink: 0;
+}
+:root .site-search .clear-field input {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+:root .frost-doc-section-head {
+  flex-wrap: wrap;
+}
+:root .frost-doc-section-head h2 {
+  white-space: nowrap;
+}
+@media (max-width: 699px) {
+  :root .frost-doc-section-head .site-search {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+:root .site-search input::-webkit-search-cancel-button,
+:root .site-search input::-webkit-search-decoration {
+  display: none;
+  -webkit-appearance: none;
+}
+:root .site-search .clear-field input:focus,
+:root .site-search .clear-field input:focus-visible {
+  outline: none;
+  box-shadow: none;
+  border: 0;
+}
+:root .site-search .clear-field:focus-within {
+  box-shadow: none;
+  outline: none;
+  border: 0;
+}
+:root .site-search .clear-field {
+  border: 0;
+  outline: none;
+  box-shadow: none;
+}
+:root .site-search .clear-field:focus-within {
+  border: 0;
+  outline: none;
+  box-shadow: none;
+}
+:root .motion-card .dui-organic-shimmer [aria-label="Shimmer direction"] {
+  display: none;
+}

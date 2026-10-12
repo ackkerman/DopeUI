@@ -64,6 +64,7 @@ export default function QuickActions({
           type="button"
           disabled={disabled}
           className={cn("round-button plus-main")}
+          data-dui-button="icon"
           aria-label="Toggle quick actions"
           aria-expanded={active}
           onClick={toggle}

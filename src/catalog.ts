@@ -2,8 +2,10 @@
 export const categories = [
   "All",
   "Essential",
+  "Buttons",
   "AI Agents",
   "Effects",
+  "Images",
   "Texts",
 ] as const;
 export type Category = (typeof categories)[number];
@@ -22,27 +24,27 @@ export const demos: MotionDemo[] = [
     id: "pulsating-button",
     title: "Pulse Button",
     description: "A gentle pulse or expanding ripple around a call to action.",
-    category: "Essential",
+    category: "Buttons",
     kind: "component",
   },
   {
     id: "interactive-hover-button",
     title: "Hover Button",
     description: "A expanding color dot reveals an arrow and action label.",
-    category: "Essential",
+    category: "Buttons",
     kind: "component",
   },
   {
     id: "rainbow-button",
     title: "Rainbow Button",
     description: "An animated spectrum glows around the button border.",
-    category: "Essential",
+    category: "Buttons",
     kind: "component",
   },
   {
     id: "delete-button",
     title: "Delete Button",
-    category: "Essential",
+    category: "Buttons",
     description: "Animated deletion feedback with a folding lid.",
     kind: "ai",
   },
@@ -52,13 +54,13 @@ export const demos: MotionDemo[] = [
     id: "like",
     title: "Like Button",
     description: "A little love goes a long way.",
-    category: "Effects",
+    category: "Buttons",
     kind: "like",
   },
   {
     id: "emoji-reaction",
     title: "Emoji Reaction",
-    category: "Effects",
+    category: "Buttons",
     description: "A reaction picker with a particle celebration.",
     kind: "ai",
   },
@@ -66,7 +68,7 @@ export const demos: MotionDemo[] = [
     id: "icon-swap",
     title: "Icon Swap",
     description: "A new icon, without the hard cut.",
-    category: "Effects",
+    category: "Buttons",
     kind: "icons",
   },
   {
@@ -119,7 +121,7 @@ export const demos: MotionDemo[] = [
     id: "quick-actions",
     title: "Quick Actions",
     description: "One button. A few possibilities.",
-    category: "Effects",
+    category: "Buttons",
     kind: "plus",
   },
   {
@@ -193,7 +195,7 @@ export const demos: MotionDemo[] = [
     id: "image-open-tilt",
     title: "Image Zoom",
     description: "An image opens in place with a smooth, straight zoom.",
-    category: "Effects",
+    category: "Images",
     kind: "library",
   },
   {
@@ -450,7 +452,7 @@ export const demos: MotionDemo[] = [
     id: "organic-shimmer",
     title: "Organic Shimmer",
     description: "A wavy light band travels with a soft edge glow.",
-    category: "AI Agents",
+    category: "Images",
     kind: "library",
   },
   {
@@ -486,7 +488,7 @@ export const demos: MotionDemo[] = [
   {
     id: "grid-reveal",
     title: "Grid Reveal",
-    category: "AI Agents",
+    category: "Images",
     description: "Grid-based reveal for generated images.",
     kind: "ai",
   },
@@ -595,7 +597,7 @@ export const demos: MotionDemo[] = [
     id: "card-stack-hover",
     title: "Hover Card Stack",
     description: "A small collection fans out on hover and focus.",
-    category: "Essential",
+    category: "Images",
     kind: "library",
   },
 ];

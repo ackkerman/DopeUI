@@ -1,11 +1,15 @@
+import { SiteHeader } from "./SiteHeader";
+import { GlideMenu } from "./library/primitives/glide-menu";
+import { SiteSearch } from "./SiteSearch";
+import { SiteTabs } from "./SiteTabs";
+import { Button } from "./library/primitives/button";
 import { InstallationPage } from "./InstallationPage";
-import { RepositoryLink } from "./RepositoryLink";
 import { useMasonryLayout } from "./use-masonry-layout";
 import { HomePage } from "./HomePage";
 import { cn } from "./class-names";
 import { DetailPage } from "./DetailPage";
 import { detailHref, resolveDetail } from "./detail-navigation";
-import { navigateTabs } from "./tab-navigation";
+
 // This file guarantees a searchable library with local, independent previews.
 import { useEffect, useRef, useState } from "react";
 import {
@@ -79,64 +83,71 @@ function LibraryPage() {
       <a className={cn("skip-link")} href="#library">
         Skip to library
       </a>
-      <header className={cn("site-header")}>
-        <a className={cn("wordmark")} href="/" aria-label="dope/ui home">
-          dope<span>/</span>ui<span className={cn("brand-dot")}>.</span>
-        </a>
-        <nav className={cn("desktop-nav")} aria-label="Main navigation">
-          <a className={cn("nav-active")} href="#library">
-            Library
-          </a>
-          <button onClick={openDocs}>Docs</button>
-          <a href="#about">
-            About <span className={cn("new-badge")}>New</span>
-          </a>
-
-          <a href="/colors.html">Colors</a>
-        </nav>
-        <div className={cn("header-actions")}>
-          <RepositoryLink />
-          <div className={cn("search-box")}>
-            <Search size={16} />
-            <input
-              ref={search}
-              type="search"
-              aria-label="Search library"
-              placeholder="Search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <kbd>⌘ K</kbd>
-          </div>
-          <button
-            className={cn("get-started")}
-            ref={getStarted}
-            onClick={openDocs}
-          >
-            Get started <ArrowUpRight size={14} />
-          </button>
-          <button
-            className={cn("icon-button mobile-menu-button")}
-            aria-label="Toggle navigation"
-            aria-expanded={mobileMenu}
-            onClick={() => setMobileMenu((v) => !v)}
-          >
-            {mobileMenu ? <X size={18} /> : <Menu size={18} />}
-          </button>
-        </div>
-        {mobileMenu && (
-          <nav className={cn("mobile-nav")} aria-label="Mobile navigation">
-            <a href="#library" onClick={() => setMobileMenu(false)}>
+      <SiteHeader
+        navigation={
+          <>
+            <a className={cn("nav-active")} href="#library">
               Library
             </a>
-            <button onClick={openDocs}>Docs</button>
-            <a href="/colors.html">Colors</a>
-            <a href="#about" onClick={() => setMobileMenu(false)}>
-              About
+            <Button variant="quiet" size="sm" onClick={openDocs}>
+              Docs
+            </Button>
+            <a href="#about">
+              About <span className={cn("new-badge")}>New</span>
             </a>
-          </nav>
-        )}
-      </header>
+            <a href="/colors.html">Colors</a>
+          </>
+        }
+        actions={
+          <>
+            <div className={cn("search-box")}>
+              <SiteSearch
+                value={query}
+                onValueChange={setQuery}
+                label="Search library"
+                inputRef={search}
+                placeholder="Search"
+              />
+              <kbd>⌘ K</kbd>
+            </div>
+            <Button
+              variant="primary"
+              size="sm"
+              className={cn("get-started")}
+              ref={getStarted}
+              onClick={openDocs}
+            >
+              Get started <ArrowUpRight size={14} />
+            </Button>
+            <Button
+              variant="quiet"
+              size="sm"
+              className={cn("icon-button mobile-menu-button")}
+              aria-label="Toggle navigation"
+              aria-expanded={mobileMenu}
+              onClick={() => setMobileMenu((v) => !v)}
+            >
+              {mobileMenu ? <X size={18} /> : <Menu size={18} />}
+            </Button>
+          </>
+        }
+        mobileNav={
+          mobileMenu && (
+            <nav className={cn("mobile-nav")} aria-label="Mobile navigation">
+              <a href="#library" onClick={() => setMobileMenu(false)}>
+                Library
+              </a>
+              <Button variant="quiet" size="sm" onClick={openDocs}>
+                Docs
+              </Button>
+              <a href="/colors.html">Colors</a>
+              <a href="#about" onClick={() => setMobileMenu(false)}>
+                About
+              </a>
+            </nav>
+          )
+        }
+      />
       <main id="library">
         <section className={cn("intro")}>
           <h1>
@@ -146,30 +157,22 @@ function LibraryPage() {
         </section>
         <div className={cn("toolbar")}>
           <div className={cn("category-scroll")}>
-            <div
-              className={cn("categories")}
-              role="tablist"
-              aria-label="Filter by category"
-              onKeyDown={navigateTabs}
-            >
-              {categories.map((c) => (
-                <button
-                  key={c}
-                  role="tab"
-                  aria-selected={category === c}
-                  onClick={() => setCategory(c)}
-                >
-                  {c}
-                </button>
-              ))}
-            </div>
+            <SiteTabs
+              items={categories}
+              value={category}
+              onValueChange={setCategory}
+              label="Filter by category"
+              className="categories"
+            />
           </div>
           <div className={cn("toolbar-end")}>
             <span className={cn("result-count")} aria-live="polite">
               {results.length} interactions
             </span>
             <div className={cn("sort-area")} ref={sortArea}>
-              <button
+              <Button
+                variant="quiet"
+                size="sm"
                 className={cn(
                   `icon-button sort-trigger ${sortOpen ? "selected" : ""}`,
                 )}
@@ -178,9 +181,9 @@ function LibraryPage() {
                 onClick={() => setSortOpen((v) => !v)}
               >
                 <SlidersHorizontal size={16} />
-              </button>
+              </Button>
               {sortOpen && (
-                <div className={cn("sort-menu")}>
+                <GlideMenu className="sort-menu" rowSelector="button">
                   <span>Sort by</span>
                   {(
                     [
@@ -189,7 +192,9 @@ function LibraryPage() {
                       ["za", "Name: Z–A"],
                     ] as const
                   ).map(([value, label]) => (
-                    <button
+                    <Button
+                      variant="quiet"
+                      size="sm"
                       key={value}
                       aria-pressed={sort === value}
                       onClick={() => {
@@ -201,9 +206,9 @@ function LibraryPage() {
                       {sort === value && (
                         <span className={cn("selected-dot")} />
                       )}
-                    </button>
+                    </Button>
                   ))}
-                </div>
+                </GlideMenu>
               )}
             </div>
           </div>
@@ -240,14 +245,16 @@ function LibraryPage() {
                   >
                     <ArrowRight size={15} />
                   </a>
-                  <button
+                  <Button
+                    variant="quiet"
+                    size="sm"
                     className={cn("code-button")}
                     aria-label={`View code for ${d.title}`}
                     title="View code"
                     onClick={() => setSelected(d)}
                   >
                     <Code2 size={16} />
-                  </button>
+                  </Button>
                 </div>
               </div>
             </article>
@@ -258,9 +265,14 @@ function LibraryPage() {
             <Search size={28} />
             <h2>No interactions found.</h2>
             <p>Try another keyword or explore the full collection.</p>
-            <button className={cn("demo-button")} onClick={reset}>
+            <Button
+              variant="quiet"
+              size="sm"
+              className={cn("demo-button")}
+              onClick={reset}
+            >
               Reset filters <ArrowRight size={14} />
-            </button>
+            </Button>
           </div>
         )}
         <section id="about" className={cn("about-section")}>
@@ -282,9 +294,9 @@ function LibraryPage() {
                 <br />
                 Just the code you need to get moving.
               </p>
-              <button onClick={openDocs}>
+              <Button variant="quiet" size="sm" onClick={openDocs}>
                 Explore the docs <ArrowRight size={15} />
-              </button>
+              </Button>
             </div>
             <div>
               <ArrowDownAZ size={20} />
@@ -310,7 +322,9 @@ function LibraryPage() {
         </div>
         <div className={cn("footer-links")}>
           <a href="#library">Library</a>
-          <button onClick={openDocs}>Documentation</button>
+          <Button variant="quiet" size="sm" onClick={openDocs}>
+            Documentation
+          </Button>
           <a href="/colors.html">Colors</a>
           <a href="#about">About</a>
         </div>

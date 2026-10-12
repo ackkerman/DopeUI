@@ -44,13 +44,13 @@ const PRESS = {
 const INSTANT = { duration: 0 } as const;
 
 // Share the library's semantic colours; avoid a separate orange/neumorphic palette.
-const SURFACE = "bg-[var(--frost-surface,#eceff4)]";
+const SURFACE = "bg-[var(--frost-surface,var(--surface,#fff))]";
 const RECESS = "bg-[var(--frost-background,#e5e9f0)]";
 const GLYPH = "text-[var(--frost-foreground,#2e3440)]";
 const FOCUS =
   "outline-none focus-visible:ring-2 focus-visible:ring-[var(--frost-primary,#5e81ac)]";
 const ACCENT = "var(--frost-primary, #5e81ac)";
-const CIRCLE = `grid h-7 w-7 place-items-center rounded-full transition-colors duration-150 hover:bg-[var(--frost-border,#d8dee9)] ${FOCUS} ${SURFACE}`;
+const CIRCLE = `grid h-7 w-7 place-items-center rounded-full transition-colors duration-150 hover:bg-[var(--frost-surface,#fff)] ${FOCUS} ${SURFACE}`;
 
 const ICON = {
   viewBox: "0 0 24 24",
@@ -168,9 +168,15 @@ export function DeleteButton({
   return (
     <motion.div
       data-slot="delete-button"
+      data-dui-button="icon"
       data-state={open ? "open" : "closed"}
       data-status={status}
-      className={cn("relative h-12 rounded-full", SURFACE, GLYPH, className)}
+      className={cn(
+        "relative block h-12 rounded-full",
+        SURFACE,
+        GLYPH,
+        className,
+      )}
       animate={{ width: open ? TILE + PANEL : TILE }}
       transition={timing(WIDTH)}
       onKeyDown={(event) => {
@@ -191,7 +197,7 @@ export function DeleteButton({
         whileTap={reduced ? undefined : { scale: 0.94 }}
         transition={TAP}
         className={cn(
-          "relative z-10 grid h-12 w-12 place-items-center rounded-full",
+          "absolute inset-y-0 left-0 z-10 m-0! grid h-12 w-12 place-items-center rounded-full",
           FOCUS,
         )}
       >

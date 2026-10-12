@@ -2,18 +2,18 @@
 // This file guarantees an original square shimmer with a wavy band and synchronized edge light.
 import { useEffect, useRef, useState, useId, type ComponentProps } from "react";
 import { cn } from "../../class-names";
-function bandPath(progress: number) {
-  const x = -36 + 212 * progress;
+function bandPath(progress: number, spread = 0) {
+  const x = -36 - spread + (212 + 2 * spread) * progress;
   const edge = (y: number) =>
     x +
     5 * Math.sin(y / 19 + progress * 6) +
     3 * Math.cos(y / 31 - progress * 4);
   const left = Array.from({ length: 17 }, (_, i) => {
-    const y = i * 10 - 10;
+    const y = -10 - spread + (i * (160 + 2 * spread)) / 16;
     return `${edge(y).toFixed(2)},${y}`;
   });
   const right = Array.from({ length: 17 }, (_, i) => {
-    const y = 150 - i * 10;
+    const y = 150 + spread - (i * (160 + 2 * spread)) / 16;
     return `${(edge(y) + 32).toFixed(2)},${y}`;
   });
   return `M${left.join(" L")} L${right.join(" L")} Z`;
@@ -21,9 +21,12 @@ function bandPath(progress: number) {
 /** A shared animation phase moves the organic light band and its edge highlight. */
 export interface OrganicShimmerSurfaceProps extends ComponentProps<"div"> {
   active?: boolean;
+  /** Clockwise travel angle in degrees; zero preserves the horizontal sweep. */
+  angle?: number;
 }
 export function OrganicShimmerSurface({
   active = true,
+  angle = 0,
   className,
   children,
   ...props
@@ -33,6 +36,10 @@ export function OrganicShimmerSurface({
   const edge = useRef<SVGLinearGradientElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const elapsed = useRef(0);
+  const direction = Number.isFinite(angle) ? angle % 360 : 0;
+  const radians = (direction * Math.PI) / 180;
+  const spread =
+    70 * (Math.abs(Math.cos(radians)) + Math.abs(Math.sin(radians)) - 1);
   useEffect(() => {
     const media =
       typeof window.matchMedia === "function"
@@ -49,8 +56,8 @@ export function OrganicShimmerSurface({
         elapsed.current += Math.max(0, now - last);
       last = now;
       const progress = (elapsed.current % 3000) / 3000;
-      const x = -20 + 212 * progress;
-      path.current?.setAttribute("d", bandPath(progress));
+      const x = -20 - spread + (212 + 2 * spread) * progress;
+      path.current?.setAttribute("d", bandPath(progress, spread));
       edge.current?.setAttribute("x1", String(x - 28));
       edge.current?.setAttribute("x2", String(x + 28));
       if (active && !reduced && visible && !document.hidden)
@@ -83,13 +90,14 @@ export function OrganicShimmerSurface({
       media?.removeEventListener?.("change", onMotion);
       document.removeEventListener("visibilitychange", restart);
     };
-  }, [active]);
+  }, [active, spread]);
   return (
     <div
       {...props}
       ref={stage}
       className={cn("dui-organic-surface", className)}
       data-active={active}
+      data-angle={direction}
       role={props.role ?? (children ? undefined : "img")}
       aria-label={props["aria-label"] ?? "Organic shimmer surface"}
     >
@@ -110,6 +118,7 @@ export function OrganicShimmerSurface({
             ref={edge}
             id={`edge-${id}`}
             gradientUnits="userSpaceOnUse"
+            gradientTransform={`rotate(${direction} 70 70)`}
             x1="-48"
             x2="8"
           >
@@ -129,7 +138,8 @@ export function OrganicShimmerSurface({
         </defs>
         <path
           ref={path}
-          d={bandPath(0)}
+          d={bandPath(0, spread)}
+          transform={`rotate(${direction} 70 70)`}
           fill={`url(#band-${id})`}
           filter={`url(#soft-${id})`}
         />
@@ -150,9 +160,12 @@ export function OrganicShimmerSurface({
 }
 export interface OrganicShimmerProps extends OrganicShimmerSurfaceProps {
   onActiveChange?: (active: boolean) => void;
+  onAngleChange?: (angle: number) => void;
 }
 export default function OrganicShimmer({
   active: controlled,
+  angle: controlledAngle,
+  onAngleChange,
   onActiveChange,
   className,
   children,
@@ -160,12 +173,14 @@ export default function OrganicShimmer({
 }: OrganicShimmerProps) {
   const [playing, setPlaying] = useState(true);
   const active = controlled ?? playing;
+  const [selectedAngle, setSelectedAngle] = useState(0);
+  const angle = controlledAngle ?? selectedAngle;
   return (
     <div
       className={cn("dui-organic-shimmer dui-demo", className)}
       data-component-layout="content"
     >
-      <OrganicShimmerSurface {...props} active={active}>
+      <OrganicShimmerSurface {...props} active={active} angle={angle}>
         {children}
       </OrganicShimmerSurface>
       <div className={cn("dui-demo-controls")}>
@@ -180,6 +195,28 @@ export default function OrganicShimmer({
         >
           {active ? "Pause shimmer" : "Play shimmer"}
         </button>
+        <div className="dui-ai-variants" aria-label="Shimmer direction">
+          {(
+            [
+              [0, "Horizontal"],
+              [45, "Diagonal right"],
+              [90, "Vertical"],
+              [135, "Diagonal left"],
+            ] as const
+          ).map(([value, label]) => (
+            <button
+              type="button"
+              key={value}
+              aria-pressed={angle === value}
+              onClick={() => {
+                setSelectedAngle(value);
+                onAngleChange?.(value);
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

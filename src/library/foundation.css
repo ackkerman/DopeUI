@@ -12735,3 +12735,10 @@ a:focus-visible .animated-underline::after {
     }
   }
 }
+
+/* Accordion hover keeps the resting surface; keyboard focus remains visible. */
+@layer components {
+  .dui-accordion .demo-accordion > button:hover {
+    background: transparent;
+  }
+}

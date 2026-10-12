@@ -24,6 +24,8 @@ export interface ModalProps extends Omit<
   style?: CSSProperties & { [key: `--dui-${string}`]: string | number };
   motion?: "system" | "off";
   disabled?: boolean;
+  showTrigger?: boolean;
+  dialogClassName?: string;
 }
 
 export default function Modal({
@@ -31,6 +33,8 @@ export default function Modal({
   style,
   motion = "system",
   disabled = false,
+  showTrigger = true,
+  dialogClassName,
   children,
   title = "A fresh start.",
   description = "Something good is coming.",
@@ -49,11 +53,28 @@ export default function Modal({
   };
   const dialog = useRef<HTMLDialogElement>(null);
   const contentId = useId();
+  const opener = useRef<HTMLElement | null>(null);
   useEffect(() => {
     if (preview || !dialog.current) return;
-    if (active && !dialog.current.open) dialog.current.showModal();
-    if (!active && dialog.current.open) dialog.current.close();
+    if (active && !dialog.current.open) {
+      opener.current =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : null;
+      dialog.current.showModal();
+    }
+    if (!active && dialog.current.open) {
+      dialog.current.close();
+      if (opener.current?.isConnected) opener.current.focus();
+    }
   }, [active, preview]);
+  useEffect(() => {
+    const node = dialog.current;
+    return () => {
+      node?.close();
+      if (opener.current?.isConnected) opener.current.focus();
+    };
+  }, []);
   const toggle = () => {
     if (!disabled) setActive((v) => !v);
   };
@@ -94,7 +115,7 @@ export default function Modal({
       ) : (
         <dialog
           ref={dialog}
-          className={cn("mini-modal opened")}
+          className={cn("mini-modal opened", dialogClassName)}
           aria-label={children ? title : undefined}
           aria-labelledby={children ? undefined : contentId}
           onCancel={(event) => {
@@ -108,7 +129,9 @@ export default function Modal({
           {children ?? modalBody}
         </dialog>
       )}
-      <PlayButton disabled={disabled} label="Toggle modal" action={toggle} />
+      {showTrigger && (
+        <PlayButton disabled={disabled} label="Toggle modal" action={toggle} />
+      )}
     </>
   );
   return (

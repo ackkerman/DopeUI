@@ -1,20 +1,17 @@
-import { RepositoryLink } from "./RepositoryLink";
-import { CodeBlock } from "./library/primitives/code-block";
+import { SiteHeader } from "./SiteHeader";
+import Modal from "./library/components/modal";
+import { SiteSearch } from "./SiteSearch";
+import { SiteTabs } from "./SiteTabs";
+import { Button } from "./library/primitives/button";
+import { SiteCode } from "./SiteCode";
 // This file guarantees the homepage presents working compositions and keeps component discovery accessible.
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  Code2,
-  Layers,
-  Search,
-  X,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight, Code2, Layers, X } from "lucide-react";
 import { cn } from "./class-names";
 import { demos } from "./catalog";
 import { detailHref } from "./detail-navigation";
 import { libraryEntries } from "./library/registry";
-import { SyntaxCode } from "./SyntaxCode";
+
 import {
   exampleCategories,
   filterExamples,
@@ -86,7 +83,7 @@ function ExampleDialog({
   selection: ExampleSelection;
   onClose: () => void;
 }) {
-  const dialog = useRef<HTMLDialogElement>(null);
+  const [open, setOpen] = useState(true);
   const [view, setView] = useState<"Preview" | "React" | "CSS" | "Components">(
     selection.view,
   );
@@ -94,18 +91,6 @@ function ExampleDialog({
     null,
   );
   const [error, setError] = useState("");
-  useEffect(() => {
-    const element = dialog.current;
-    const origin =
-      document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
-    element?.showModal();
-    return () => {
-      element?.close();
-      if (origin?.isConnected) origin.focus();
-    };
-  }, []);
   useEffect(() => {
     let cancelled = false;
     const loaders = import.meta.glob<string>("./showcase/components/*.tsx", {
@@ -131,7 +116,7 @@ function ExampleDialog({
   }, [selection.example.exportName]);
 
   const close = () => {
-    dialog.current?.close();
+    setOpen(false);
     onClose();
   };
   const pieces = selection.example.components
@@ -148,43 +133,38 @@ function ExampleDialog({
     ]),
   ];
   return (
-    <dialog
-      ref={dialog}
-      className={cn("home-example-dialog")}
-      onCancel={(event) => {
-        event.preventDefault();
-        close();
+    <Modal
+      open={open}
+      showTrigger={false}
+      title={selection.example.title}
+      dialogClassName="home-example-dialog"
+      className="site-modal-host"
+      onOpenChange={(next) => {
+        if (!next) close();
       }}
-      onClick={(event) => {
-        if (event.target === event.currentTarget) close();
-      }}
-      aria-labelledby="home-example-title"
     >
       <div className={cn("home-dialog-header")}>
         <div>
           <small>{selection.example.category}</small>
           <h2 id="home-example-title">{selection.example.title}</h2>
         </div>
-        <button type="button" aria-label="Close example" onClick={close}>
+        <Button
+          variant="quiet"
+          size="sm"
+          type="button"
+          aria-label="Close example"
+          onClick={close}
+        >
           <X size={19} />
-        </button>
+        </Button>
       </div>
       <div className={cn("home-dialog-toolbar")}>
-        <div role="tablist" aria-label="Example view">
-          {(["Preview", "React", "CSS", "Components"] as const).map((tab) => (
-            <button
-              type="button"
-              role="tab"
-              aria-selected={view === tab}
-              key={tab}
-              onClick={() => {
-                setView(tab);
-              }}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+        <SiteTabs
+          items={["Preview", "React", "CSS", "Components"] as const}
+          value={view}
+          onValueChange={setView}
+          label="Example view"
+        />
       </div>
       <div className={cn("home-dialog-body")}>
         {view === "Preview" ? (
@@ -227,9 +207,7 @@ function ExampleDialog({
               <code>src/showcase/components</code> and the CSS tab in{" "}
               <code>src/showcase</code>.
             </p>
-            <CodeBlock>
-              <code>npm install {dependencies.join(" ")} lucide-react</code>
-            </CodeBlock>
+            <SiteCode code={dependencies.join(" ")} />
             <a
               href="/library/foundation.css"
               download
@@ -257,12 +235,11 @@ function ExampleDialog({
               )}
             </p>
             {sources ? (
-              <CodeBlock
+              <SiteCode
                 code={sources[view]}
                 preProps={{ className: cn("home-source-code") }}
-              >
-                <SyntaxCode code={sources[view]} language={view} />
-              </CodeBlock>
+                language={view}
+              />
             ) : (
               <div className={cn("home-loading")}>
                 {error || "Loading source…"}
@@ -274,7 +251,7 @@ function ExampleDialog({
           {error}
         </p>
       </div>
-    </dialog>
+    </Modal>
   );
 }
 export function HomePage() {
@@ -305,20 +282,22 @@ export function HomePage() {
       <a className={cn("skip-link")} href="#examples">
         Skip to examples
       </a>
-      <header className={cn("home-header")}>
-        <a className={cn("wordmark")} href="/" aria-label="dope/ui home">
-          dope<span>/</span>ui<span className={cn("brand-dot")}>.</span>
-        </a>
-        <nav aria-label="Main navigation">
-          <a href="#examples">Examples</a>
-          <a href="/library">Components</a>
-          <a href="/colors.html">Colors</a>
-        </nav>
-        <RepositoryLink />
-        <a href="/library" className={cn("home-nav-cta")}>
-          Get started <ArrowRight size={13} />
-        </a>
-      </header>
+      <SiteHeader
+        navigation={
+          <>
+            <a href="#examples">Examples</a>
+            <a href="/library">Components</a>
+            <a href="/colors.html">Colors</a>
+          </>
+        }
+        actions={
+          <>
+            <Button variant="primary" href="/library" className="get-started">
+              Get started <ArrowRight size={13} />
+            </Button>
+          </>
+        }
+      />
       <main className={cn("home-main")}>
         <section className={cn("home-hero")}>
           <a className={cn("home-eyebrow")} href="/library">
@@ -347,30 +326,19 @@ export function HomePage() {
         </section>
         <section id="examples" aria-label="Application examples">
           <div className={cn("home-gallery-toolbar")}>
-            <div
-              className={cn("home-example-filters")}
-              role="group"
-              aria-label="Example category"
-            >
-              {exampleCategories.map((value) => (
-                <button
-                  type="button"
-                  key={value}
-                  aria-pressed={value === category}
-                  onClick={() => setCategory(value)}
-                >
-                  {value}
-                </button>
-              ))}
-            </div>
+            <SiteTabs
+              items={exampleCategories}
+              value={category}
+              onValueChange={setCategory}
+              label="Example category"
+              className="home-example-filters"
+            />
             <label className={cn("home-example-search")}>
-              <Search size={13} />
-              <input
-                type="search"
-                aria-label="Search examples"
-                placeholder="Find an example…"
+              <SiteSearch
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onValueChange={setQuery}
+                label="Search examples"
+                placeholder="Find an example…"
               />
             </label>
           </div>
@@ -387,24 +355,28 @@ export function HomePage() {
                 <ExampleStage example={example} eager={i < 2} />
                 <div className={cn("home-example-meta")}>
                   <div>
-                    <button
+                    <Button
+                      variant="quiet"
+                      size="sm"
                       type="button"
                       className={cn("home-example-title")}
                       onClick={() => setSelection({ example, view: "Preview" })}
                     >
                       {example.title}
                       <ArrowRight size={13} />
-                    </button>
+                    </Button>
                     <p>{example.description}</p>
                   </div>
-                  <button
+                  <Button
+                    variant="quiet"
+                    size="sm"
                     type="button"
                     className={cn("home-code-trigger")}
                     aria-label={`View ${example.title} code`}
                     onClick={() => setSelection({ example, view: "React" })}
                   >
                     <Code2 size={15} />
-                  </button>
+                  </Button>
                 </div>
                 <div className={cn("home-example-components")}>
                   {example.components.slice(0, 3).map((id) => (
@@ -413,12 +385,14 @@ export function HomePage() {
                     </a>
                   ))}
                   {example.components.length > 3 ? (
-                    <button
+                    <Button
+                      variant="quiet"
+                      size="sm"
                       type="button"
                       onClick={() => setSelection({ example, view: "Preview" })}
                     >
                       +{example.components.length - 3}
-                    </button>
+                    </Button>
                   ) : null}
                 </div>
               </article>
@@ -428,7 +402,9 @@ export function HomePage() {
             <div className={cn("home-empty")}>
               <h2>No examples found.</h2>
               <p>Try another search, or start with the full collection.</p>
-              <button
+              <Button
+                variant="quiet"
+                size="sm"
                 type="button"
                 onClick={() => {
                   setQuery("");
@@ -436,7 +412,7 @@ export function HomePage() {
                 }}
               >
                 Show all examples
-              </button>
+              </Button>
             </div>
           ) : null}
         </section>

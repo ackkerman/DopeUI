@@ -66,7 +66,7 @@ const DEFAULT_EMOJI_DATA: EmojiData = {
 
 const DEFAULT_EMOJIS = Object.keys(DEFAULT_EMOJI_DATA.emojis);
 
-const SURFACE = "bg-[#F4F4F9] dark:bg-[#262626]";
+const SURFACE = "bg-[var(--frost-surface,var(--surface,#fff))]";
 
 const BURST_COUNT = 5;
 const HOLD_INTERVAL = 550;
@@ -298,7 +298,7 @@ export function EmojiReaction({
   emojis = DEFAULT_EMOJIS,
   emojiData = DEFAULT_EMOJI_DATA,
   onReact,
-  size = "md",
+  size = "lg",
   align = "center",
   asChild = false,
   className,
@@ -605,6 +605,8 @@ export function EmojiReaction({
           type={asChild ? undefined : "button"}
           aria-haspopup="true"
           aria-expanded={open}
+          data-dui-button="icon"
+          data-dui-button-size={size}
           aria-label={
             open
               ? "Close reactions"
@@ -625,7 +627,7 @@ export function EmojiReaction({
             asChild
               ? undefined
               : cn(
-                  "relative z-10 grid place-items-center rounded-full text-foreground/60 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  "relative z-10 grid place-items-center rounded-full text-[var(--frost-foreground,var(--foreground,#2e3440))] transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   SURFACE,
                   s.trigger,
                 ),

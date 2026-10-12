@@ -10,7 +10,7 @@ import {
 /** Accordion supports native root props and explicit interaction state. */
 export interface AccordionProps extends Omit<
   ComponentPropsWithRef<"div">,
-  "children" | "style"
+  "children" | "style" | "title"
 > {
   open?: boolean;
   defaultOpen?: boolean;
@@ -18,6 +18,8 @@ export interface AccordionProps extends Omit<
   style?: CSSProperties & { [key: `--dui-${string}`]: string | number };
   motion?: "system" | "off";
   disabled?: boolean;
+  title?: import("react").ReactNode;
+  children?: import("react").ReactNode;
 }
 
 export default function Accordion({
@@ -25,6 +27,8 @@ export default function Accordion({
   style,
   motion = "system",
   disabled = false,
+  title = "The little details",
+  children,
   open: controlledActive,
   defaultOpen = false,
   onOpenChange,
@@ -46,17 +50,20 @@ export default function Accordion({
       <button
         type="button"
         disabled={disabled}
+        className="hover:bg-transparent!"
         aria-expanded={active}
         aria-controls={contentId}
         onClick={toggle}
       >
-        The little details <ChevronDown size={16} />
+        {title} <ChevronDown size={16} />
       </button>
       <div id={contentId} inert={!active} className={cn("accordion-content")}>
-        <p>
-          Good motion makes an interface feel natural. Keep it subtle,
-          purposeful, and quick.
-        </p>
+        {children ?? (
+          <p>
+            Good motion makes an interface feel natural. Keep it subtle,
+            purposeful, and quick.
+          </p>
+        )}
       </div>
     </div>
   );

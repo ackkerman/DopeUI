@@ -79,6 +79,7 @@ export default function Like({
       type="button"
       disabled={disabled}
       className={cn(`demo-button like-button ${active ? "liked" : ""}`)}
+      data-dui-button="action"
       aria-pressed={active}
       data-burst={active && burst ? "true" : undefined}
       onClick={toggle}
