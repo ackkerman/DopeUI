@@ -301,3 +301,25 @@
   max-width: none;
   overflow: visible;
 }
+
+/* Footer text links share one geometry regardless of their underlying control. */
+:root .footer-links {
+  align-items: center;
+  flex-wrap: wrap;
+}
+:root .footer-links > :is(a, button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 32px;
+  min-height: 32px;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 20px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
