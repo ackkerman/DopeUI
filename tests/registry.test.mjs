@@ -32,6 +32,14 @@ test("all registry sources, dependencies and license files survive generation an
     assert.equal(item.name, entry.name);
     assert.equal(item.type, "registry:component");
     assert.equal(
+      item.title
+        .replaceAll(" ", "")
+        .replace(/^3D/, "ThreeD")
+        .replace(/^iPhone/, "IPhone"),
+      entry.filename.replace(/\.tsx$/, ""),
+    );
+    assert.ok(!item.title.endsWith("Demo"));
+    assert.equal(
       item.files[0].content,
       fs.readFileSync(entry.sourcePath, "utf8"),
     );
@@ -40,13 +48,11 @@ test("all registry sources, dependencies and license files survive generation an
       [
         "components/dope-ui/foundation.css",
         "components/dope-ui/LICENSE.txt",
-        "components/dope-ui/THIRD_PARTY_NOTICES.txt",
       ],
     );
     for (const [target, source] of [
       ["foundation.css", "src/library/foundation.txt"],
       ["LICENSE.txt", "LICENSE"],
-      ["THIRD_PARTY_NOTICES.txt", "THIRD_PARTY_NOTICES.txt"],
     ]) {
       assert.equal(
         item.files.find((file) => file.path === target).content,

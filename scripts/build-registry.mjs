@@ -111,7 +111,30 @@ export function verifyImports(entry) {
   visit(source);
 }
 
+/** Uses catalogue titles for public labels while keeping stable install ids. */
+function readCatalogTitles() {
+  const source = parse("src/catalog.ts");
+  const titles = new Map();
+  function visit(node) {
+    if (ts.isObjectLiteralExpression(node)) {
+      const fields = new Map(
+        node.properties
+          .filter(ts.isPropertyAssignment)
+          .map((field) => [field.name.getText(source), field.initializer]),
+      );
+      const id = fields.get("id");
+      const title = fields.get("title");
+      if (id && title && ts.isStringLiteral(id) && ts.isStringLiteral(title))
+        titles.set(id.text, title.text);
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(source);
+  return titles;
+}
+
 export function createRegistryItems() {
+  const titles = readCatalogTitles();
   const pkg = JSON.parse(read("package.json"));
   const versions = { ...pkg.dependencies, ...pkg.devDependencies };
   const sharedFiles = [
@@ -126,7 +149,7 @@ export function createRegistryItems() {
       type: "registry:file",
       target: "components/dope-ui/LICENSE.txt",
       content: read("LICENSE"),
-    }
+    },
   ];
   return readRegistryEntries().map((entry) => {
     verifyImports(entry);
@@ -134,7 +157,7 @@ export function createRegistryItems() {
       $schema: "https://ui.shadcn.com/schema/registry-item.json",
       name: entry.name,
       type: "registry:component",
-      title: entry.filename.replace(/\.tsx$/, ""),
+      title: titles.get(entry.name) ?? entry.filename.replace(/\.tsx$/, ""),
       description:
         "Editable dope/ui React component with shared Tailwind v4 styles and redistribution notices.",
       author: "dope/ui contributors",

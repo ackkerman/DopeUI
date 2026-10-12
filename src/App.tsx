@@ -1,3 +1,4 @@
+import { InstallationPage } from "./InstallationPage";
 import { RepositoryLink } from "./RepositoryLink";
 import { useMasonryLayout } from "./use-masonry-layout";
 import { HomePage } from "./HomePage";
@@ -334,6 +335,8 @@ function LibraryPage() {
 }
 
 export function App() {
+  if (window.location.pathname === "/installation.html")
+    return <InstallationPage />;
   if (["/", "/index.html"].includes(window.location.pathname))
     return <HomePage />;
   const isDetail = window.location.pathname === "/detail.html";

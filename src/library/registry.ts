@@ -102,7 +102,7 @@ export const libraryEntries: Record<string, LibraryEntry> = {
       import("./distribution/card-stack-hover.tsx?raw").then(
         (module) => module.default,
       ),
-    filename: "CardStackHover.tsx",
+    filename: "HoverCardStack.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "image-open-tilt": {
@@ -111,14 +111,14 @@ export const libraryEntries: Record<string, LibraryEntry> = {
       import("./distribution/image-open-tilt.tsx?raw").then(
         (module) => module.default,
       ),
-    filename: "ImageOpenTilt.tsx",
+    filename: "ImageZoom.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "tilt-3d": {
     Component: Tilt3D,
     loadSource: () =>
       import("./distribution/tilt-3d.tsx?raw").then((module) => module.default),
-    filename: "Tilt3D.tsx",
+    filename: "ThreeDTilt.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "otp-input": {
@@ -127,7 +127,7 @@ export const libraryEntries: Record<string, LibraryEntry> = {
       import("./distribution/otp-input.tsx?raw").then(
         (module) => module.default,
       ),
-    filename: "OtpInputDemo.tsx",
+    filename: "OTPInput.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "fluid-orb": {
@@ -136,7 +136,7 @@ export const libraryEntries: Record<string, LibraryEntry> = {
       import("./distribution/fluid-orb.tsx?raw").then(
         (module) => module.default,
       ),
-    filename: "FluidOrbDemo.tsx",
+    filename: "FluidOrb.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   terminal: {
@@ -145,7 +145,7 @@ export const libraryEntries: Record<string, LibraryEntry> = {
       import("./distribution/terminal.tsx?raw").then(
         (module) => module.default,
       ),
-    filename: "TerminalDemo.tsx",
+    filename: "Terminal.tsx",
     dependencies: ["react", "lucide-react", "clsx", "tailwind-merge", "motion"],
   },
   "animated-list": {
@@ -154,7 +154,7 @@ export const libraryEntries: Record<string, LibraryEntry> = {
       import("./distribution/animated-list.tsx?raw").then(
         (module) => module.default,
       ),
-    filename: "AnimatedListDemo.tsx",
+    filename: "AnimatedList.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "aurora-text": {
@@ -163,21 +163,21 @@ export const libraryEntries: Record<string, LibraryEntry> = {
       import("./distribution/aurora-text.tsx?raw").then(
         (module) => module.default,
       ),
-    filename: "AuroraTextDemo.tsx",
+    filename: "AuroraText.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   globe: {
     Component: GlobeDemo,
     loadSource: () =>
       import("./distribution/globe.tsx?raw").then((m) => m.default),
-    filename: "GlobeDemo.tsx",
+    filename: "Globe.tsx",
     dependencies: ["react", "cobe", "motion", "clsx", "tailwind-merge"],
   },
   "dotted-map": {
     Component: DottedMapDemo,
     loadSource: () =>
       import("./distribution/dotted-map.tsx?raw").then((m) => m.default),
-    filename: "DottedMapDemo.tsx",
+    filename: "DottedMap.tsx",
     dependencies: [
       "react",
       "motion",
@@ -190,49 +190,49 @@ export const libraryEntries: Record<string, LibraryEntry> = {
     Component: BorderBeamDemo,
     loadSource: () =>
       import("./distribution/border-beam.tsx?raw").then((m) => m.default),
-    filename: "BorderBeamDemo.tsx",
+    filename: "BorderBeam.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   card: {
     Component: CardDemo,
     loadSource: () =>
       import("./distribution/card.tsx?raw").then((m) => m.default),
-    filename: "CardDemo.tsx",
+    filename: "MotionCard.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "shine-border": {
     Component: ShineBorderDemo,
     loadSource: () =>
       import("./distribution/shine-border.tsx?raw").then((m) => m.default),
-    filename: "ShineBorderDemo.tsx",
+    filename: "ShimmerBorder.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   android: {
     Component: AndroidDemo,
     loadSource: () =>
       import("./distribution/android.tsx?raw").then((m) => m.default),
-    filename: "AndroidDemo.tsx",
+    filename: "AndroidFrame.tsx",
     dependencies: ["clsx", "tailwind-merge", "react"],
   },
   iphone: {
     Component: IphoneDemo,
     loadSource: () =>
       import("./distribution/iphone.tsx?raw").then((m) => m.default),
-    filename: "IphoneDemo.tsx",
+    filename: "IPhoneFrame.tsx",
     dependencies: ["clsx", "tailwind-merge", "react"],
   },
   safari: {
     Component: SafariDemo,
     loadSource: () =>
       import("./distribution/safari.tsx?raw").then((m) => m.default),
-    filename: "SafariDemo.tsx",
+    filename: "BrowserFrame.tsx",
     dependencies: ["clsx", "tailwind-merge", "react"],
   },
   "rainbow-button": {
     Component: RainbowButtonDemo,
     loadSource: () =>
       import("./distribution/rainbow-button.tsx?raw").then((m) => m.default),
-    filename: "RainbowButtonDemo.tsx",
+    filename: "RainbowButton.tsx",
     dependencies: [
       "react",
       "@radix-ui/react-slot",
@@ -245,14 +245,14 @@ export const libraryEntries: Record<string, LibraryEntry> = {
     Component: FlickeringGridDemo,
     loadSource: () =>
       import("./distribution/flickering-grid.tsx?raw").then((m) => m.default),
-    filename: "FlickeringGridDemo.tsx",
+    filename: "FlickeringGrid.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "glyph-matrix": {
     Component: GlyphMatrixDemo,
     loadSource: () =>
       import("./distribution/glyph-matrix.tsx?raw").then((m) => m.default),
-    filename: "GlyphMatrixDemo.tsx",
+    filename: "GlyphMatrix.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "interactive-hover-button": {
@@ -261,21 +261,21 @@ export const libraryEntries: Record<string, LibraryEntry> = {
       import("./distribution/interactive-hover-button.tsx?raw").then(
         (m) => m.default,
       ),
-    filename: "InteractiveHoverButtonDemo.tsx",
+    filename: "HoverButton.tsx",
     dependencies: ["react", "lucide-react", "clsx", "tailwind-merge"],
   },
   "pulsating-button": {
     Component: PulsatingButtonDemo,
     loadSource: () =>
       import("./distribution/pulsating-button.tsx?raw").then((m) => m.default),
-    filename: "PulsatingButtonDemo.tsx",
+    filename: "PulseButton.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "file-tree": {
     Component: FileTreeDemo,
     loadSource: () =>
       import("./distribution/file-tree.tsx?raw").then((m) => m.default),
-    filename: "FileTreeDemo.tsx",
+    filename: "FileTree.tsx",
     dependencies: [
       "react",
       "@radix-ui/react-accordion",
@@ -290,21 +290,21 @@ export const libraryEntries: Record<string, LibraryEntry> = {
       import("./distribution/floating-3d-particles.tsx?raw").then(
         (m) => m.default,
       ),
-    filename: "Floating3DParticlesDemo.tsx",
+    filename: "ThreeDParticles.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "dot-pattern": {
     Component: DotPatternDemo,
     loadSource: () =>
       import("./distribution/dot-pattern.tsx?raw").then((m) => m.default),
-    filename: "DotPatternDemo.tsx",
+    filename: "DotPattern.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   highlighter: {
     Component: HighlighterDemo,
     loadSource: () =>
       import("./distribution/highlighter.tsx?raw").then((m) => m.default),
-    filename: "HighlighterDemo.tsx",
+    filename: "TextHighlighter.tsx",
     dependencies: [
       "react",
       "motion",
@@ -319,14 +319,14 @@ export const libraryEntries: Record<string, LibraryEntry> = {
       import("./distribution/scroll-based-velocity.tsx?raw").then(
         (m) => m.default,
       ),
-    filename: "ScrollBasedVelocityDemo.tsx",
+    filename: "ScrollVelocityText.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "video-text": {
     Component: VideoTextDemo,
     loadSource: () =>
       import("./distribution/video-text.tsx?raw").then((m) => m.default),
-    filename: "VideoTextDemo.tsx",
+    filename: "VideoText.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "animated-theme-toggler": {
@@ -335,7 +335,7 @@ export const libraryEntries: Record<string, LibraryEntry> = {
       import("./distribution/animated-theme-toggler.tsx?raw").then(
         (m) => m.default,
       ),
-    filename: "AnimatedThemeTogglerDemo.tsx",
+    filename: "ThemeToggle.tsx",
     dependencies: [
       "react",
       "lucide-react",
@@ -348,14 +348,14 @@ export const libraryEntries: Record<string, LibraryEntry> = {
     Component: ProgressiveBlurDemo,
     loadSource: () =>
       import("./distribution/progressive-blur.tsx?raw").then((m) => m.default),
-    filename: "ProgressiveBlurDemo.tsx",
+    filename: "ProgressiveBlur.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   dock: {
     Component: DockDemo,
     loadSource: () =>
       import("./distribution/dock.tsx?raw").then((m) => m.default),
-    filename: "DockDemo.tsx",
+    filename: "Dock.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge", "lucide-react"],
   },
   accordion: {
@@ -369,35 +369,35 @@ export const libraryEntries: Record<string, LibraryEntry> = {
     Component: AiApprovalCard,
     loadSource: () =>
       import("./distribution/ai-approval-card.tsx?raw").then((m) => m.default),
-    filename: "AiApprovalCard.tsx",
+    filename: "ApprovalCard.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "ai-chat": {
     Component: AiChat,
     loadSource: () =>
       import("./distribution/ai-chat.tsx?raw").then((m) => m.default),
-    filename: "AiChat.tsx",
+    filename: "AgentChat.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "ai-context-cards": {
     Component: AiContextCards,
     loadSource: () =>
       import("./distribution/ai-context-cards.tsx?raw").then((m) => m.default),
-    filename: "AiContextCards.tsx",
+    filename: "ContextCards.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "ai-loading-state": {
     Component: AiLoadingState,
     loadSource: () =>
       import("./distribution/ai-loading-state.tsx?raw").then((m) => m.default),
-    filename: "AiLoadingState.tsx",
+    filename: "LoadingState.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "ai-prompt-bar": {
     Component: AiPromptBar,
     loadSource: () =>
       import("./distribution/ai-prompt-bar.tsx?raw").then((m) => m.default),
-    filename: "AiPromptBar.tsx",
+    filename: "PromptBar.tsx",
     dependencies: ["react", "glimm", "clsx", "tailwind-merge"],
   },
   "ai-recommendation-card": {
@@ -406,49 +406,49 @@ export const libraryEntries: Record<string, LibraryEntry> = {
       import("./distribution/ai-recommendation-card.tsx?raw").then(
         (m) => m.default,
       ),
-    filename: "AiRecommendationCard.tsx",
+    filename: "RecommendationCard.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "streaming-text": {
     Component: StreamingText,
     loadSource: () =>
       import("./distribution/streaming-text.tsx?raw").then((m) => m.default),
-    filename: "StreamingText.tsx",
+    filename: "StreamingWords.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "ai-streaming-text": {
     Component: AiStreamingText,
     loadSource: () =>
       import("./distribution/ai-streaming-text.tsx?raw").then((m) => m.default),
-    filename: "AiStreamingText.tsx",
+    filename: "StreamingText.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "ai-task-rows": {
     Component: AiTaskRows,
     loadSource: () =>
       import("./distribution/ai-task-rows.tsx?raw").then((m) => m.default),
-    filename: "AiTaskRows.tsx",
+    filename: "TaskRows.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "ai-thinking": {
     Component: AiThinking,
     loadSource: () =>
       import("./distribution/ai-thinking.tsx?raw").then((m) => m.default),
-    filename: "AiThinking.tsx",
+    filename: "ThinkingIndicator.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "ai-tool-chips": {
     Component: AiToolChips,
     loadSource: () =>
       import("./distribution/ai-tool-chips.tsx?raw").then((m) => m.default),
-    filename: "AiToolChips.tsx",
+    filename: "ToolChips.tsx",
     dependencies: ["react", "lucide-react", "clsx", "tailwind-merge"],
   },
   "card-resize": {
     Component: CardResize,
     loadSource: () =>
       import("./distribution/card-resize.tsx?raw").then((m) => m.default),
-    filename: "CardResize.tsx",
+    filename: "ResizableCard.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   checkbox: {
@@ -462,21 +462,21 @@ export const libraryEntries: Record<string, LibraryEntry> = {
     Component: ClearInput,
     loadSource: () =>
       import("./distribution/clear-input.tsx?raw").then((m) => m.default),
-    filename: "ClearInput.tsx",
+    filename: "ClearableInput.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   confetti: {
     Component: Confetti,
     loadSource: () =>
       import("./distribution/confetti.tsx?raw").then((m) => m.default),
-    filename: "Confetti.tsx",
+    filename: "ConfettiBurst.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "dot-loader": {
     Component: DotLoader,
     loadSource: () =>
       import("./distribution/dot-loader.tsx?raw").then((m) => m.default),
-    filename: "DotLoader.tsx",
+    filename: "LoadingIndicator.tsx",
     dependencies: ["react", "loading-dev", "clsx", "tailwind-merge"],
   },
   dropdown: {
@@ -497,14 +497,14 @@ export const libraryEntries: Record<string, LibraryEntry> = {
     Component: InputShake,
     loadSource: () =>
       import("./distribution/input-shake.tsx?raw").then((m) => m.default),
-    filename: "InputShake.tsx",
+    filename: "ShakeInput.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   like: {
     Component: Like,
     loadSource: () =>
       import("./distribution/like.tsx?raw").then((m) => m.default),
-    filename: "Like.tsx",
+    filename: "LikeButton.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   modal: {
@@ -532,7 +532,7 @@ export const libraryEntries: Record<string, LibraryEntry> = {
     Component: Panel,
     loadSource: () =>
       import("./distribution/panel.tsx?raw").then((m) => m.default),
-    filename: "Panel.tsx",
+    filename: "ExpandablePanel.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "quick-actions": {
@@ -546,21 +546,21 @@ export const libraryEntries: Record<string, LibraryEntry> = {
     Component: AnimatedCounterDemo,
     loadSource: () =>
       import("./distribution/animated-counter.tsx?raw").then((m) => m.default),
-    filename: "AnimatedCounterDemo.tsx",
+    filename: "AnimatedCounter.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "delete-button": {
     Component: DeleteButtonDemo,
     loadSource: () =>
       import("./distribution/delete-button.tsx?raw").then((m) => m.default),
-    filename: "DeleteButtonDemo.tsx",
+    filename: "DeleteButton.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "emoji-reaction": {
     Component: EmojiReactionDemo,
     loadSource: () =>
       import("./distribution/emoji-reaction.tsx?raw").then((m) => m.default),
-    filename: "EmojiReactionDemo.tsx",
+    filename: "EmojiReaction.tsx",
     dependencies: [
       "react",
       "@radix-ui/react-slot",
@@ -574,28 +574,28 @@ export const libraryEntries: Record<string, LibraryEntry> = {
     Component: GooeyNavDemo,
     loadSource: () =>
       import("./distribution/gooey-nav.tsx?raw").then((m) => m.default),
-    filename: "GooeyNavDemo.tsx",
+    filename: "GooeyNavigation.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "grid-reveal": {
     Component: GridRevealDemo,
     loadSource: () =>
       import("./distribution/grid-reveal.tsx?raw").then((m) => m.default),
-    filename: "GridRevealDemo.tsx",
+    filename: "GridReveal.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "hook-sidebar": {
     Component: HookSidebarDemo,
     loadSource: () =>
       import("./distribution/hook-sidebar.tsx?raw").then((m) => m.default),
-    filename: "HookSidebarDemo.tsx",
+    filename: "CollapsibleSidebar.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "notification-bell": {
     Component: NotificationBellDemo,
     loadSource: () =>
       import("./distribution/notification-bell.tsx?raw").then((m) => m.default),
-    filename: "NotificationBellDemo.tsx",
+    filename: "NotificationBell.tsx",
     dependencies: [
       "react",
       "@radix-ui/react-slot",
@@ -608,42 +608,42 @@ export const libraryEntries: Record<string, LibraryEntry> = {
     Component: RailTocDemo,
     loadSource: () =>
       import("./distribution/rail-toc.tsx?raw").then((m) => m.default),
-    filename: "RailTocDemo.tsx",
+    filename: "TableofContents.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "scroll-progress": {
     Component: ScrollProgressDemo,
     loadSource: () =>
       import("./distribution/scroll-progress.tsx?raw").then((m) => m.default),
-    filename: "ScrollProgressDemo.tsx",
+    filename: "ScrollProgress.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "step-player": {
     Component: StepPlayerDemo,
     loadSource: () =>
       import("./distribution/step-player.tsx?raw").then((m) => m.default),
-    filename: "StepPlayerDemo.tsx",
+    filename: "StepPlayer.tsx",
     dependencies: ["react", "flubber", "motion", "clsx", "tailwind-merge"],
   },
   "task-list": {
     Component: TaskListDemo,
     loadSource: () =>
       import("./distribution/task-list.tsx?raw").then((m) => m.default),
-    filename: "TaskListDemo.tsx",
+    filename: "TaskList.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   "voice-note": {
     Component: VoiceNoteDemo,
     loadSource: () =>
       import("./distribution/voice-note.tsx?raw").then((m) => m.default),
-    filename: "VoiceNoteDemo.tsx",
+    filename: "VoiceNote.tsx",
     dependencies: ["react", "motion", "clsx", "tailwind-merge"],
   },
   shimmer: {
     Component: Shimmer,
     loadSource: () =>
       import("./distribution/shimmer.tsx?raw").then((m) => m.default),
-    filename: "Shimmer.tsx",
+    filename: "ShimmerText.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   skeleton: {
@@ -664,21 +664,21 @@ export const libraryEntries: Record<string, LibraryEntry> = {
     Component: Success,
     loadSource: () =>
       import("./distribution/success.tsx?raw").then((m) => m.default),
-    filename: "Success.tsx",
+    filename: "SuccessCheck.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   switch: {
     Component: Switch,
     loadSource: () =>
       import("./distribution/switch.tsx?raw").then((m) => m.default),
-    filename: "Switch.tsx",
+    filename: "SpringSwitch.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "text-reveal": {
     Component: TextReveal,
     loadSource: () =>
       import("./distribution/text-reveal.tsx?raw").then((m) => m.default),
-    filename: "TextReveal.tsx",
+    filename: "StaggeredText.tsx",
     dependencies: ["react", "clsx", "tailwind-merge"],
   },
   "text-swap": {

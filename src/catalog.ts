@@ -20,14 +20,14 @@ export const demos: MotionDemo[] = [
   // Primary actions
   {
     id: "pulsating-button",
-    title: "Pulsating Button",
+    title: "Pulse Button",
     description: "A gentle pulse or expanding ripple around a call to action.",
     category: "Essential",
     kind: "component",
   },
   {
     id: "interactive-hover-button",
-    title: "Interactive Hover Button",
+    title: "Hover Button",
     description: "A expanding color dot reveals an arrow and action label.",
     category: "Essential",
     kind: "component",
@@ -50,7 +50,7 @@ export const demos: MotionDemo[] = [
   // Reactions and confirmation
   {
     id: "like",
-    title: "Like button",
+    title: "Like Button",
     description: "A little love goes a long way.",
     category: "Effects",
     kind: "like",
@@ -64,21 +64,21 @@ export const demos: MotionDemo[] = [
   },
   {
     id: "icon-swap",
-    title: "Icon swap",
+    title: "Icon Swap",
     description: "A new icon, without the hard cut.",
     category: "Effects",
     kind: "icons",
   },
   {
     id: "success",
-    title: "Success check",
+    title: "Success Check",
     description: "The satisfying finish to a task.",
     category: "Essential",
     kind: "success",
   },
   {
     id: "confetti",
-    title: "Confetti burst",
+    title: "Confetti Burst",
     description: "Make the small wins feel bigger.",
     category: "Effects",
     kind: "confetti",
@@ -87,21 +87,21 @@ export const demos: MotionDemo[] = [
   // Selection and appearance
   {
     id: "checkbox",
-    title: "Checkbox check",
+    title: "Checkbox",
     description: "One small check. All the difference.",
     category: "Essential",
     kind: "checkbox",
   },
   {
     id: "switch",
-    title: "Spring toggle",
+    title: "Spring Switch",
     description: "A switch with a softer landing.",
     category: "Essential",
     kind: "toggle",
   },
   {
     id: "animated-theme-toggler",
-    title: "Animated Theme Toggler",
+    title: "Theme Toggle",
     description: "Switch light and dark with a reveal from the toggle.",
     category: "Essential",
     kind: "component",
@@ -110,14 +110,14 @@ export const demos: MotionDemo[] = [
   // Menus and navigation
   {
     id: "dropdown",
-    title: "Dropdown reveal",
+    title: "Dropdown",
     description: "A menu that opens from its origin.",
     category: "Essential",
     kind: "menu",
   },
   {
     id: "quick-actions",
-    title: "Quick actions",
+    title: "Quick Actions",
     description: "One button. A few possibilities.",
     category: "Effects",
     kind: "plus",
@@ -138,21 +138,21 @@ export const demos: MotionDemo[] = [
   },
   {
     id: "sliding-tabs",
-    title: "Sliding tabs",
+    title: "Sliding Tabs",
     description: "An indicator that follows your lead.",
     category: "Essential",
     kind: "tabs",
   },
   {
     id: "hook-sidebar",
-    title: "Hook Sidebar",
+    title: "Collapsible Sidebar",
     category: "Essential",
     description: "A sidebar with a springing active-item rail.",
     kind: "ai",
   },
   {
     id: "rail-toc",
-    title: "Rail TOC",
+    title: "Table of Contents",
     category: "Essential",
     description: "A travelling rail that follows the active section.",
     kind: "ai",
@@ -176,7 +176,7 @@ export const demos: MotionDemo[] = [
   // Expanding surfaces and notifications
   {
     id: "card-resize",
-    title: "Card resize",
+    title: "Resizable Card",
     description: "A little space. A smooth change.",
     category: "Essential",
     kind: "resize",
@@ -204,28 +204,28 @@ export const demos: MotionDemo[] = [
   },
   {
     id: "panel",
-    title: "Panel reveal",
+    title: "Expandable Panel",
     description: "Details slide into place.",
     category: "Essential",
     kind: "panel",
   },
   {
     id: "modal",
-    title: "Modal entrance",
+    title: "Modal",
     description: "A softer way to enter the spotlight.",
     category: "Essential",
     kind: "modal",
   },
   {
     id: "tooltip",
-    title: "Tooltip travel",
+    title: "Tooltip",
     description: "Helpful hints that move with you.",
     category: "Essential",
     kind: "tooltip",
   },
   {
     id: "toast",
-    title: "Toast entrance",
+    title: "Toast",
     description: "Good news, delivered softly.",
     category: "Essential",
     kind: "toast",
@@ -248,14 +248,14 @@ export const demos: MotionDemo[] = [
   // Inputs and agent conversations
   {
     id: "clear-input",
-    title: "Clear input",
+    title: "Clearable Input",
     description: "Let your words gently disappear.",
     category: "Texts",
     kind: "clear",
   },
   {
     id: "input-shake",
-    title: "Input shake",
+    title: "Shake Input",
     description: "A little nudge when something is off.",
     category: "Essential",
     kind: "shake",
@@ -352,14 +352,14 @@ export const demos: MotionDemo[] = [
   // Loading and thinking
   {
     id: "dot-loader",
-    title: "Loading Indicators",
+    title: "Loading Indicator",
     description: "The original matrix and the complete loading.dev collection.",
     category: "AI Agents",
     kind: "loader",
   },
   {
     id: "skeleton",
-    title: "Skeleton reveal",
+    title: "Skeleton",
     description: "From loading to ready, seamlessly.",
     category: "AI Agents",
     kind: "skeleton",
@@ -373,7 +373,7 @@ export const demos: MotionDemo[] = [
   },
   {
     id: "ai-thinking",
-    title: "Thinking",
+    title: "Thinking Indicator",
     description: "Expandable agent traces, reasoning, search, and coding.",
     category: "AI Agents",
     kind: "ai",
@@ -389,7 +389,7 @@ export const demos: MotionDemo[] = [
   // Animated values
   {
     id: "number-flow",
-    title: "Number flow",
+    title: "Number Flow",
     description: "Numbers with a spring in their step.",
     category: "Texts",
     kind: "count",
@@ -405,14 +405,14 @@ export const demos: MotionDemo[] = [
   // Text motion and emphasis
   {
     id: "text-swap",
-    title: "Text swap",
+    title: "Text Swap",
     description: "One state flows into the next.",
     category: "Texts",
     kind: "swap",
   },
   {
     id: "text-reveal",
-    title: "Staggered text",
+    title: "Staggered Text",
     description: "Give each line its own entrance.",
     category: "Texts",
     kind: "reveal",
@@ -433,7 +433,7 @@ export const demos: MotionDemo[] = [
   },
   {
     id: "shimmer",
-    title: "Thinking shimmer",
+    title: "Shimmer Text",
     description: "A quiet sign that ideas are forming.",
     category: "AI Agents",
     kind: "shimmer",
@@ -447,7 +447,7 @@ export const demos: MotionDemo[] = [
   },
   {
     id: "scroll-based-velocity",
-    title: "Scroll Based Velocity",
+    title: "Scroll Velocity Text",
     description: "Two text streams change pace and direction as you scroll.",
     category: "Texts",
     kind: "component",
@@ -468,7 +468,7 @@ export const demos: MotionDemo[] = [
   },
   {
     id: "highlighter",
-    title: "Highlighter",
+    title: "Text Highlighter",
     description: "Hand-drawn highlights, underlines, circles, and boxes.",
     category: "Effects",
     kind: "component",
@@ -491,7 +491,7 @@ export const demos: MotionDemo[] = [
   },
   {
     id: "shine-border",
-    title: "Shine Border",
+    title: "Shimmer Border",
     description: "A moving light traces the border of a card.",
     category: "Effects",
     kind: "component",
@@ -505,7 +505,7 @@ export const demos: MotionDemo[] = [
   },
   {
     id: "card",
-    title: "Card",
+    title: "Motion Card",
     description:
       "A pointer-following gradient border and optional glowing orb.",
     category: "Effects",
@@ -537,7 +537,7 @@ export const demos: MotionDemo[] = [
   },
   {
     id: "floating-3d-particles",
-    title: "Floating 3D Particles",
+    title: "3D Particles",
     description:
       "An orbiting particle field with perspective and buoyant drift.",
     category: "Effects",
@@ -563,21 +563,21 @@ export const demos: MotionDemo[] = [
   // Device frames
   {
     id: "safari",
-    title: "Safari",
+    title: "Browser Frame",
     description: "A responsive Safari device frame for your app preview.",
     category: "Essential",
     kind: "component",
   },
   {
     id: "iphone",
-    title: "iPhone",
+    title: "iPhone Frame",
     description: "A responsive iPhone device frame for your app preview.",
     category: "Essential",
     kind: "component",
   },
   {
     id: "android",
-    title: "Android",
+    title: "Android Frame",
     description: "A responsive Android device frame for your app preview.",
     category: "Essential",
     kind: "component",
@@ -585,7 +585,7 @@ export const demos: MotionDemo[] = [
 
   {
     id: "card-stack-hover",
-    title: "Card Stack Hover",
+    title: "Hover Card Stack",
     description: "A small collection fans out on hover and focus.",
     category: "Essential",
     kind: "library",

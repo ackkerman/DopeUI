@@ -114,6 +114,7 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
       <div className={cn("sidebar-section")}>
         <span className={cn("sidebar-label")}>Getting started</span>
         <button onClick={openDocs}>Introduction</button>
+        <a href="/installation.html">Installation</a>
         <a href="#usage" onClick={() => setNavOpen(false)}>
           Use in React
         </a>
@@ -457,8 +458,8 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
                   Import <code>components/dope-ui/foundation.css</code> once
                   from your global CSS, adjusting the relative path. The CLI
                   installs the component under your components alias and its npm
-                  dependencies. Keep the included <code>LICENSE.txt</code> and
-                  <code>THIRD_PARTY_NOTICES.txt</code> when redistributing.
+                  dependencies. Keep the included <code>LICENSE.txt</code> when
+                  redistributing.
                 </p>
                 <p>
                   <a href={`/r/${demo.id}.json`} download>

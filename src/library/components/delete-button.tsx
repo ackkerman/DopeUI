@@ -43,16 +43,14 @@ const PRESS = {
 } as const;
 const INSTANT = { duration: 0 } as const;
 
-const SURFACE = "bg-[#F4F4F9] dark:bg-[#262626]";
-const RECESS = "bg-[#E7E7EF] dark:bg-[#1B1B1B]";
-const GLYPH = "text-[#868593] dark:text-[#9B9AA7]";
-const FOCUS = "outline-none focus-visible:ring-2 focus-visible:ring-[#868593]";
-const ACCENT = "#FF5F2E";
-
-const LIFT =
-  "shadow-[0_0.5px_1px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.08),inset_0_0.5px_0_rgba(255,255,255,0.9)] dark:shadow-[0_0.5px_1px_rgba(0,0,0,0.35),0_1.5px_4px_rgba(0,0,0,0.25),inset_0_0.5px_0_rgba(255,255,255,0.07)]";
-
-const CIRCLE = `grid h-7 w-7 place-items-center rounded-full transition-colors duration-200 hover:bg-[#FAFAFD] dark:hover:bg-[#2C2C2C] ${FOCUS} ${SURFACE} ${LIFT}`;
+// Share the library's semantic colours; avoid a separate orange/neumorphic palette.
+const SURFACE = "bg-[var(--frost-surface,#eceff4)]";
+const RECESS = "bg-[var(--frost-background,#e5e9f0)]";
+const GLYPH = "text-[var(--frost-foreground,#2e3440)]";
+const FOCUS =
+  "outline-none focus-visible:ring-2 focus-visible:ring-[var(--frost-primary,#5e81ac)]";
+const ACCENT = "var(--frost-primary, #5e81ac)";
+const CIRCLE = `grid h-7 w-7 place-items-center rounded-full transition-colors duration-150 hover:bg-[var(--frost-border,#d8dee9)] ${FOCUS} ${SURFACE}`;
 
 const ICON = {
   viewBox: "0 0 24 24",
@@ -102,7 +100,7 @@ function Circle({
           width="14"
           height="14"
           stroke="currentColor"
-          strokeWidth="3.5"
+          strokeWidth="1.75"
         >
           {children}
         </svg>
@@ -172,7 +170,7 @@ export function DeleteButton({
       data-slot="delete-button"
       data-state={open ? "open" : "closed"}
       data-status={status}
-      className={cn("relative h-12 rounded-2xl", SURFACE, GLYPH, className)}
+      className={cn("relative h-12 rounded-full", SURFACE, GLYPH, className)}
       animate={{ width: open ? TILE + PANEL : TILE }}
       transition={timing(WIDTH)}
       onKeyDown={(event) => {
@@ -193,7 +191,7 @@ export function DeleteButton({
         whileTap={reduced ? undefined : { scale: 0.94 }}
         transition={TAP}
         className={cn(
-          "relative z-10 grid h-12 w-12 place-items-center rounded-2xl",
+          "relative z-10 grid h-12 w-12 place-items-center rounded-full",
           FOCUS,
         )}
       >
@@ -205,7 +203,7 @@ export function DeleteButton({
               width="20"
               height="20"
               stroke={ACCENT}
-              strokeWidth="2.5"
+              strokeWidth="1.75"
               initial={{ opacity: 0, scale: 0.6 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.6 }}
@@ -225,7 +223,7 @@ export function DeleteButton({
               width="20"
               height="20"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="1.75"
               className={cn("overflow-visible")}
               style={{ scale: settle }}
               initial={{ opacity: 0 }}
@@ -257,7 +255,7 @@ export function DeleteButton({
             key="panel"
             style={{ width: PANEL }}
             className={cn(
-              "absolute inset-y-0 right-0 flex items-center justify-center gap-2 rounded-2xl",
+              "absolute inset-y-0 right-0 flex items-center justify-center gap-2 rounded-full",
               RECESS,
             )}
             variants={reduced ? undefined : panelMotion}
@@ -294,7 +292,7 @@ export default function DeleteButtonDemo({
   ...props
 }: DeleteButtonDemoProps) {
   const [deleted, setDeleted] = React.useState(false);
-  const defaults = { onClick: () => setDeleted(true) };
+  const defaults = { onConfirm: () => setDeleted(true) };
   const input = { ...defaults, ...props } as React.ComponentProps<
     typeof DeleteButton
   >;

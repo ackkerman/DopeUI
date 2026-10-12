@@ -7,7 +7,11 @@ export default defineConfig({
   build: {
     outDir: "dist/client",
     rollupOptions: {
-      input: { main: "index.html", colors: "colors.html" },
+      input: {
+        main: "index.html",
+        colors: "colors.html",
+        installation: "installation.html",
+      },
       output: {
         manualChunks(id) {
           if (

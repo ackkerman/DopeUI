@@ -112,6 +112,13 @@ export function CodeDialog({
           >
             Use in React <ArrowRight size={16} aria-hidden />
           </a>
+          <a
+            className={cn("introduction-action")}
+            href="/installation.html"
+            onClick={closeDialog}
+          >
+            Installation <ArrowRight size={16} aria-hidden />
+          </a>
           <div className={cn("introduction-license")}>
             <p>
               Original dope/ui code is MIT licensed. Include LICENSE and

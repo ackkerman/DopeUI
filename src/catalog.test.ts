@@ -1,6 +1,8 @@
 import ts from "typescript";
 import { describe, expect, it } from "vitest";
 import { demos, filterDemos } from "./catalog";
+import { libraryEntries } from "./library/registry";
+import { reactComponentName } from "./react-demo-source";
 import { getDemoSource } from "./demo-source";
 
 describe("library discovery", () => {
@@ -83,4 +85,21 @@ it("keeps related roles adjacent in the curated order and after category filteri
     "scroll-progress",
   ]);
   expect(new Set(ids).size).toBe(demos.length);
+});
+
+it("keeps public labels and download names consistent for every component", () => {
+  // Given the catalogue, when a component is downloaded, then its name matches its label.
+  expect(new Set(demos.map((demo) => demo.title)).size).toBe(demos.length);
+  for (const demo of demos) {
+    expect(demo.title, demo.id).toMatch(
+      /^(?:[A-Z0-9][A-Za-z0-9]*|iPhone)(?: (?:[A-Z0-9][A-Za-z0-9]*|iPhone|of))*$/,
+    );
+    expect(demo.title, demo.id).not.toMatch(/Demo$/);
+    const componentName = demo.title
+      .replaceAll(" ", "")
+      .replace(/^3D/, "ThreeD")
+      .replace(/^iPhone/, "IPhone");
+    expect(libraryEntries[demo.id].filename).toBe(`${componentName}.tsx`);
+    expect(reactComponentName(demo.id)).toBe(componentName);
+  }
 });
