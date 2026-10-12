@@ -110,3 +110,20 @@ it("uses fragment-only links for the current document and full URLs for other do
     screen.getByRole("link", { name: "Color palette" }).getAttribute("href"),
   ).toBe("/colors.html#palette");
 });
+
+it("toggles the complete mobile contents with a linked accessible control", () => {
+  const view = render(<DocsSidebar current="installation" />);
+  const toggle = screen.getByRole("button", { name: "Contents" });
+  const panel = view.container.querySelector(".docs-nav-content");
+  expect(toggle.getAttribute("aria-controls")).toBe(panel?.id);
+  expect(toggle.getAttribute("aria-expanded")).toBe("false");
+  fireEvent.click(toggle);
+  expect(toggle.getAttribute("aria-expanded")).toBe("true");
+  expect(panel?.getAttribute("data-open")).toBe("true");
+  fireEvent.click(toggle);
+  expect(toggle.getAttribute("aria-expanded")).toBe("false");
+  fireEvent.click(toggle);
+  expect(
+    screen.getByRole("link", { name: "Requirements" }).getAttribute("href"),
+  ).toBe("#requirements");
+});

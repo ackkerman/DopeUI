@@ -1,4 +1,7 @@
 // This file guarantees every documentation page shares expandable section navigation.
+import { useId, useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { Button } from "./library/primitives/button";
 import { useDocumentAnchor } from "./use-document-anchor";
 import { HookSidebar } from "./library/components/hook-sidebar";
 import "./DocsSidebar.css";
@@ -56,6 +59,8 @@ const pages = [
 export type DocsPage = "introduction" | "installation" | "colors" | "skills";
 export function DocsSidebar({ current }: { current: DocsPage }) {
   useDocumentAnchor();
+  const [contentsOpen, setContentsOpen] = useState(false);
+  const contentsId = useId();
   const items = pages.map((page) => ({
     ...page,
     children: page.children.map((section) => ({
@@ -69,18 +74,38 @@ export function DocsSidebar({ current }: { current: DocsPage }) {
   const active = pages.findIndex((page) => page.id === current);
   return (
     <aside className="detail-sidebar docs-sidebar">
-      <HookSidebar
-        key={current}
-        items={[...items, { label: "Components", href: "/library" }]}
-        label="Getting started"
-        value={active}
-        defaultExpanded={[active]}
-      />
-      <nav className="docs-resources" aria-label="AI resources">
-        <span className="sidebar-label">AI resources</span>
-        <a href="/llms.txt">llms.txt</a>
-        <a href="/llms-full.txt">llms-full.txt</a>
-      </nav>
+      <Button
+        variant="quiet"
+        className="docs-toc-toggle"
+        aria-expanded={contentsOpen}
+        aria-controls={contentsId}
+        onClick={() => setContentsOpen((open) => !open)}
+      >
+        Contents{" "}
+        <ChevronDown
+          size={16}
+          aria-hidden
+          style={{ transform: contentsOpen ? "rotate(180deg)" : undefined }}
+        />
+      </Button>
+      <div
+        id={contentsId}
+        className="docs-nav-content"
+        data-open={contentsOpen}
+      >
+        <HookSidebar
+          key={current}
+          items={[...items, { label: "Components", href: "/library" }]}
+          label="Getting started"
+          value={active}
+          defaultExpanded={[active]}
+        />
+        <nav className="docs-resources" aria-label="AI resources">
+          <span className="sidebar-label">AI resources</span>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/llms-full.txt">llms-full.txt</a>
+        </nav>
+      </div>
     </aside>
   );
 }
