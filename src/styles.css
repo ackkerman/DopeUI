@@ -2634,3 +2634,11 @@ footer p {
 .motion-card .dui-animated-theme-toggler [aria-label="Transition shape"] {
   display: none;
 }
+
+/* Keep code examples readable; thumbnail variant controls belong in the detail view. */
+.motion-card .dui-code-viewer-demo [aria-label="Code Block variants"] {
+  display: none;
+}
+.motion-card .dui-code-viewer-demo {
+  min-height: 300px;
+}

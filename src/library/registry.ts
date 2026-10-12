@@ -1,3 +1,4 @@
+import CodeBlockDemo from "./components/code-block";
 import ImageOpenTilt from "./components/image-open-tilt";
 import StreamingText from "./components/streaming-text";
 import OrganicShimmer from "./components/organic-shimmer";
@@ -87,6 +88,21 @@ export interface LibraryEntry {
   dependencies: readonly string[];
 }
 export const libraryEntries: Record<string, LibraryEntry> = {
+  "code-block": {
+    Component: CodeBlockDemo,
+    loadSource: () =>
+      import("./distribution/code-block.tsx?raw").then(
+        (module) => module.default,
+      ),
+    filename: "CodeBlock.tsx",
+    dependencies: [
+      "react",
+      "prismjs",
+      "lucide-react",
+      "clsx",
+      "tailwind-merge",
+    ],
+  },
   "organic-shimmer": {
     Component: OrganicShimmer,
     loadSource: () =>

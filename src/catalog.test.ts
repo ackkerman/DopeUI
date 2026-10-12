@@ -68,6 +68,7 @@ it("keeps related roles adjacent in the curated order and after category filteri
     ["pulsating-button", "interactive-hover-button", "rainbow-button"],
     ["hook-sidebar", "rail-toc", "scroll-progress"],
     ["number-flow", "animated-counter"],
+    ["file-tree", "code-block"],
     ["shine-border", "border-beam", "card"],
     ["dotted-map", "globe"],
     ["safari", "iphone", "android"],
@@ -78,6 +79,11 @@ it("keeps related roles adjacent in the curated order and after category filteri
   const essentials = filterDemos("", "Essential", "featured").map(
     (demo) => demo.id,
   );
+  const fileTree = essentials.indexOf("file-tree");
+  expect(essentials.slice(fileTree, fileTree + 2)).toEqual([
+    "file-tree",
+    "code-block",
+  ]);
   const start = essentials.indexOf("hook-sidebar");
   expect(essentials.slice(start, start + 3)).toEqual([
     "hook-sidebar",

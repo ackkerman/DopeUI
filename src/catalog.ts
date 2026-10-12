@@ -172,6 +172,14 @@ export const demos: MotionDemo[] = [
     category: "Essential",
     kind: "component",
   },
+  {
+    id: "code-block",
+    title: "Code Block",
+    description:
+      "Readable code with file tabs, line highlights, and one-click copying.",
+    category: "Essential",
+    kind: "content",
+  },
 
   // Expanding surfaces and notifications
   {

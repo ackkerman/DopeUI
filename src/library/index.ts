@@ -304,3 +304,11 @@ export type { ImageOpenTiltProps } from "./components/image-open-tilt";
 
 export { CodeBlock } from "./primitives/code-block";
 export type { CodeBlockProps } from "./primitives/code-block";
+
+export { default as CodeBlockDemo, CodeSnippet } from "./components/code-block";
+export type {
+  CodeFile,
+  CodeSnippetProps,
+  CodeBlockVariant,
+  CodeBlockDemoProps,
+} from "./components/code-block";
