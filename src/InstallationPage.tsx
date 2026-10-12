@@ -1,3 +1,4 @@
+import { DocsSidebar } from "./DocsSidebar";
 import { SiteHeader } from "./SiteHeader";
 import { Button } from "./library/primitives/button";
 // This file guarantees a directly addressable guide to the current component distribution.
@@ -27,7 +28,7 @@ export function InstallationPage() {
         navigation={
           <>
             <a href="/library">Library</a>
-            <a href="/installation.html" aria-current="page">
+            <a href="/introduction.html" aria-current="page">
               Docs
             </a>
             <a href="/colors.html">Colors</a>
@@ -41,20 +42,8 @@ export function InstallationPage() {
           </>
         }
       />
-      <div className="detail-shell installation-shell">
-        <aside className="detail-sidebar">
-          <nav className="sidebar-section" aria-label="Getting started">
-            <span className="sidebar-label">Getting started</span>
-            <a href="/installation.html" aria-current="page">
-              Installation
-            </a>
-            <a href="#requirements">Requirements</a>
-            <a href="#shadcn">Using shadcn</a>
-            <a href="#styles">Shared styles</a>
-            <a href="#manual">Manual installation</a>
-            <a href="/library">Browse components</a>
-          </nav>
-        </aside>
+      <div className="detail-shell docs-shell installation-shell">
+        <DocsSidebar current="installation" />
         <main id="installation" className="detail-main installation-content">
           <div className="detail-heading">
             <div>
@@ -194,7 +183,7 @@ export function InstallationPage() {
           </section>
           <Button
             variant="primary"
-            className="introduction-action"
+            className="installation-browse-action"
             href="/library"
           >
             Browse components <ArrowRight size={16} />

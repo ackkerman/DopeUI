@@ -1,16 +1,14 @@
+import { DocsSidebar } from "./DocsSidebar";
 import { SiteHeader } from "./SiteHeader";
 import { SiteTabs } from "./SiteTabs";
 import { SiteSearch } from "./SiteSearch";
 import { Button } from "./library/primitives/button";
 import { SiteCode } from "./SiteCode";
 // This file guarantees searchable FROST color documentation with scoped, live component examples.
-import { lazy, Suspense, useState } from "react";
+import { useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { cn } from "./class-names";
 
-const CodeDialog = lazy(() =>
-  import("./CodeDialog").then((module) => ({ default: module.CodeDialog })),
-);
 import { FrostExample } from "./FrostExample";
 import {
   frostBrands,
@@ -45,7 +43,6 @@ export function FrostColorPage() {
     [brand, setBrand] = useState<FrostBrand>("frost");
   const [status, setStatus] = useState(""),
     [query, setQuery] = useState(""),
-    [docs, setDocs] = useState(false),
     [mobile, setMobile] = useState(false);
   const tokens = getFrostTokens(theme, brand);
   const families = Object.entries(frostColorFamilies).filter(([key, family]) =>
@@ -70,7 +67,7 @@ export function FrostColorPage() {
         navigation={
           <>
             <a href="/library">Library</a>
-            <Button variant="quiet" size="sm" onClick={() => setDocs(true)}>
+            <Button variant="quiet" size="sm" href="/introduction.html">
               Docs
             </Button>
             <a href="/#about">
@@ -113,10 +110,8 @@ export function FrostColorPage() {
               <Button
                 variant="quiet"
                 size="sm"
-                onClick={() => {
-                  setMobile(false);
-                  setDocs(true);
-                }}
+                href="/introduction.html"
+                onClick={() => setMobile(false)}
               >
                 Docs
               </Button>
@@ -128,23 +123,8 @@ export function FrostColorPage() {
           )
         }
       />
-      <div className={cn("frost-doc-layout")}>
-        <aside className={cn("frost-doc-sidebar")}>
-          <p>Foundations</p>
-          <a href="/library">Motion library</a>
-          <strong>Colors</strong>
-          <nav aria-label="Color sections">
-            {links.map((link) => (
-              <a href={`#${link.id}`} key={link.id}>
-                {link.label}
-              </a>
-            ))}
-          </nav>
-          <div>
-            <span>FROST / 02</span>
-            <small>Nord × Pastel</small>
-          </div>
-        </aside>
+      <div className={cn("detail-shell docs-shell frost-doc-layout")}>
+        <DocsSidebar current="colors" />
         <main className={cn("frost-doc-main")}>
           <div className={cn("frost-doc-intro")}>
             <span>Foundations</span>
@@ -156,6 +136,13 @@ export function FrostColorPage() {
               Nordの静けさに、パステルの表情を。
             </p>
           </div>
+          <nav className="docs-section-nav" aria-label="Color sections">
+            {links.map((link) => (
+              <a href={`#${link.id}`} key={link.id}>
+                {link.label}
+              </a>
+            ))}
+          </nav>
           <section id="palette" className={cn("frost-doc-section")}>
             <div className={cn("frost-doc-section-head")}>
               <h2>Color palette</h2>
@@ -404,18 +391,13 @@ export function FrostColorPage() {
         </div>
         <div className={cn("footer-links")}>
           <a href="/library">Library</a>
-          <Button variant="quiet" size="sm" onClick={() => setDocs(true)}>
+          <Button variant="quiet" size="sm" href="/introduction.html">
             Documentation
           </Button>
           <a href="/colors.html">Colors</a>
           <a href="/#about">About</a>
         </div>
       </footer>
-      {docs && (
-        <Suspense fallback={null}>
-          <CodeDialog docs demo={null} onClose={() => setDocs(false)} />
-        </Suspense>
-      )}
     </>
   );
 }

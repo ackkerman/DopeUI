@@ -24,7 +24,7 @@
   padding-left: 20px;
   list-style: decimal;
 }
-.installation-content a {
+.installation-content a:not([data-dui-action]) {
   color: var(--accent);
 }
 .installation-content a svg {

@@ -19,7 +19,6 @@ import { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
-  ArrowUpRight,
   Check,
   ChevronDown,
   Code2,
@@ -31,8 +30,6 @@ import { categories, demos, type MotionDemo } from "./catalog";
 import { adjacentDemos, detailHref } from "./detail-navigation";
 import { MotionPreview } from "./MotionPreview";
 
-import { CodeDialog } from "./CodeDialog";
-
 type DetailView = "Preview" | "CSS" | "React";
 export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
   const [loadingPaused, setLoadingPaused] = useState(false);
@@ -41,7 +38,6 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
   const [view, setView] = useState<DetailView>("Preview");
   const [query, setQuery] = useState("");
   const [navOpen, setNavOpen] = useState(false);
-  const [docs, setDocs] = useState(false);
   const [copyStatus, setCopyStatus] = useState("");
   const [linkStatus, setLinkStatus] = useState("");
   const [groups, setGroups] = useState<string[]>(() =>
@@ -49,7 +45,6 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
   );
   const linkTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const search = useRef<HTMLInputElement>(null);
-  const started = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     const url = new URL(window.location.href);
     if (
@@ -86,10 +81,6 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
       .toLowerCase()
       .includes(query.trim().toLowerCase()),
   );
-  const openDocs = () => {
-    setDocs(true);
-    setNavOpen(false);
-  };
   async function copyLoadingUsage(variant: LoadingVariant) {
     const snippet = `import { LoadingIndicator } from './${reactComponentName("dot-loader")}';\n\nexport default function App() {\n  return <LoadingIndicator variant="${variant}" size={32} />;\n}\n`;
     try {
@@ -115,7 +106,7 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
     <>
       <div className={cn("sidebar-section")}>
         <span className={cn("sidebar-label")}>Getting started</span>
-        <Button variant="quiet" size="sm" onClick={openDocs}>
+        <Button variant="quiet" size="sm" href="/introduction.html">
           Introduction
         </Button>
         <a href="/installation.html">Installation</a>
@@ -182,7 +173,7 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
         navigation={
           <>
             <a href="/library">Library</a>
-            <Button variant="quiet" size="sm" onClick={openDocs}>
+            <Button variant="quiet" size="sm" href="/introduction.html">
               Docs
             </Button>
             <a href="/#about">
@@ -207,10 +198,9 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
               variant="primary"
               size="sm"
               className={cn("get-started")}
-              ref={started}
-              onClick={openDocs}
+              href="/introduction.html"
             >
-              Get started <ArrowUpRight size={14} />
+              Get started <ArrowRight size={14} />
             </Button>
             <Button
               variant="quiet"
@@ -571,23 +561,13 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
         </div>
         <div className={cn("footer-links")}>
           <a href="/library">Library</a>
-          <Button variant="quiet" size="sm" onClick={openDocs}>
+          <Button variant="quiet" size="sm" href="/introduction.html">
             Documentation
           </Button>
           <a href="/colors.html">Colors</a>
           <a href="/#about">About</a>
         </div>
       </footer>
-      {docs && (
-        <CodeDialog
-          demo={null}
-          docs
-          onClose={() => {
-            setDocs(false);
-            started.current?.focus();
-          }}
-        />
-      )}
     </>
   );
 }

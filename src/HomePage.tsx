@@ -287,6 +287,7 @@ export function HomePage() {
           <>
             <a href="#examples">Examples</a>
             <a href="/library">Components</a>
+            <a href="/introduction.html">Docs</a>
             <a href="/colors.html">Colors</a>
           </>
         }
@@ -444,6 +445,7 @@ export function HomePage() {
         <p>Thoughtful motion for everyday interfaces.</p>
         <div>
           <a href="/library">Components</a>
+          <a href="/introduction.html">Docs</a>
           <a href="/colors.html">Colors</a>
           <a href="https://github.com/ackkerman/DopeUI/blob/main/LICENSE">
             MIT licensed <ArrowUpRight size={11} />

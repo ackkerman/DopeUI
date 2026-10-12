@@ -1,0 +1,60 @@
+/* This file guarantees shared docs navigation geometry across Introduction, Installation and Colors. */
+:root .docs-shell {
+  display: grid;
+  grid-template-columns: 224px minmax(0, 1fr);
+  gap: 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 24px 56px;
+  align-items: start;
+}
+:root .docs-sidebar {
+  position: sticky;
+  top: 24px;
+  padding-bottom: 30px;
+}
+:root .docs-sidebar [aria-current="page"] {
+  color: var(--accent);
+  background: var(--preview);
+}
+:root .docs-sidebar [data-dui-action] {
+  justify-content: flex-start;
+  height: 36px;
+}
+.docs-section-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 32px;
+}
+@media (min-width: 1200px) {
+  :root .docs-shell.introduction-shell {
+    grid-template-columns: 224px minmax(0, 1fr) 180px;
+  }
+}
+@media (max-width: 699px) {
+  :root .docs-shell {
+    display: block;
+    padding: 24px 16px 40px;
+  }
+  :root .docs-sidebar {
+    display: block;
+    position: static;
+    max-height: none;
+    padding-bottom: 20px;
+  }
+  :root .docs-sidebar .sidebar-section {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  :root .docs-sidebar .sidebar-label {
+    width: 100%;
+  }
+}
+/* Document links inherit prose colors; filled library actions keep their own contrast. */
+:root .docs-shell a[data-dui-action].bg-primary {
+  color: var(--primary-foreground, #fff);
+}

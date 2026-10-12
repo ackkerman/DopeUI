@@ -3,6 +3,7 @@ import { GlideMenu } from "./library/primitives/glide-menu";
 import { SiteSearch } from "./SiteSearch";
 import { SiteTabs } from "./SiteTabs";
 import { Button } from "./library/primitives/button";
+import { IntroductionPage } from "./IntroductionPage";
 import { InstallationPage } from "./InstallationPage";
 import { useMasonryLayout } from "./use-masonry-layout";
 import { HomePage } from "./HomePage";
@@ -14,7 +15,6 @@ import { detailHref, resolveDetail } from "./detail-navigation";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowDownAZ,
-  ArrowUpRight,
   ArrowRight,
   Code2,
   Menu,
@@ -40,9 +40,7 @@ function LibraryPage() {
   const [sortOpen, setSortOpen] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [selected, setSelected] = useState<MotionDemo | null>(null);
-  const [docs, setDocs] = useState(false);
   const search = useRef<HTMLInputElement>(null);
-  const getStarted = useRef<HTMLButtonElement>(null);
   const sortArea = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -69,10 +67,6 @@ function LibraryPage() {
   const masonryGrid = useMasonryLayout(
     results.map((demo) => demo.id).join(","),
   );
-  const openDocs = () => {
-    setDocs(true);
-    setMobileMenu(false);
-  };
   const reset = () => {
     setQuery("");
     setCategory("All");
@@ -89,7 +83,7 @@ function LibraryPage() {
             <a className={cn("nav-active")} href="#library">
               Library
             </a>
-            <Button variant="quiet" size="sm" onClick={openDocs}>
+            <Button variant="quiet" size="sm" href="/introduction.html">
               Docs
             </Button>
             <a href="#about">
@@ -114,10 +108,9 @@ function LibraryPage() {
               variant="primary"
               size="sm"
               className={cn("get-started")}
-              ref={getStarted}
-              onClick={openDocs}
+              href="/introduction.html"
             >
-              Get started <ArrowUpRight size={14} />
+              Get started <ArrowRight size={14} />
             </Button>
             <Button
               variant="quiet"
@@ -137,7 +130,7 @@ function LibraryPage() {
               <a href="#library" onClick={() => setMobileMenu(false)}>
                 Library
               </a>
-              <Button variant="quiet" size="sm" onClick={openDocs}>
+              <Button variant="quiet" size="sm" href="/introduction.html">
                 Docs
               </Button>
               <a href="/colors.html">Colors</a>
@@ -294,7 +287,7 @@ function LibraryPage() {
                 <br />
                 Just the code you need to get moving.
               </p>
-              <Button variant="quiet" size="sm" onClick={openDocs}>
+              <Button variant="quiet" size="sm" href="/introduction.html">
                 Explore the docs <ArrowRight size={15} />
               </Button>
             </div>
@@ -322,7 +315,7 @@ function LibraryPage() {
         </div>
         <div className={cn("footer-links")}>
           <a href="#library">Library</a>
-          <Button variant="quiet" size="sm" onClick={openDocs}>
+          <Button variant="quiet" size="sm" href="/introduction.html">
             Documentation
           </Button>
           <a href="/colors.html">Colors</a>
@@ -332,15 +325,13 @@ function LibraryPage() {
           {demos.length} little interactions. Endless possibilities.
         </span>
       </footer>
-      {(selected || docs) && (
+      {selected && (
         <CodeDialog
-          key={selected?.id ?? "docs"}
+          key={selected.id}
           demo={selected}
-          docs={docs}
+          docs={false}
           onClose={() => {
-            if (docs) getStarted.current?.focus();
             setSelected(null);
-            setDocs(false);
           }}
         />
       )}
@@ -349,6 +340,12 @@ function LibraryPage() {
 }
 
 export function App() {
+  if (
+    ["/introduction", "/introduction/", "/introduction.html"].includes(
+      window.location.pathname,
+    )
+  )
+    return <IntroductionPage />;
   // Pages canonicalizes static HTML URLs to extensionless paths.
   if (
     ["/installation", "/installation/", "/installation.html"].includes(

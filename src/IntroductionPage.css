@@ -1,0 +1,44 @@
+/* This file guarantees readable introduction prose and an optional desktop section index. */
+.introduction-content {
+  min-width: 0;
+}
+.introduction-content .introduction-lead {
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.65;
+}
+.introduction-next {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+:root .introduction-toc {
+  display: none;
+}
+@media (min-width: 1200px) {
+  :root .introduction-shell {
+    grid-template-columns: 220px minmax(0, 760px) 180px;
+    max-width: 1280px;
+    gap: 36px;
+  }
+  :root .introduction-toc {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-self: start;
+    position: sticky;
+    top: 100px;
+    font-size: 12px;
+    line-height: 1.5;
+    padding-top: 6px;
+  }
+  .introduction-toc span {
+    font-weight: 600;
+  }
+  .introduction-toc a {
+    color: var(--muted);
+  }
+}
