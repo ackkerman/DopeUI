@@ -2377,14 +2377,20 @@ footer p {
   top: 50%;
   left: 50%;
   bottom: auto;
-  translate: none;
+  /* Reset Tailwind translation explicitly; production optimization drops translate:none. */
+  --tw-translate-x: 0px;
+  --tw-translate-y: 0px;
+  translate: 0px 0px;
   transform: none;
 }
 .motion-card .dui-scroll-progress [data-slot="scroll-progress-surface"] {
   position: relative;
   left: auto;
   bottom: auto;
-  translate: none;
+  /* Reset Tailwind translation explicitly; production optimization drops translate:none. */
+  --tw-translate-x: 0px;
+  --tw-translate-y: 0px;
+  translate: 0px 0px;
   transform: translate(-50%, -50%);
 }
 .motion-card:has(.dui-hook-sidebar),
