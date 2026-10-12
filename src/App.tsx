@@ -87,9 +87,6 @@ function LibraryPage() {
             <Button variant="quiet" size="sm" href="/introduction.html">
               Docs
             </Button>
-            <a href="#about">
-              About <span className={cn("new-badge")}>New</span>
-            </a>
             <a href="/colors.html">Colors</a>
           </>
         }
@@ -135,9 +132,6 @@ function LibraryPage() {
                 Docs
               </Button>
               <a href="/colors.html">Colors</a>
-              <a href="#about" onClick={() => setMobileMenu(false)}>
-                About
-              </a>
             </nav>
           )
         }

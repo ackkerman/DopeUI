@@ -176,9 +176,6 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
             <Button variant="quiet" size="sm" href="/introduction.html">
               Docs
             </Button>
-            <a href="/#about">
-              About <span className={cn("new-badge")}>New</span>
-            </a>
             <a href="/colors.html">Colors</a>
           </>
         }
