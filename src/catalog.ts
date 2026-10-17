@@ -192,6 +192,22 @@ export const demos: MotionDemo[] = [
     kind: "resize",
   },
   {
+    id: "social-marquee",
+    title: "Social Marquee",
+    description:
+      "Social posts in two seamless rows, moving in opposite directions.",
+    category: "Essential",
+    kind: "component",
+  },
+  {
+    id: "logo-marquee",
+    title: "Logo Marquee",
+    description:
+      "Company logos in a seamless loop. Pause, reverse, or set the pace.",
+    category: "Images",
+    kind: "component",
+  },
+  {
     id: "image-open-tilt",
     title: "Image Zoom",
     description: "An image opens in place with a smooth, straight zoom.",

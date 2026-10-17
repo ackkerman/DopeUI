@@ -1,3 +1,5 @@
+import SocialMarqueeDemo from "./components/social-marquee";
+import LogoMarqueeDemo from "./components/logo-marquee";
 import CodeBlockDemo from "./components/code-block";
 import ImageOpenTilt from "./components/image-open-tilt";
 import StreamingText from "./components/streaming-text";
@@ -88,6 +90,24 @@ export interface LibraryEntry {
   dependencies: readonly string[];
 }
 export const libraryEntries: Record<string, LibraryEntry> = {
+  "social-marquee": {
+    Component: SocialMarqueeDemo,
+    loadSource: () =>
+      import("./distribution/social-marquee.tsx?raw").then(
+        (module) => module.default,
+      ),
+    filename: "SocialMarquee.tsx",
+    dependencies: ["react", "clsx", "tailwind-merge"],
+  },
+  "logo-marquee": {
+    Component: LogoMarqueeDemo,
+    loadSource: () =>
+      import("./distribution/logo-marquee.tsx?raw").then(
+        (module) => module.default,
+      ),
+    filename: "LogoMarquee.tsx",
+    dependencies: ["react", "clsx", "tailwind-merge"],
+  },
   "code-block": {
     Component: CodeBlockDemo,
     loadSource: () =>

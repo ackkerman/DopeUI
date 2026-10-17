@@ -312,3 +312,21 @@ export type {
   CodeBlockVariant,
   CodeBlockDemoProps,
 } from "./components/code-block";
+
+export {
+  LogoMarquee,
+  default as LogoMarqueeDemo,
+} from "./components/logo-marquee";
+export type {
+  LogoMarqueeItem,
+  LogoMarqueeProps,
+} from "./components/logo-marquee";
+
+export {
+  SocialMarquee,
+  default as SocialMarqueeDemo,
+} from "./components/social-marquee";
+export type {
+  SocialMarqueePost,
+  SocialMarqueeProps,
+} from "./components/social-marquee";

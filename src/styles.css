@@ -2643,3 +2643,12 @@ footer p {
 .motion-card .dui-code-viewer-demo {
   min-height: 300px;
 }
+
+/* Social cards use natural height so both rows remain readable in embedded previews. */
+.preview.dui-social-marquee-demo {
+  height: auto;
+  min-height: 360px;
+}
+.detail-preview .preview.dui-social-marquee-demo {
+  min-height: 460px;
+}

@@ -130,6 +130,7 @@ it("groups primary button interactions in Buttons without changing the curated o
 
 it("groups the requested image interactions in Images and supports combined search", () => {
   expect(filterDemos("", "Images", "featured").map((demo) => demo.id)).toEqual([
+    "logo-marquee",
     "image-open-tilt",
     "organic-shimmer",
     "grid-reveal",

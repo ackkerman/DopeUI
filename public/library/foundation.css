@@ -13892,3 +13892,209 @@ a:focus-visible .animated-underline::after {
     );
   }
 }
+
+@layer components {
+  .dui-logo-marquee-demo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+  }
+  .dui-marquee {
+    width: 100%;
+    min-width: 0;
+    overflow: clip;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 32px,
+      black calc(100% - 32px),
+      transparent
+    );
+  }
+  .dui-marquee:focus-visible {
+    outline: 2px solid var(--frost-primary, #416c91);
+    outline-offset: -2px;
+  }
+  .dui-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: dui-marquee-loop var(--dui-marquee-duration, 28s) linear
+      infinite;
+  }
+  .dui-marquee-group,
+  .dui-marquee-set {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--dui-marquee-gap, 48px);
+  }
+  .dui-marquee-group {
+    padding-inline-end: var(--dui-marquee-gap, 48px);
+  }
+  .dui-logo-marquee {
+    padding-block: 32px;
+  }
+  .dui-logo-marquee-item {
+    display: flex;
+    width: auto;
+    height: 48px;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .dui-logo-marquee-item img {
+    display: block;
+    width: auto;
+    max-width: none;
+    height: 38px;
+    object-fit: contain;
+  }
+  .dui-logo-marquee-fallback {
+    color: var(--frost-foreground, #2e3440);
+    font:
+      600 22px/1.2 system-ui,
+      sans-serif;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+  :where(.dark, [data-theme="dark"]) .dui-logo-marquee-item img {
+    filter: grayscale(1) brightness(0) invert(0.9);
+  }
+  .dui-marquee[data-direction="right"] .dui-marquee-track {
+    animation-direction: reverse;
+  }
+  .dui-marquee[data-paused="true"] .dui-marquee-track,
+  .dui-marquee[data-pause-on-hover="true"]:hover .dui-marquee-track,
+  .dui-marquee:focus-within .dui-marquee-track {
+    animation-play-state: paused;
+  }
+  .dui-logo-marquee-demo > .dui-demo-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+  @keyframes dui-marquee-loop {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dui-marquee {
+      overflow-x: auto;
+      mask-image: none;
+    }
+    .dui-marquee-track {
+      animation: none;
+    }
+    .dui-marquee [aria-hidden="true"] {
+      display: none;
+    }
+  }
+}
+
+@layer components {
+  .dui-social-marquee-demo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+    padding-block: 24px;
+  }
+  .dui-social-marquee {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+  }
+  .dui-social-marquee .dui-marquee-group,
+  .dui-social-marquee .dui-marquee-set {
+    align-items: flex-start;
+  }
+  .dui-social-marquee-card {
+    flex: none;
+    width: 256px;
+    min-height: 144px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 16px;
+    border: 1px solid var(--frost-border, #d8dee9);
+    border-radius: 12px;
+    background: var(--frost-surface, #fff);
+    color: var(--frost-foreground, #2e3440);
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+  .dui-social-marquee-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dui-social-marquee-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 32px;
+    height: 32px;
+    overflow: clip;
+    border-radius: 50%;
+    background: var(--frost-secondary, #e5e9f0);
+    color: var(--frost-foreground, #2e3440);
+    font: 500 11px/1 system-ui, sans-serif;
+  }
+  .dui-social-marquee-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .dui-social-marquee-identity {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .dui-social-marquee-name {
+    font: 600 13px/1.4 Inter, system-ui, sans-serif;
+  }
+  .dui-social-marquee-username {
+    color: var(--frost-foreground-muted, #59687d);
+    font: 400 11px/1.4 Inter, system-ui, sans-serif;
+  }
+  .dui-social-marquee-card blockquote {
+    margin: 12px 0 0;
+    white-space: pre-wrap;
+    font: 400 13px/1.6 Inter, system-ui, sans-serif;
+  }
+  .dui-social-marquee-demo > .dui-demo-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+}
+
+@layer components {
+  .dui-logo-marquee-demo > .dui-demo-controls { flex-wrap: wrap; }
+  .dui-logo-marquee-spacing {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 36px;
+    color: var(--frost-foreground-muted, #59687d);
+    font: 400 12px/1.25 Inter, system-ui, sans-serif;
+  }
+  .dui-logo-marquee-spacing input {
+    width: 96px;
+    height: 36px;
+    margin: 0;
+    accent-color: var(--frost-primary, #416c91);
+    cursor: pointer;
+  }
+  .dui-logo-marquee-spacing output {
+    min-width: 4ch;
+    font-variant-numeric: tabular-nums;
+  }
+}
