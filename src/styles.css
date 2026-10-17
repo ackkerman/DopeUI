@@ -2652,3 +2652,71 @@ footer p {
 .detail-preview .preview.dui-social-marquee-demo {
   min-height: 460px;
 }
+
+.preview.dui-arrow-demo {
+  flex-direction: column;
+  padding: 20px;
+}
+.motion-card .dui-arrow-demo {
+  gap: 12px;
+}
+.motion-card .dui-arrow-samples {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.motion-card .dui-arrow-sample small,
+.motion-card .dui-arrow-controls {
+  display: none;
+}
+.motion-card .dui-arrow-swatch {
+  height: 62px;
+}
+.motion-card .dui-arrow-stage {
+  height: 200px;
+}
+
+.preview.dui-arrow-demo {
+  height: auto;
+  min-height: 320px;
+}
+.detail-preview .preview.dui-arrow-demo {
+  height: auto;
+  min-height: 460px;
+}
+
+.preview.dui-image-generation-demo {
+  height: auto;
+  min-height: 340px;
+  flex-shrink: 0;
+}
+
+.preview.dui-decorative-arrow-demo {
+  height: auto;
+  min-height: 320px;
+  padding: 20px;
+  flex-direction: column;
+}
+.detail-preview .preview.dui-decorative-arrow-demo {
+  height: auto;
+  min-height: 460px;
+}
+.motion-card .dui-decorative-arrow-controls {
+  display: none;
+}
+.motion-card .dui-decorative-arrow-demo {
+  gap: 12px;
+}
+.motion-card .dui-decorative-arrow-stage {
+  height: 230px;
+}
+
+/* Gallery thumbnails show the main arrow; the pattern comparison belongs in details. */
+.motion-card .dui-arrow-samples,
+.motion-card .dui-decorative-arrow-samples {
+  display: none;
+}
+.motion-card .preview.dui-arrow-demo {
+  min-height: 260px;
+}
+.motion-card .preview.dui-decorative-arrow-demo {
+  min-height: 280px;
+}

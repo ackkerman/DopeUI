@@ -1,3 +1,6 @@
+import DecorativeArrowDemo from "./components/decorative-arrow";
+import ImageGenerationDemo from "./components/image-generation";
+import ArrowDemo from "./components/arrow";
 import SocialMarqueeDemo from "./components/social-marquee";
 import LogoMarqueeDemo from "./components/logo-marquee";
 import CodeBlockDemo from "./components/code-block";
@@ -90,6 +93,33 @@ export interface LibraryEntry {
   dependencies: readonly string[];
 }
 export const libraryEntries: Record<string, LibraryEntry> = {
+  "image-generation": {
+    Component: ImageGenerationDemo,
+    loadSource: () =>
+      import("./distribution/image-generation.tsx?raw").then((m) => m.default),
+    filename: "ImageGeneration.tsx",
+    dependencies: ["react", "clsx", "tailwind-merge", "motion", "lucide-react"],
+  },
+  arrow: {
+    Component: ArrowDemo,
+    loadSource: () =>
+      import("./distribution/arrow.tsx?raw").then((m) => m.default),
+    filename: "Arrow.tsx",
+    dependencies: [
+      "react",
+      "clsx",
+      "tailwind-merge",
+      "lucide-react",
+      "@radix-ui/react-select",
+    ],
+  },
+  "decorative-arrow": {
+    Component: DecorativeArrowDemo,
+    loadSource: () =>
+      import("./distribution/decorative-arrow.tsx?raw").then((m) => m.default),
+    filename: "DecorativeArrow.tsx",
+    dependencies: ["react", "clsx", "tailwind-merge"],
+  },
   "social-marquee": {
     Component: SocialMarqueeDemo,
     loadSource: () =>

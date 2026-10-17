@@ -330,3 +330,27 @@ export type {
   SocialMarqueePost,
   SocialMarqueeProps,
 } from "./components/social-marquee";
+
+export { Arrow, ArrowLayer } from "./components/arrow";
+export type {
+  ArrowPoint,
+  ArrowEndpoint,
+  ArrowAnchor,
+  ArrowVariant,
+  ArrowAppearance,
+  ArrowHead,
+  ArrowProps,
+  ArrowLayerProps,
+} from "./components/arrow";
+
+export { ImageGeneration } from "./components/image-generation";
+export type {
+  ImageGenerationProps,
+  ImageGenerationStatus,
+} from "./components/image-generation";
+
+export { DecorativeArrow } from "./components/decorative-arrow";
+export type {
+  DecorativeArrowShape,
+  DecorativeArrowProps,
+} from "./components/decorative-arrow";

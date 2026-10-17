@@ -16,6 +16,8 @@ export interface MotionDemo {
   title: string;
   description: string;
   category: Exclude<Category, "All">;
+  /** Additional discovery groups share the same entry, source, and detail URL. */
+  additionalCategories?: readonly Exclude<Category, "All">[];
   kind: string;
 }
 export const demos: MotionDemo[] = [
@@ -190,6 +192,20 @@ export const demos: MotionDemo[] = [
     description: "A little space. A smooth change.",
     category: "Essential",
     kind: "resize",
+  },
+  {
+    id: "arrow",
+    title: "Arrow",
+    description: "Simple, handdrawn, bold, or brushed. Connect ideas your way.",
+    category: "Essential",
+    kind: "component",
+  },
+  {
+    id: "decorative-arrow",
+    title: "Decorative Arrow",
+    description: "A handdrawn loop, a sweeping curve. Drop an arrow anywhere.",
+    category: "Essential",
+    kind: "component",
   },
   {
     id: "social-marquee",
@@ -509,6 +525,15 @@ export const demos: MotionDemo[] = [
     kind: "ai",
   },
   {
+    id: "image-generation",
+    title: "Image Generation",
+    description:
+      "A moving dot field reveals an image through generation and refinement.",
+    category: "Images",
+    additionalCategories: ["AI Agents"],
+    kind: "component",
+  },
+  {
     id: "progressive-blur",
     title: "Progressive Blur",
     description: "A soft blur gradient at the edges of scrollable content.",
@@ -617,6 +642,18 @@ export const demos: MotionDemo[] = [
     kind: "library",
   },
 ];
+/** All includes each entry once; primary and additional groups resolve to the same demo. */
+export function demoMatchesCategory(
+  demo: MotionDemo,
+  category: Category,
+): boolean {
+  return (
+    category === "All" ||
+    demo.category === category ||
+    Boolean(demo.additionalCategories?.includes(category))
+  );
+}
+
 /** Empty matches are a valid result; sorting never mutates the catalogue. */
 export function filterDemos(
   query: string,
@@ -626,7 +663,7 @@ export function filterDemos(
   const term = query.trim().toLowerCase();
   const result = demos.filter(
     (d) =>
-      (category === "All" || d.category === category) &&
+      demoMatchesCategory(d, category) &&
       `${d.title} ${d.description}`.toLowerCase().includes(term),
   );
   if (sort !== "featured") {

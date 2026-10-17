@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import { DEMO_PHOTO } from "../demo-image";
 
 import { useEffect, useRef, useState } from "react";
 import type { ComponentProps } from "react";
@@ -709,19 +710,13 @@ export default function GridRevealDemo({
   const [generated, setGenerated] = React.useState<string | null>(null);
   const [failed, setFailed] = React.useState(false);
   React.useEffect(() => {
-    const timer = setTimeout(
-      () =>
-        setGenerated(
-          "https://images.unsplash.com/photo-1779896412176-45c509bbee35?auto=format&fit=max&w=1600&q=85",
-        ),
-      1800,
-    );
+    const timer = setTimeout(() => setGenerated(DEMO_PHOTO.src), 1800);
     return () => clearTimeout(timer);
   }, [run]);
   const defaults = {
     src: generated,
     aspect: props.src === undefined ? 3 / 2 : undefined,
-    alt: "Two friends taking a selfie in a car with skateboards",
+    alt: DEMO_PHOTO.alt,
     caption: generated ? "Image ready" : "Preparing reveal",
     estimatedDuration: 1800,
   };

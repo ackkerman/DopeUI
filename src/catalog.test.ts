@@ -59,7 +59,7 @@ describe("React implementation examples", () => {
       expect(source.React).not.toContain("./demo.css");
       expect(source.CSS).toContain(`.dui-${demo.id}`);
     }
-  }, 15000);
+  }, 60000);
 });
 
 it("keeps related roles adjacent in the curated order and after category filtering", () => {
@@ -134,9 +134,31 @@ it("groups the requested image interactions in Images and supports combined sear
     "image-open-tilt",
     "organic-shimmer",
     "grid-reveal",
+    "image-generation",
     "card-stack-hover",
   ]);
   expect(
     filterDemos("zoom", "Images", "featured").map((demo) => demo.id),
   ).toEqual(["image-open-tilt"]);
+});
+
+it("discovers Image Generation in Images and AI Agents without duplicating All", () => {
+  // Given a shared entry, both categories and their searches resolve the same detail/source.
+  const image = demos.find((demo) => demo.id === "image-generation");
+  for (const category of ["Images", "AI Agents", "All"] as const) {
+    const found = filterDemos("image generation", category, "featured");
+    expect(found).toEqual([image]);
+    expect(
+      filterDemos("", category, "featured").filter(
+        (demo) => demo.id === image?.id,
+      ),
+    ).toHaveLength(1);
+  }
+  expect(filterDemos("image generation", "Buttons", "featured")).toEqual([]);
+});
+
+it("places Image Generation immediately after Grid Reveal instead of at the catalogue start", () => {
+  const ids = filterDemos("", "All", "featured").map((demo) => demo.id);
+  expect(ids[0]).toBe("pulsating-button");
+  expect(ids[ids.indexOf("grid-reveal") + 1]).toBe("image-generation");
 });

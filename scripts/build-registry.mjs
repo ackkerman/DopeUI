@@ -194,6 +194,13 @@ function writeIfChanged(file, content) {
     fs.writeFileSync(file, content);
 }
 export function buildRegistry() {
+  // Clean Git builds must publish notices from tracked originals, not stale local copies.
+  fs.mkdirSync(path.join(root, "public"), { recursive: true });
+  for (const [source, target] of [
+    ["LICENSE", "LICENSE.txt"],
+    ["THIRD_PARTY_NOTICES.txt", "THIRD_PARTY_NOTICES.txt"],
+  ])
+    writeIfChanged(path.join(root, "public", target), read(source));
   const items = createRegistryItems();
   const output = path.join(root, "public/r");
   fs.mkdirSync(output, { recursive: true });

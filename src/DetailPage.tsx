@@ -13,7 +13,7 @@ import DotLoader, {
 import { libraryEntries } from "./library/registry";
 import { cn } from "./class-names";
 import { useDemoSource } from "./use-demo-source";
-import { reactComponentName } from "./react-demo-source";
+import { reactComponentName, reactUsageExample } from "./react-demo-source";
 // This file guarantees directly addressable demo pages with reusable previews and React examples.
 import { useEffect, useRef, useState } from "react";
 import {
@@ -26,7 +26,12 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { categories, demos, type MotionDemo } from "./catalog";
+import {
+  categories,
+  demos,
+  demoMatchesCategory,
+  type MotionDemo,
+} from "./catalog";
 import { adjacentDemos, detailHref } from "./detail-navigation";
 import { MotionPreview } from "./MotionPreview";
 
@@ -41,7 +46,9 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
   const [copyStatus, setCopyStatus] = useState("");
   const [linkStatus, setLinkStatus] = useState("");
   const [groups, setGroups] = useState<string[]>(() =>
-    demo ? [demo.category] : ["Essential"],
+    demo
+      ? [demo.category, ...(demo.additionalCategories ?? [])]
+      : ["Essential"],
   );
   const linkTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const search = useRef<HTMLInputElement>(null);
@@ -123,7 +130,9 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
       {categories
         .filter((c) => c !== "All")
         .map((category) => {
-          const entries = filtered.filter((d) => d.category === category);
+          const entries = filtered.filter((d) =>
+            demoMatchesCategory(d, category),
+          );
           if (entries.length === 0) return null;
           const expanded = groups.includes(category) || Boolean(query.trim());
           return (
@@ -291,7 +300,7 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
                     .map((c) => (
                       <optgroup label={c} key={c}>
                         {demos
-                          .filter((d) => d.category === c)
+                          .filter((d) => demoMatchesCategory(d, c))
                           .map((d) => (
                             <option key={d.id} value={d.id}>
                               {d.title}
@@ -462,7 +471,7 @@ export function DetailPage({ demo }: { demo: MotionDemo | undefined }) {
                   interaction logic are included.
                 </p>
                 <SiteCode
-                  code={`import ${reactComponentName(demo.id)} from './${reactComponentName(demo.id)}';\n\nexport default function App() {\n  return <${reactComponentName(demo.id)} />;\n}`}
+                  code={reactUsageExample(demo.id)}
                   language={"React"}
                 />
                 <p>

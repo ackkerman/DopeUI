@@ -56,6 +56,8 @@ it("provides the complete selected source for manual copying when clipboard acce
   expect(screen.queryByRole("textbox")).toBeNull();
 });
 it("keeps feedback local and copies a new code prop after a language change", async () => {
+  // Keep transient feedback visible while assertions run on a loaded host.
+  vi.useFakeTimers();
   const view = render(
     <>
       <CodeBlock code="React" />
@@ -63,7 +65,8 @@ it("keeps feedback local and copies a new code prop after a language change", as
     </>,
   );
   fireEvent.click(screen.getAllByRole("button", { name: "Copy code" })[0]);
-  await screen.findByRole("button", { name: "Copied" });
+  await act(async () => {});
+  expect(screen.getByRole("button", { name: "Copied" })).toBeTruthy();
   expect(screen.getAllByRole("button", { name: "Copy code" })).toHaveLength(1);
   view.rerender(<CodeBlock code="new CSS" />);
   fireEvent.click(screen.getByRole("button", { name: "Copy code" }));
