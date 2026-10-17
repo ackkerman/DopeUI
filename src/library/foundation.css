@@ -13032,8 +13032,6 @@ a:focus-visible .animated-underline::after {
     height: 230px;
     width: 100%;
     color: var(--primary, #416c91);
-    border-top: 1px solid var(--border, #d8dee9);
-    border-bottom: 1px solid var(--border, #d8dee9);
   }
   .dui-arrow-stage-caption,
   .dui-arrow-stage-hint {
@@ -13288,7 +13286,6 @@ a:focus-visible .animated-underline::after {
     height: 230px;
     flex-shrink: 0;
     width: 100%;
-    border-block: 1px solid var(--border, #d8dee9);
     color: var(--primary, #416c91);
   }
   .dui-decorative-arrow-caption {

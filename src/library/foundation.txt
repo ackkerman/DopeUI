@@ -14111,7 +14111,7 @@ a:focus-visible .animated-underline::after {
   .dui-arrow-sample > span { font-size: 12px; font-weight: 600; }
   .dui-arrow-sample small { font-size: 10px; margin-top: 4px; color: var(--muted-foreground, #59687d); }
   .dui-arrow-swatch { width: 150px; height: 76px; max-width: 100%; }
-  .dui-arrow-stage { height: 230px; width: 100%; color: var(--primary, #416c91); border-top: 1px solid var(--border, #d8dee9); border-bottom: 1px solid var(--border, #d8dee9); }
+  .dui-arrow-stage { height: 230px; width: 100%; color: var(--primary, #416c91); }
   .dui-arrow-stage-caption, .dui-arrow-stage-hint { position: absolute; left: 0; right: 0; text-align: center; color: var(--muted-foreground, #59687d); font-size: 10px; }
   .dui-arrow-stage-caption { top: 16px; letter-spacing: 0.16em; }
   .dui-arrow-stage-hint { bottom: 12px; }
@@ -14204,7 +14204,7 @@ a:focus-visible .animated-underline::after {
   .dui-decorative-arrow-samples { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; width: 100%; flex-shrink: 0; }
   .dui-decorative-arrow-samples button { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px 0; background: transparent; border: 0; color: var(--muted-foreground, #59687d); font-size: 11px; cursor: pointer; }
   .dui-decorative-arrow-samples button[aria-pressed="true"] { color: var(--primary, #416c91); font-weight: 600; }
-  .dui-decorative-arrow-stage { position: relative; height: 230px; flex-shrink: 0; width: 100%; border-block: 1px solid var(--border, #d8dee9); color: var(--primary, #416c91); }
+  .dui-decorative-arrow-stage { position: relative; height: 230px; flex-shrink: 0; width: 100%; color: var(--primary, #416c91); }
   .dui-decorative-arrow-caption { position: absolute; top: 22px; left: 12%; font-size: 18px; font-weight: 600; letter-spacing: -0.03em; }
   .dui-decorative-arrow-placement { position: absolute; left: calc(50% - 64px); top: 56px; transform: translateX(-50%); z-index: 10; }
   .dui-decorative-arrow-cta { position: absolute; top: 168px; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 20px; height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--border, #d8dee9); background: var(--surface, #fff); color: var(--foreground, #2e3440); font-size: 12px; cursor: pointer; }
