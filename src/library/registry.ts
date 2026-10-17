@@ -1,3 +1,5 @@
+import CardFolderDemo from "./components/card-folder";
+import PreviewRailDemo from "./components/preview-rail";
 import DecorativeArrowDemo from "./components/decorative-arrow";
 import ImageGenerationDemo from "./components/image-generation";
 import ArrowDemo from "./components/arrow";
@@ -93,6 +95,20 @@ export interface LibraryEntry {
   dependencies: readonly string[];
 }
 export const libraryEntries: Record<string, LibraryEntry> = {
+  "card-folder": {
+    Component: CardFolderDemo,
+    loadSource: () =>
+      import("./distribution/card-folder.tsx?raw").then((m) => m.default),
+    filename: "CardFolder.tsx",
+    dependencies: ["react", "clsx", "tailwind-merge", "motion", "lucide-react"],
+  },
+  "preview-rail": {
+    Component: PreviewRailDemo,
+    loadSource: () =>
+      import("./distribution/preview-rail.tsx?raw").then((m) => m.default),
+    filename: "PreviewRail.tsx",
+    dependencies: ["react", "clsx", "tailwind-merge", "motion"],
+  },
   "image-generation": {
     Component: ImageGenerationDemo,
     loadSource: () =>

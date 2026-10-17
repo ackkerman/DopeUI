@@ -14211,3 +14211,38 @@ a:focus-visible .animated-underline::after {
   .dui-decorative-arrow-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
   .dui-decorative-arrow-demo button:focus-visible { outline: 2px solid var(--primary, #416c91); outline-offset: 4px; }
 }
+
+@layer components {
+.dui-preview-rail-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    gap: 16px;
+    color: var(--foreground, #2e3440);
+  }
+.dui-preview-rail-stage { width: 100%; max-width: 440px; min-height: 320px; }
+.dui-preview-rail-hint { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 160px; padding: 24px 12px; text-align: center; }
+.dui-preview-rail-hint > span { font-size: 16px; font-weight: 500; }
+.dui-preview-rail-hint p { margin-top: 8px; font-size: 12px; color: var(--muted-foreground, #59687d); }
+.dui-preview-rail-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px; }
+.dui-preview-rail-controls button { min-height: 32px; padding: 4px 8px; border: 0; background: transparent; box-shadow: none; font-size: 11px; color: var(--muted-foreground, #59687d); cursor: pointer; }
+.dui-preview-rail-controls button[aria-pressed="true"] { color: var(--foreground, #2e3440); font-weight: 600; }
+.dui-preview-rail-controls button:disabled { opacity: 0.5; cursor: default; }
+.dui-preview-rail-card {
+    background-color: var(--surface, #ffffff);
+    color: var(--ink, #2e3440);
+    border-color: var(--line, #d8dee9);
+  }
+}
+
+@layer components {
+.dui-card-folder {
+    --background: var(--surface, #ffffff);
+    --foreground: var(--ink, #2e3440);
+    --muted-foreground: var(--ink-2, #59687d);
+    --ring: var(--accent, #416c91);
+  }
+.dui-card-folder-demo { min-width: 0; flex-direction: column; }
+}

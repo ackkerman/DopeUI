@@ -354,3 +354,12 @@ export type {
   DecorativeArrowShape,
   DecorativeArrowProps,
 } from "./components/decorative-arrow";
+
+export { PreviewRail } from "./components/preview-rail";
+export type {
+  PreviewRailItem,
+  PreviewRailProps,
+} from "./components/preview-rail";
+
+export { CardFolder } from "./components/card-folder";
+export type { CardFolderProps } from "./components/card-folder";

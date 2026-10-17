@@ -11,6 +11,30 @@ export function reactComponentName(id: string): string {
 
 /** Public primitives are shown where a demo's default export would obscure the reusable API. */
 export function reactUsageExample(id: string): string {
+  if (id === "card-folder") {
+    return `import { CardFolder } from './CardFolder';
+
+export default function App() {
+  return (
+    <CardFolder
+      title="Jamie Davis" cardNumber="0000 0000 0000 4242" expiry="08/29" cvv="123"
+      card={<div className="h-full bg-slate-900 p-6 text-white">Your card</div>}
+    />
+  );
+}`;
+  }
+  if (id === "preview-rail") {
+    return `import { PreviewRail } from './PreviewRail';
+
+const items = [
+  { id: 'overview', label: 'Overview', description: 'Your workspace at a glance.', href: '#overview' },
+  { id: 'docs', label: 'Documentation', description: 'Get started with the library.', href: '#docs' },
+];
+
+export default function App() {
+  return <PreviewRail items={items} defaultActiveId="overview" />;
+}`;
+  }
   if (id === "image-generation") {
     return `import { ImageGeneration } from './ImageGeneration';
 

@@ -66,8 +66,9 @@ it("keeps related roles adjacent in the curated order and after category filteri
   const ids = filterDemos("", "All", "featured").map((demo) => demo.id);
   for (const family of [
     ["pulsating-button", "interactive-hover-button", "rainbow-button"],
-    ["hook-sidebar", "rail-toc", "scroll-progress"],
+    ["hook-sidebar", "rail-toc", "preview-rail", "scroll-progress"],
     ["number-flow", "animated-counter"],
+    ["tilt-3d", "card-folder"],
     ["file-tree", "code-block"],
     ["shine-border", "border-beam", "card"],
     ["dotted-map", "globe"],
@@ -85,9 +86,10 @@ it("keeps related roles adjacent in the curated order and after category filteri
     "code-block",
   ]);
   const start = essentials.indexOf("hook-sidebar");
-  expect(essentials.slice(start, start + 3)).toEqual([
+  expect(essentials.slice(start, start + 4)).toEqual([
     "hook-sidebar",
     "rail-toc",
+    "preview-rail",
     "scroll-progress",
   ]);
   expect(new Set(ids).size).toBe(demos.length);

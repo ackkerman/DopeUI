@@ -11340,7 +11340,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-beUI — Image Generation
+beUI — Image Generation, Preview Rail and Card Folder
 https://github.com/starc007/ui-components
 
 MIT License

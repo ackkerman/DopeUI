@@ -162,6 +162,14 @@ export const demos: MotionDemo[] = [
     kind: "ai",
   },
   {
+    id: "preview-rail",
+    title: "Preview Rail",
+    description:
+      "Compact navigation ticks reveal a floating destination preview.",
+    category: "Essential",
+    kind: "component",
+  },
+  {
     id: "scroll-progress",
     title: "Scroll Progress",
     category: "Essential",
@@ -236,6 +244,13 @@ export const demos: MotionDemo[] = [
     description: "A card follows your pointer with a little perspective.",
     category: "Effects",
     kind: "library",
+  },
+  {
+    id: "card-folder",
+    title: "Card Folder",
+    description: "A stitched pocket folds away as a card lifts into view.",
+    category: "Effects",
+    kind: "component",
   },
   {
     id: "accordion",

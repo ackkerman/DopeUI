@@ -2720,3 +2720,21 @@ footer p {
 .motion-card .preview.dui-decorative-arrow-demo {
   min-height: 280px;
 }
+
+.preview.dui-preview-rail-demo {
+  height: auto;
+  min-height: 380px;
+  flex-shrink: 0;
+}
+.motion-card .dui-preview-rail-controls {
+  display: none;
+}
+.motion-card .dui-preview-rail-stage {
+  min-height: 300px;
+}
+
+.preview.dui-card-folder-demo {
+  height: auto;
+  min-height: 340px;
+  flex-shrink: 0;
+}
