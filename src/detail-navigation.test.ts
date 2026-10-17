@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { demos } from "./catalog";
-import { adjacentDemos, detailHref, resolveDetail } from "./detail-navigation";
+import {
+  adjacentDemos,
+  detailHref,
+  isDetailPath,
+  resolveDetail,
+} from "./detail-navigation";
 describe("individual demo navigation", () => {
   it("resolves every catalogue entry and produces directly addressable URLs", () => {
     for (const demo of demos) {
@@ -36,4 +41,13 @@ it("resolves the retired Pop URL to the single notification page", () => {
   expect(demos.filter((demo) => demo.id.includes("notification"))).toHaveLength(
     1,
   );
+});
+
+it("recognizes Cloudflare canonical detail URLs without matching other pages", () => {
+  for (const path of ["/detail", "/detail/", "/detail.html"]) {
+    expect(isDetailPath(path)).toBe(true);
+  }
+  for (const path of ["/library", "/", "/detail-other", "/nested/detail"]) {
+    expect(isDetailPath(path)).toBe(false);
+  }
 });

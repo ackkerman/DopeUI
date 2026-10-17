@@ -10,7 +10,7 @@ import { useMasonryLayout } from "./use-masonry-layout";
 import { HomePage } from "./HomePage";
 import { cn } from "./class-names";
 import { DetailPage } from "./DetailPage";
-import { detailHref, resolveDetail } from "./detail-navigation";
+import { detailHref, isDetailPath, resolveDetail } from "./detail-navigation";
 
 // This file guarantees a searchable library with local, independent previews.
 import { useEffect, useRef, useState } from "react";
@@ -354,7 +354,7 @@ export function App() {
     return <InstallationPage />;
   if (["/", "/index.html"].includes(window.location.pathname))
     return <HomePage />;
-  const isDetail = window.location.pathname === "/detail.html";
+  const isDetail = isDetailPath(window.location.pathname);
   return isDetail ? (
     <DetailPage
       demo={resolveDetail(new URLSearchParams(window.location.search).get("t"))}

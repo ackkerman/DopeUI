@@ -1,5 +1,9 @@
 // This file guarantees that detail links resolve only to known catalogue entries.
 import { demos, type MotionDemo } from "./catalog";
+/** Recognizes Pages canonical URLs and the local HTML entry as one detail route. */
+export function isDetailPath(pathname: string): boolean {
+  return ["/detail", "/detail/", "/detail.html"].includes(pathname);
+}
 export function detailHref(id: string): string {
   return `/detail.html?t=${encodeURIComponent(id)}`;
 }
